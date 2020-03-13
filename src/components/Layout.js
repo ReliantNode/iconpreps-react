@@ -20,7 +20,7 @@ const Content = styled.main`
   width: 100%;
   max-width: ${breakpoints.desktop}px;
   margin: 0 auto;
-  padding: 50px 0;
+  padding: 5rem 0;
 `;
 
 function Layout({ children }) {

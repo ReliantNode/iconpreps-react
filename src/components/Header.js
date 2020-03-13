@@ -5,7 +5,7 @@ import logoIconPReps from 'assets/logo-icon-preps.png';
 import { breakpoints, palette } from 'utils/designTokens';
 
 const Container = styled.header`
-  height: 70px;
+  height: 7rem;
   background: ${palette.brand.primary};
   color: ${palette.white};
 `;
@@ -14,7 +14,7 @@ const Inner = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 70px;
+  height: 7rem;
   width: 100%;
   max-width: ${breakpoints.desktop}px;
   margin: 0 auto;
@@ -22,7 +22,7 @@ const Inner = styled.div`
 
 const Logo = styled.img`
   width: auto;
-  height: 35px;
+  height: 3.5rem;
 `;
 
 function Header() {
