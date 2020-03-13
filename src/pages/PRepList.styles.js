@@ -5,10 +5,19 @@ import { Text } from 'components/Typography';
 
 export const PRepDetails = styled.div`
   display: flex;
-  flex: 1;
   flex-direction: column;
   justify-content: center;
-  padding: 0 2.5rem 0 1.5rem;
+  min-width: 20rem;
+  padding: 0 3rem 0 1.5rem;
+`;
+
+export const PRepCategories = styled.div`
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0 3rem;
+  border-left: 1px solid ${palette.gray.border};
 `;
 
 export const PRepRank = styled.div`

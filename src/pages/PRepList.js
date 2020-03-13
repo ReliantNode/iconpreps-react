@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Badge from 'components/Badge';
 import { Card, CardList } from 'components/Cards';
+import Category from 'components/Category';
 import Layout from 'components/Layout';
 import { Logo, LogoWrapper } from 'components/Logo';
 import { usePReps } from 'components/PReps';
@@ -36,6 +37,16 @@ function PRepListPage() {
                   {pRep.city}, {pRep.country}
                 </Text>
               </S.PRepDetails>
+              {pRep.main_category ? (
+                <S.PRepCategories>
+                  <Category category={pRep.main_category} />
+                  {pRep.sub_category && (
+                    <Category category={pRep.sub_category} style={{ marginLeft: '1.5rem' }} />
+                  )}
+                </S.PRepCategories>
+              ) : (
+                <div style={{ flex: 1 }} />
+              )}
               <S.PRepRank>
                 <S.RankBanner>
                   <Text style={{ color: palette.white }}>
