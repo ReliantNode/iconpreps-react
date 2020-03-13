@@ -5,6 +5,7 @@ export const palette = {
   yellow: '#fbd27c',
   pink: '#e05194',
   green: '#4fb83b',
+  green2: '#20d261',
   beige: '#ccac93',
   brand: {
     background: '#e1f6f9',
