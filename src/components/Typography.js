@@ -2,8 +2,8 @@ import styled from 'styled-components';
 import { palette } from 'utils/designTokens';
 
 export const Text = styled.p`
-  font-size: 1.5rem;
-  line-height: 2.2rem;
+  font-size: ${({ small }) => (small ? 1.3 : 1.5)}rem;
+  line-height: ${({ small }) => (small ? 1.8 : 2.2)}rem;
   color: ${({ muted }) => (muted ? palette.gray.text : palette.black)};
   margin: 0;
 `;

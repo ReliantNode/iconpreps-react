@@ -1,6 +1,7 @@
 import React from 'react';
 import { createGlobalStyle } from 'styled-components';
 import PReps from 'components/PReps';
+import Projects from 'components/Projects';
 import Router from 'components/Router';
 
 const GlobalStyle = createGlobalStyle`
@@ -27,8 +28,10 @@ const GlobalStyle = createGlobalStyle`
 function App() {
   return (
     <PReps>
-      <GlobalStyle />
-      <Router />
+      <Projects>
+        <GlobalStyle />
+        <Router />
+      </Projects>
     </PReps>
   );
 }
