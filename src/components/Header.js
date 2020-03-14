@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from '@reach/router';
 import styled from 'styled-components';
 import logoIconPReps from 'assets/logo-icon-preps.png';
+import Navigation from 'components/Navigation';
 import { breakpoints, palette } from 'utils/designTokens';
 
 const Container = styled.header`
@@ -32,6 +33,7 @@ function Header() {
         <Link to="/" style={{ display: 'inline-flex' }}>
           <Logo src={logoIconPReps} alt="ICON P-Reps logo" />
         </Link>
+        <Navigation />
       </Inner>
     </Container>
   );
