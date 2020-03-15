@@ -9,6 +9,7 @@ const Container = styled.div`
 `;
 
 const Link = styled(ReachLink)`
+  position: relative;
   font-weight: 600;
   font-size: 1.5rem;
   line-height: 2rem;
@@ -17,6 +18,17 @@ const Link = styled(ReachLink)`
 
   &[data-active='true'] {
     font-weight: 700;
+
+    &:after {
+      content: '';
+      position: absolute;
+      bottom: -0.5rem;
+      left: 0;
+      display: block;
+      width: 1.6rem;
+      height: 1px;
+      background: ${palette.white};
+    }
   }
 `;
 
