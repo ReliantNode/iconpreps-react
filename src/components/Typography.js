@@ -31,3 +31,10 @@ export const H2 = styled.h2`
   line-height: 2.2rem;
   margin: 0;
 `;
+
+export const H3 = styled.h3`
+  font-weight: 500;
+  font-size: 1.7rem;
+  line-height: 2.3rem;
+  margin: 0;
+`;

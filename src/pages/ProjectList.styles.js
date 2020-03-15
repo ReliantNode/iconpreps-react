@@ -1,6 +1,11 @@
 import styled from 'styled-components';
 import { palette } from 'utils/designTokens';
 
+export const Container = styled.div`
+  display: flex;
+  align-items: flex-start;
+`;
+
 export const ProjectDetails = styled.div`
   display: flex;
   flex: 1;
@@ -29,7 +34,7 @@ export const ProjectMetaSeparator = styled.div`
   align-self: stretch;
   width: 1px;
   background: ${palette.gray.border};
-  margin: 0 3rem;
+  margin: 0 2.5rem;
 `;
 
 function getColorByStatus(status) {
