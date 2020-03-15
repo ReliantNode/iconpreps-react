@@ -8,11 +8,11 @@ import webIcon from 'assets/icons/web.svg';
 import { A, Text } from 'components/Typography';
 import { breakpoints, palette } from 'utils/designTokens';
 
-const Container = styled.header`
+const Container = styled.footer`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 7.5rem;
+  height: 13rem;
   width: 100%;
   max-width: ${breakpoints.desktop}px;
   margin: 0 auto;
@@ -88,11 +88,7 @@ function Header() {
           <PRepLink href="https://www.reliantnode.com/" target="_blank" rel="noopener noreferrer">
             <LinkIcon src={webIcon} alt="Website icon" />
           </PRepLink>
-          <PRepLink
-            href="https://github.com/ReliantNode/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+          <PRepLink href="https://github.com/ReliantNode" target="_blank" rel="noopener noreferrer">
             <LinkIcon src={githubIcon} alt="GitHub icon" />
           </PRepLink>
         </PRepLinks>

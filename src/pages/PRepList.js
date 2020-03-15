@@ -49,9 +49,7 @@ function PRepListPage() {
               )}
               <S.PRepRank>
                 <S.RankBanner>
-                  <Text style={{ color: palette.white }}>
-                    <b>{pRep.rank}</b>
-                  </Text>
+                  <Text style={{ color: palette.white, fontWeight: 600 }}>{pRep.rank}</Text>
                 </S.RankBanner>
                 <Badge>{pRep.rank <= 22 ? 'Main' : 'Sub'} P-Rep</Badge>
               </S.PRepRank>

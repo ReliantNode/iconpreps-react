@@ -43,6 +43,6 @@ export const RankBanner = styled.div`
 
   ${Text} {
     margin-top: -1.2rem;
-    margin-left: 0.8rem;
+    margin-left: 0.7rem;
   }
 `;

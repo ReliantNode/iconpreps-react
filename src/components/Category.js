@@ -14,7 +14,7 @@ const Container = styled.div`
 `;
 
 const Text = styled.p`
-  font-weight: 700;
+  font-weight: 600;
   font-size: 1.3rem;
   line-height: 1.8rem;
   color: ${palette.brand.primary};

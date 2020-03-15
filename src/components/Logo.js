@@ -2,6 +2,9 @@ import styled from 'styled-components';
 import { palette } from 'utils/designTokens';
 
 export const LogoWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 7.5rem;
   height: 7.5rem;
   background: ${({ children }) => (!children ? palette.brand.primary : 'none')};
@@ -11,6 +14,5 @@ export const LogoWrapper = styled.div`
 `;
 
 export const Logo = styled.img`
-  width: 7.5rem;
-  height: 7.5rem;
+  min-width: 100%;
 `;

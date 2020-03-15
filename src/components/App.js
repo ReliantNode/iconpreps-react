@@ -7,16 +7,20 @@ import Router from 'components/Router';
 const GlobalStyle = createGlobalStyle`
   html {
     font-size: 62.5%; /* reset base font size to 10px */
+    box-sizing: border-box;
+  }
+  *, *:before, *:after {
+    box-sizing: inherit;
   }
 
   body {
     margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
-      'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+    font-family: 'Muli', sans-serif;
+    font-weight: 400;
     font-size: 1.5rem;
     line-height: 2.2rem;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
   img {

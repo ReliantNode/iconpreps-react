@@ -9,7 +9,7 @@ export const Text = styled.p`
 `;
 
 export const A = styled.a`
-  font-weight: 600;
+  font-weight: 500;
   color: unset;
   text-decoration: none;
 
@@ -19,14 +19,14 @@ export const A = styled.a`
 `;
 
 export const H1 = styled.h1`
-  font-weight: 700;
+  font-weight: 600;
   font-size: 2.6rem;
   line-height: 3.6rem;
   margin: 0;
 `;
 
 export const H2 = styled.h2`
-  font-weight: 700;
+  font-weight: 600;
   font-size: 1.7rem;
   line-height: 2.2rem;
   margin: 0;

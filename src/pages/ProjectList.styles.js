@@ -56,11 +56,12 @@ function getBgByStatus(status) {
 }
 
 export const ProjectStatus = styled.div`
+  font-weight: 500;
   font-size: 1.1rem;
   line-height: 1.5rem;
   color: ${({ children }) => getColorByStatus(children)};
   background: ${({ children }) => getBgByStatus(children)};
-  padding: 0.5rem 2.5rem;
+  padding: 0.4rem 2.3rem 0.5rem;
   border-radius: 1.5rem;
 `;
 
