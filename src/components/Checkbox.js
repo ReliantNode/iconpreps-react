@@ -1,10 +1,10 @@
 import React from 'react';
 import { CustomCheckboxContainer, CustomCheckboxInput } from '@reach/checkbox';
+import '@reach/checkbox/styles.css';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import checkIcon from 'assets/icons/check.svg';
 import { palette } from 'utils/designTokens';
-import '@reach/checkbox/styles.css';
 
 const Label = styled.label`
   display: flex;

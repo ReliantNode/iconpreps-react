@@ -17,8 +17,9 @@ import { palette } from 'utils/designTokens';
 import * as S from './ProjectList.styles';
 
 const ORDERINGS = {
-  RANDOM: { label: 'Random', fn: projects => shuffle(projects) },
+  RANDOM: { value: 'Random', label: 'Random', fn: projects => shuffle(projects) },
   CREATED: {
+    value: 'Newest',
     label: 'Newest Project',
     fn: projects => orderBy(projects, ['created_date'], ['desc']),
   },
@@ -44,6 +45,8 @@ const INITIAL_FILTERS = {
 function filterReducer(state, action) {
   const { type, payload = null } = action;
   switch (type) {
+    case FILTER_ACTIONS.SET_ORDER:
+      return { ...state, order: payload };
     case FILTER_ACTIONS.SET_QUERY:
       return { ...state, query: payload };
     case FILTER_ACTIONS.SET_CATEGORIES:
@@ -147,13 +150,24 @@ function ProjectListPage() {
     setTags(tags);
   }, [filters]);
 
+  function handleChangeOrdering(orderValue) {
+    const order = Object.values(ORDERINGS).find(({ value }) => value === orderValue);
+    filtersDispatch({ type: FILTER_ACTIONS.SET_ORDER, payload: order });
+  }
+
   return (
     <Layout>
       <S.Container>
         <ProjectSearch filters={filters} dispatch={filtersDispatch} />
 
         <S.Listing>
-          <SearchHeader title="ICON P-Rep projects" tags={tags} />
+          <SearchHeader
+            title="ICON P-Rep projects"
+            tags={tags}
+            order={filters.order.value}
+            orderings={Object.values(ORDERINGS)}
+            onChangeOrdering={handleChangeOrdering}
+          />
 
           {hasProjects && (
             <CardList style={{ marginTop: '2rem' }}>
