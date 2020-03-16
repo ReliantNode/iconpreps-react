@@ -12,6 +12,7 @@ import { useProjects } from 'components/Projects';
 import Rating from 'components/Rating';
 import SearchHeader from 'components/SearchHeader';
 import { H2, Text } from 'components/Typography';
+import { FILTER_ACTIONS } from 'utils/constants';
 import { palette } from 'utils/designTokens';
 import * as S from './ProjectList.styles';
 
@@ -30,12 +31,6 @@ const RECENT_ACTIVITY_TYPES = {
 
 const DATE_FORMAT = 'MMM d, yyyy';
 
-const FILTER_ACTIONS = {
-  SET_QUERY: 'set_query',
-  ADD_CATEGORY: 'add_category',
-  REMOVE_CATEGORY: 'REMOVE_category',
-  SET_STATUS: 'set_status',
-};
 const INITIAL_FILTERS = {
   limit: 20,
   order: ORDERINGS.RANDOM,
@@ -49,13 +44,8 @@ function filterReducer(state, action) {
   switch (action.type) {
     case FILTER_ACTIONS.SET_QUERY:
       return { ...state, query: action.payload };
-    case FILTER_ACTIONS.ADD_CATEGORY:
-      return { ...state, categories: [...state.categories, action.payload] };
-    case FILTER_ACTIONS.REMOVE_CATEGORY:
-      return {
-        ...state,
-        categories: state.categories.filter(category => category !== action.payload),
-      };
+    case FILTER_ACTIONS.SET_CATEGORIES:
+      return { ...state, categories: action.payload };
     case FILTER_ACTIONS.SET_STATUS:
       return { ...state, status: action.payload };
     default:
@@ -99,7 +89,8 @@ function ProjectListPage() {
   return (
     <Layout>
       <S.Container>
-        <ProjectSearch />
+        <ProjectSearch filters={filters} dispatch={filtersDispatch} />
+
         <div style={{ marginLeft: '3rem' }}>
           <SearchHeader title="ICON P-Rep projects" />
 

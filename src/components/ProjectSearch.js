@@ -1,7 +1,10 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import searchIcon from 'assets/icons/search.svg';
-import { H3 } from 'components/Typography';
+import CheckboxGroup from 'components/CheckboxGroup';
+import { H3, Text } from 'components/Typography';
+import { FILTER_ACTIONS } from 'utils/constants';
 import { palette } from 'utils/designTokens';
 
 const Container = styled.div`
@@ -31,6 +34,11 @@ const SearchInput = styled.input`
   }
 `;
 
+const CheckboxLabel = styled(Text)`
+  flex: 1;
+  margin-left: 1rem;
+`;
+
 const Separator = styled.hr`
   width: 100%;
   height: 1px;
@@ -39,21 +47,108 @@ const Separator = styled.hr`
   margin: 3rem 0;
 `;
 
-function ProjectSearch() {
+function ProjectSearch({ filters, dispatch }) {
+  function handleCategoriesChange(categories) {
+    dispatch({ type: FILTER_ACTIONS.SET_CATEGORIES, payload: categories });
+  }
+
   return (
     <Container>
       <H3>Search</H3>
       <SearchInput type="text" placeholder="Search P-Rep projects" />
       <Separator />
+
       <H3>Category</H3>
+      <CheckboxGroup
+        options={[
+          {
+            value: 'Development',
+            children: (
+              <>
+                <CheckboxLabel>Development</CheckboxLabel>
+                <Text small muted>
+                  30
+                </Text>
+              </>
+            ),
+          },
+          {
+            value: 'Education',
+            children: (
+              <>
+                <CheckboxLabel>Education</CheckboxLabel>
+                <Text small muted>
+                  12
+                </Text>
+              </>
+            ),
+          },
+          {
+            value: 'Marketing',
+            children: (
+              <>
+                <CheckboxLabel>Marketing</CheckboxLabel>
+                <Text small muted>
+                  11
+                </Text>
+              </>
+            ),
+          },
+          {
+            value: 'Community',
+            children: (
+              <>
+                <CheckboxLabel>Community</CheckboxLabel>
+                <Text small muted>
+                  11
+                </Text>
+              </>
+            ),
+          },
+          {
+            value: 'Infrastructure',
+            children: (
+              <>
+                <CheckboxLabel>Infrastructure</CheckboxLabel>
+                <Text small muted>
+                  2
+                </Text>
+              </>
+            ),
+          },
+          {
+            value: 'Other',
+            children: (
+              <>
+                <CheckboxLabel>Other</CheckboxLabel>
+                <Text small muted>
+                  5
+                </Text>
+              </>
+            ),
+          },
+        ]}
+        values={filters.categories}
+        onChange={handleCategoriesChange}
+        name="categories"
+        style={{ marginTop: '1rem' }}
+      />
       <Separator />
+
       <H3>Rating</H3>
       <Separator />
+
       <H3>Recent activity</H3>
       <Separator />
+
       <H3>Status</H3>
     </Container>
   );
 }
+
+ProjectSearch.propTypes = {
+  filters: PropTypes.object.isRequired,
+  dispatch: PropTypes.func.isRequired,
+};
 
 export default ProjectSearch;
