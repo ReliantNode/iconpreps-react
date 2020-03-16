@@ -41,6 +41,11 @@ const OptionLabel = styled(Text)`
   margin-left: 1rem;
 `;
 
+const StarsLabel = styled(Stars)`
+  flex: 1;
+  margin-left: 1rem;
+`;
+
 const Separator = styled.hr`
   width: 100%;
   height: 1px;
@@ -156,9 +161,7 @@ function ProjectSearch({ filters, dispatch }) {
             value: 'AtLeast4',
             children: (
               <>
-                <OptionLabel>
-                  <Stars amount={4}>& up</Stars>
-                </OptionLabel>
+                <StarsLabel amount={4}>& up</StarsLabel>
                 <Text small muted>
                   8
                 </Text>
@@ -169,9 +172,7 @@ function ProjectSearch({ filters, dispatch }) {
             value: 'AtLeast3',
             children: (
               <>
-                <OptionLabel>
-                  <Stars amount={3}>& up</Stars>
-                </OptionLabel>
+                <StarsLabel amount={3}>& up</StarsLabel>
                 <Text small muted>
                   45
                 </Text>
@@ -182,9 +183,7 @@ function ProjectSearch({ filters, dispatch }) {
             value: 'AtLeast2',
             children: (
               <>
-                <OptionLabel>
-                  <Stars amount={2}>& up</Stars>
-                </OptionLabel>
+                <StarsLabel amount={2}>& up</StarsLabel>
                 <Text small muted>
                   59
                 </Text>

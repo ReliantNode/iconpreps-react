@@ -15,9 +15,9 @@ const Star = styled.img`
   margin-right: 0.4rem;
 `;
 
-function Stars({ amount, children }) {
+function Stars({ amount, children, className }) {
   return (
-    <Container>
+    <Container className={className}>
       {new Array(amount).fill().map((_, index) => (
         <Star src={goldStarIcon} alt={'Gold star'} key={index} />
       ))}
