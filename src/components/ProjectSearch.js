@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import searchIcon from 'assets/icons/search.svg';
 import CheckboxGroup from 'components/CheckboxGroup';
 import RadioGroup from 'components/RadioGroup';
+import Stars from 'components/Stars';
 import { H3, Text } from 'components/Typography';
 import { FILTER_ACTIONS } from 'utils/constants';
 import { palette } from 'utils/designTokens';
@@ -51,6 +52,10 @@ const Separator = styled.hr`
 function ProjectSearch({ filters, dispatch }) {
   function handleCategoriesChange(categories) {
     dispatch({ type: FILTER_ACTIONS.SET_CATEGORIES, payload: categories });
+  }
+
+  function handleRatingChange(ratingValue) {
+    dispatch({ type: FILTER_ACTIONS.SET_RATING, payload: ratingValue });
   }
 
   function handleRecentChange(recentTypeValue) {
@@ -145,6 +150,53 @@ function ProjectSearch({ filters, dispatch }) {
       <Separator />
 
       <H3>Rating</H3>
+      <RadioGroup
+        options={[
+          {
+            value: 'AtLeast4',
+            children: (
+              <>
+                <OptionLabel>
+                  <Stars amount={4}>& up</Stars>
+                </OptionLabel>
+                <Text small muted>
+                  8
+                </Text>
+              </>
+            ),
+          },
+          {
+            value: 'AtLeast3',
+            children: (
+              <>
+                <OptionLabel>
+                  <Stars amount={3}>& up</Stars>
+                </OptionLabel>
+                <Text small muted>
+                  45
+                </Text>
+              </>
+            ),
+          },
+          {
+            value: 'AtLeast2',
+            children: (
+              <>
+                <OptionLabel>
+                  <Stars amount={2}>& up</Stars>
+                </OptionLabel>
+                <Text small muted>
+                  59
+                </Text>
+              </>
+            ),
+          },
+        ]}
+        value={filters.rating}
+        onChange={handleRatingChange}
+        name="rating"
+        style={{ marginTop: '1rem' }}
+      />
       <Separator />
 
       <H3>Recent activity</H3>

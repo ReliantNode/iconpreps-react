@@ -36,8 +36,9 @@ const INITIAL_FILTERS = {
   order: ORDERINGS.RANDOM,
   query: '',
   categories: [],
-  status: null,
+  rating: null,
   recent: null,
+  status: null,
 };
 
 function filterReducer(state, action) {
@@ -46,6 +47,8 @@ function filterReducer(state, action) {
       return { ...state, query: action.payload };
     case FILTER_ACTIONS.SET_CATEGORIES:
       return { ...state, categories: action.payload };
+    case FILTER_ACTIONS.SET_RATING:
+      return { ...state, rating: action.payload };
     case FILTER_ACTIONS.SET_RECENT:
       return { ...state, recent: action.payload };
     case FILTER_ACTIONS.SET_STATUS:
