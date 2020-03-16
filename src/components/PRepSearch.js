@@ -4,8 +4,6 @@ import styled from 'styled-components';
 import { useDebounce } from 'use-debounce';
 import searchIcon from 'assets/icons/search.svg';
 import CheckboxGroup from 'components/CheckboxGroup';
-import RadioGroup from 'components/RadioGroup';
-import Stars from 'components/Stars';
 import { H3, Text } from 'components/Typography';
 import { FILTER_ACTIONS } from 'utils/filters';
 import { palette } from 'utils/designTokens';
@@ -42,11 +40,6 @@ const OptionLabel = styled(Text)`
   margin-left: 1rem;
 `;
 
-const StarsLabel = styled(Stars)`
-  flex: 1;
-  margin-left: 1rem;
-`;
-
 const Separator = styled.hr`
   width: 100%;
   height: 1px;
@@ -55,7 +48,7 @@ const Separator = styled.hr`
   margin: 3rem 0;
 `;
 
-function ProjectSearch({ filters, dispatch }) {
+function PRepSearch({ filters, dispatch }) {
   const [query, setQuery] = useState('');
   const [debouncedQuery] = useDebounce(query, 400);
 
@@ -78,18 +71,6 @@ function ProjectSearch({ filters, dispatch }) {
     dispatch({ type: FILTER_ACTIONS.SET_CATEGORIES, payload: categories });
   }
 
-  function handleRatingChange(ratingValue) {
-    dispatch({ type: FILTER_ACTIONS.SET_RATING, payload: ratingValue });
-  }
-
-  function handleRecentChange(recentTypeValue) {
-    dispatch({ type: FILTER_ACTIONS.SET_RECENT, payload: recentTypeValue });
-  }
-
-  function handleStatusChange(status) {
-    dispatch({ type: FILTER_ACTIONS.SET_STATUS, payload: status });
-  }
-
   return (
     <Container>
       <H3>Search</H3>
@@ -97,7 +78,7 @@ function ProjectSearch({ filters, dispatch }) {
         type="text"
         value={query}
         onChange={handleQueryChange}
-        placeholder="Search P-Rep projects"
+        placeholder="Search P-Reps"
       />
       <Separator />
 
@@ -176,134 +157,13 @@ function ProjectSearch({ filters, dispatch }) {
         name="categories"
         style={{ marginTop: '1rem' }}
       />
-      <Separator />
-
-      <H3>Rating</H3>
-      <RadioGroup
-        options={[
-          {
-            value: 'AtLeast4',
-            children: (
-              <>
-                <StarsLabel amount={4}>& up</StarsLabel>
-                <Text small muted>
-                  8
-                </Text>
-              </>
-            ),
-          },
-          {
-            value: 'AtLeast3',
-            children: (
-              <>
-                <StarsLabel amount={3}>& up</StarsLabel>
-                <Text small muted>
-                  45
-                </Text>
-              </>
-            ),
-          },
-          {
-            value: 'AtLeast2',
-            children: (
-              <>
-                <StarsLabel amount={2}>& up</StarsLabel>
-                <Text small muted>
-                  59
-                </Text>
-              </>
-            ),
-          },
-        ]}
-        value={filters.rating}
-        onChange={handleRatingChange}
-        name="rating"
-        style={{ marginTop: '1rem' }}
-      />
-      <Separator />
-
-      <H3>Recent activity</H3>
-      <RadioGroup
-        options={[
-          {
-            value: 'Updated',
-            children: (
-              <>
-                <OptionLabel>Updated in last 7 days</OptionLabel>
-                <Text small muted>
-                  32
-                </Text>
-              </>
-            ),
-          },
-          {
-            value: 'Created',
-            children: (
-              <>
-                <OptionLabel>Created in last 7 days</OptionLabel>
-                <Text small muted>
-                  8
-                </Text>
-              </>
-            ),
-          },
-        ]}
-        value={filters.recent}
-        onChange={handleRecentChange}
-        name="recent"
-        style={{ marginTop: '1rem' }}
-      />
-      <Separator />
-
-      <H3>Status</H3>
-      <RadioGroup
-        options={[
-          {
-            value: 'Planning',
-            children: (
-              <>
-                <OptionLabel>Planning</OptionLabel>
-                <Text small muted>
-                  20
-                </Text>
-              </>
-            ),
-          },
-          {
-            value: 'Executing',
-            children: (
-              <>
-                <OptionLabel>Executing</OptionLabel>
-                <Text small muted>
-                  39
-                </Text>
-              </>
-            ),
-          },
-          {
-            value: 'Complete',
-            children: (
-              <>
-                <OptionLabel>Complete</OptionLabel>
-                <Text small muted>
-                  7
-                </Text>
-              </>
-            ),
-          },
-        ]}
-        value={filters.status}
-        onChange={handleStatusChange}
-        name="status"
-        style={{ marginTop: '1rem' }}
-      />
     </Container>
   );
 }
 
-ProjectSearch.propTypes = {
+PRepSearch.propTypes = {
   filters: PropTypes.object.isRequired,
   dispatch: PropTypes.func.isRequired,
 };
 
-export default ProjectSearch;
+export default PRepSearch;

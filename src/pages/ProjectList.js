@@ -1,6 +1,6 @@
 import React, { useEffect, useReducer, useState } from 'react';
 import { format, isAfter, parseISO, subDays } from 'date-fns';
-import { shuffle, take, orderBy } from 'lodash-es';
+import { take } from 'lodash-es';
 import { Card, CardList } from 'components/Cards';
 import Category from 'components/Category';
 import Completion from 'components/Completion';
@@ -12,58 +12,20 @@ import { useProjects } from 'components/Projects';
 import Rating from 'components/Rating';
 import SearchHeader from 'components/SearchHeader';
 import { H2, Text } from 'components/Typography';
-import { FILTER_ACTIONS } from 'utils/constants';
+import { DATE_FORMAT } from 'utils/constants';
 import { palette } from 'utils/designTokens';
+import {
+  FILTER_ACTIONS,
+  PROJECT_FILTERS,
+  PROJECT_ORDERINGS,
+  projectFilterReducer,
+} from 'utils/filters';
 import * as S from './ProjectList.styles';
-
-const ORDERINGS = {
-  RANDOM: { value: 'Random', label: 'Random', fn: projects => shuffle(projects) },
-  CREATED: {
-    value: 'Newest',
-    label: 'Newest Project',
-    fn: projects => orderBy(projects, ['created_date'], ['desc']),
-  },
-};
 
 const RECENT_ACTIVITY_TYPES = {
   UPDATED: { value: 'Updated', label: 'Updated in last 7 days', property: 'updated_date' },
   CREATED: { value: 'Created', label: 'Created in last 7 days', property: 'created_date' },
 };
-
-const DATE_FORMAT = 'MMM d, yyyy';
-
-const INITIAL_FILTERS = {
-  limit: 20,
-  order: ORDERINGS.RANDOM,
-  query: '',
-  categories: [],
-  rating: null,
-  recent: null,
-  status: null,
-};
-
-function filterReducer(state, action) {
-  const { type, payload = null } = action;
-  switch (type) {
-    case FILTER_ACTIONS.SET_ORDER:
-      return { ...state, order: payload };
-    case FILTER_ACTIONS.SET_QUERY:
-      return { ...state, query: payload };
-    case FILTER_ACTIONS.SET_CATEGORIES:
-      return { ...state, categories: payload };
-    case FILTER_ACTIONS.REMOVE_CATEGORY:
-      const categories = state.categories.filter(category => category !== payload);
-      return { ...state, categories };
-    case FILTER_ACTIONS.SET_RATING:
-      return { ...state, rating: payload };
-    case FILTER_ACTIONS.SET_RECENT:
-      return { ...state, recent: payload };
-    case FILTER_ACTIONS.SET_STATUS:
-      return { ...state, status: payload };
-    default:
-      throw new Error(`Unknown action ${type}`);
-  }
-}
 
 function isRecentProject(project, recentActivityType) {
   return isAfter(parseISO(project[recentActivityType.property]), subDays(new Date(), 7));
@@ -79,7 +41,7 @@ function ProjectListPage() {
   const { getProjects, hasProjects, isLoading } = useProjects();
   const [projects, setProjects] = useState([]);
   const [filteredProjects, setFilteredProjects] = useState([]);
-  const [filters, filtersDispatch] = useReducer(filterReducer, INITIAL_FILTERS);
+  const [filters, filtersDispatch] = useReducer(projectFilterReducer, PROJECT_FILTERS);
   const [tags, setTags] = useState([]);
 
   useEffect(() => {
@@ -151,7 +113,7 @@ function ProjectListPage() {
   }, [filters]);
 
   function handleChangeOrdering(orderValue) {
-    const order = Object.values(ORDERINGS).find(({ value }) => value === orderValue);
+    const order = Object.values(PROJECT_ORDERINGS).find(({ value }) => value === orderValue);
     filtersDispatch({ type: FILTER_ACTIONS.SET_ORDER, payload: order });
   }
 
@@ -165,7 +127,7 @@ function ProjectListPage() {
             title="ICON P-Rep projects"
             tags={tags}
             order={filters.order.value}
-            orderings={Object.values(ORDERINGS)}
+            orderings={Object.values(PROJECT_ORDERINGS)}
             onChangeOrdering={handleChangeOrdering}
           />
 
@@ -219,6 +181,7 @@ function ProjectListPage() {
               ))}
             </CardList>
           )}
+
           {!hasProjects && isLoading && <div style={{ marginTop: '2rem' }}>Loading...</div>}
         </S.Listing>
       </S.Container>

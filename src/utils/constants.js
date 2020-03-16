@@ -1,9 +1,1 @@
-export const FILTER_ACTIONS = {
-  SET_ORDER: 'set_order',
-  SET_QUERY: 'set_query',
-  SET_CATEGORIES: 'set_categories',
-  REMOVE_CATEGORY: 'remove_category',
-  SET_RATING: 'set_rating',
-  SET_RECENT: 'set_recent',
-  SET_STATUS: 'set_status',
-};
+export const DATE_FORMAT = 'MMM d, yyyy';

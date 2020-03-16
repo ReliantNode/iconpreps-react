@@ -3,6 +3,16 @@ import banner from 'assets/banner.svg';
 import { palette } from 'utils/designTokens';
 import { Text } from 'components/Typography';
 
+export const Container = styled.div`
+  display: flex;
+  align-items: flex-start;
+`;
+
+export const Listing = styled.div`
+  flex: 1;
+  margin-left: 3rem;
+`;
+
 export const PRepDetails = styled.div`
   display: flex;
   flex-direction: column;
