@@ -14,7 +14,7 @@ export const palette = {
   gray: {
     bar: '#cbced4',
     border: '#e8ebec',
-    text: 'rgba(7,7,7,0.5)',
+    dark: '#838383',
   },
 };
 

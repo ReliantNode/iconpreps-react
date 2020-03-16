@@ -25,8 +25,8 @@ const ORDERINGS = {
 };
 
 const RECENT_ACTIVITY_TYPES = {
-  UPDATED: { label: 'Updated in last 7 days', property: 'updated_date' },
-  CREATED: { label: 'Created in last 7 days', property: 'created_date' },
+  UPDATED: { value: 'Updated', label: 'Updated in last 7 days', property: 'updated_date' },
+  CREATED: { value: 'Created', label: 'Created in last 7 days', property: 'created_date' },
 };
 
 const DATE_FORMAT = 'MMM d, yyyy';
@@ -46,6 +46,8 @@ function filterReducer(state, action) {
       return { ...state, query: action.payload };
     case FILTER_ACTIONS.SET_CATEGORIES:
       return { ...state, categories: action.payload };
+    case FILTER_ACTIONS.SET_RECENT:
+      return { ...state, recent: action.payload };
     case FILTER_ACTIONS.SET_STATUS:
       return { ...state, status: action.payload };
     default:
@@ -77,7 +79,12 @@ function ProjectListPage() {
     const filtered = projects.filter(project => {
       if (filters.categories.length && !filters.categories.includes(project.category)) return false;
       if (filters.status && filters.status !== project.status) return false;
-      if (filters.recent && !isRecentProject(project, filters.recent)) return false;
+      if (filters.recent) {
+        const recentActivityType = Object.values(RECENT_ACTIVITY_TYPES).find(
+          ({ value }) => value === filters.recent
+        );
+        if (recentActivityType && !isRecentProject(project, recentActivityType)) return false;
+      }
       return true;
     });
 

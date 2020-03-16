@@ -16,9 +16,8 @@ const CheckboxContainer = styled(CustomCheckboxContainer)`
   width: 2.2rem;
   height: 2.2rem;
   background: ${palette.white};
-  border: 1px solid #878787;
+  border: 1px solid ${palette.gray.dark};
   border-radius: 0.3rem;
-  overflow: hidden;
 `;
 
 const Check = styled.div`

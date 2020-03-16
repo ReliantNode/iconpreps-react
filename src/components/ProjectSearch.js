@@ -35,7 +35,7 @@ const SearchInput = styled.input`
   }
 `;
 
-const CheckboxLabel = styled(Text)`
+const OptionLabel = styled(Text)`
   flex: 1;
   margin-left: 1rem;
 `;
@@ -51,6 +51,10 @@ const Separator = styled.hr`
 function ProjectSearch({ filters, dispatch }) {
   function handleCategoriesChange(categories) {
     dispatch({ type: FILTER_ACTIONS.SET_CATEGORIES, payload: categories });
+  }
+
+  function handleRecentChange(recentTypeValue) {
+    dispatch({ type: FILTER_ACTIONS.SET_RECENT, payload: recentTypeValue });
   }
 
   function handleStatusChange(status) {
@@ -70,7 +74,7 @@ function ProjectSearch({ filters, dispatch }) {
             value: 'Development',
             children: (
               <>
-                <CheckboxLabel>Development</CheckboxLabel>
+                <OptionLabel>Development</OptionLabel>
                 <Text small muted>
                   30
                 </Text>
@@ -81,7 +85,7 @@ function ProjectSearch({ filters, dispatch }) {
             value: 'Education',
             children: (
               <>
-                <CheckboxLabel>Education</CheckboxLabel>
+                <OptionLabel>Education</OptionLabel>
                 <Text small muted>
                   12
                 </Text>
@@ -92,7 +96,7 @@ function ProjectSearch({ filters, dispatch }) {
             value: 'Marketing',
             children: (
               <>
-                <CheckboxLabel>Marketing</CheckboxLabel>
+                <OptionLabel>Marketing</OptionLabel>
                 <Text small muted>
                   11
                 </Text>
@@ -103,7 +107,7 @@ function ProjectSearch({ filters, dispatch }) {
             value: 'Community',
             children: (
               <>
-                <CheckboxLabel>Community</CheckboxLabel>
+                <OptionLabel>Community</OptionLabel>
                 <Text small muted>
                   11
                 </Text>
@@ -114,7 +118,7 @@ function ProjectSearch({ filters, dispatch }) {
             value: 'Infrastructure',
             children: (
               <>
-                <CheckboxLabel>Infrastructure</CheckboxLabel>
+                <OptionLabel>Infrastructure</OptionLabel>
                 <Text small muted>
                   2
                 </Text>
@@ -125,7 +129,7 @@ function ProjectSearch({ filters, dispatch }) {
             value: 'Other',
             children: (
               <>
-                <CheckboxLabel>Other</CheckboxLabel>
+                <OptionLabel>Other</OptionLabel>
                 <Text small muted>
                   5
                 </Text>
@@ -144,6 +148,36 @@ function ProjectSearch({ filters, dispatch }) {
       <Separator />
 
       <H3>Recent activity</H3>
+      <RadioGroup
+        options={[
+          {
+            value: 'Updated',
+            children: (
+              <>
+                <OptionLabel>Updated in last 7 days</OptionLabel>
+                <Text small muted>
+                  32
+                </Text>
+              </>
+            ),
+          },
+          {
+            value: 'Created',
+            children: (
+              <>
+                <OptionLabel>Created in last 7 days</OptionLabel>
+                <Text small muted>
+                  8
+                </Text>
+              </>
+            ),
+          },
+        ]}
+        value={filters.recent}
+        onChange={handleRecentChange}
+        name="recent"
+        style={{ marginTop: '1rem' }}
+      />
       <Separator />
 
       <H3>Status</H3>
@@ -153,7 +187,7 @@ function ProjectSearch({ filters, dispatch }) {
             value: 'Planning',
             children: (
               <>
-                <CheckboxLabel>Planning</CheckboxLabel>
+                <OptionLabel>Planning</OptionLabel>
                 <Text small muted>
                   20
                 </Text>
@@ -164,7 +198,7 @@ function ProjectSearch({ filters, dispatch }) {
             value: 'Executing',
             children: (
               <>
-                <CheckboxLabel>Executing</CheckboxLabel>
+                <OptionLabel>Executing</OptionLabel>
                 <Text small muted>
                   39
                 </Text>
@@ -175,7 +209,7 @@ function ProjectSearch({ filters, dispatch }) {
             value: 'Complete',
             children: (
               <>
-                <CheckboxLabel>Complete</CheckboxLabel>
+                <OptionLabel>Complete</OptionLabel>
                 <Text small muted>
                   7
                 </Text>
