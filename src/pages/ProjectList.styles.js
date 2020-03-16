@@ -6,6 +6,11 @@ export const Container = styled.div`
   align-items: flex-start;
 `;
 
+export const Listing = styled.div`
+  flex: 1;
+  margin-left: 3rem;
+`;
+
 export const ProjectDetails = styled.div`
   display: flex;
   flex: 1;

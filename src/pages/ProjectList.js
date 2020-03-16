@@ -80,14 +80,29 @@ function ProjectListPage() {
 
   useEffect(() => {
     const filtered = projects.filter(project => {
+      if (filters.query) {
+        const query = filters.query.toLowerCase();
+        if (
+          !(
+            project.name.toLowerCase().includes(query) ||
+            project.description.toLowerCase().includes(query)
+          )
+        ) {
+          return false;
+        }
+      }
+
       if (filters.categories.length && !filters.categories.includes(project.category)) return false;
+
       if (filters.status && filters.status !== project.status) return false;
+
       if (filters.recent) {
         const recentActivityType = Object.values(RECENT_ACTIVITY_TYPES).find(
           ({ value }) => value === filters.recent
         );
         if (recentActivityType && !isRecentProject(project, recentActivityType)) return false;
       }
+
       return true;
     });
 
@@ -101,7 +116,7 @@ function ProjectListPage() {
       <S.Container>
         <ProjectSearch filters={filters} dispatch={filtersDispatch} />
 
-        <div style={{ marginLeft: '3rem' }}>
+        <S.Listing>
           <SearchHeader title="ICON P-Rep projects" />
 
           {hasProjects && (
@@ -155,7 +170,7 @@ function ProjectListPage() {
             </CardList>
           )}
           {!hasProjects && isLoading && <div style={{ marginTop: '2rem' }}>Loading...</div>}
-        </div>
+        </S.Listing>
       </S.Container>
     </Layout>
   );

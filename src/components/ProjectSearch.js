@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { useDebounce } from 'use-debounce';
 import searchIcon from 'assets/icons/search.svg';
 import CheckboxGroup from 'components/CheckboxGroup';
 import RadioGroup from 'components/RadioGroup';
@@ -55,6 +56,17 @@ const Separator = styled.hr`
 `;
 
 function ProjectSearch({ filters, dispatch }) {
+  const [query, setQuery] = useState('');
+  const [debouncedQuery] = useDebounce(query, 400);
+
+  useEffect(() => {
+    dispatch({ type: FILTER_ACTIONS.SET_QUERY, payload: debouncedQuery });
+  }, [debouncedQuery]); // eslint-disable-line
+
+  function handleQueryChange(event) {
+    setQuery(event.target.value);
+  }
+
   function handleCategoriesChange(categories) {
     dispatch({ type: FILTER_ACTIONS.SET_CATEGORIES, payload: categories });
   }
@@ -74,7 +86,12 @@ function ProjectSearch({ filters, dispatch }) {
   return (
     <Container>
       <H3>Search</H3>
-      <SearchInput type="text" placeholder="Search P-Rep projects" />
+      <SearchInput
+        type="text"
+        value={query}
+        onChange={handleQueryChange}
+        placeholder="Search P-Rep projects"
+      />
       <Separator />
 
       <H3>Category</H3>
