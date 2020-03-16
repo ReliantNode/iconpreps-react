@@ -121,7 +121,7 @@ function ProjectListPage() {
     if (filters.query) {
       tags.push({
         label: filters.query,
-        rm: () => filtersDispatch({ type: FILTER_ACTIONS.SET_QUERY }),
+        rm: () => filtersDispatch({ type: FILTER_ACTIONS.SET_QUERY, payload: '' }),
       });
     }
     if (filters.categories) {

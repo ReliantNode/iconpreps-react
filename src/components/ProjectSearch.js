@@ -63,6 +63,13 @@ function ProjectSearch({ filters, dispatch }) {
     dispatch({ type: FILTER_ACTIONS.SET_QUERY, payload: debouncedQuery });
   }, [debouncedQuery]); // eslint-disable-line
 
+  useEffect(() => {
+    if (filters.query !== query) {
+      // Handle query being updated externally
+      setQuery(filters.query);
+    }
+  }, [filters]); // eslint-disable-line
+
   function handleQueryChange(event) {
     setQuery(event.target.value);
   }
