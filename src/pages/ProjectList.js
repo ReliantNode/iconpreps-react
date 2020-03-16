@@ -42,19 +42,23 @@ const INITIAL_FILTERS = {
 };
 
 function filterReducer(state, action) {
-  switch (action.type) {
+  const { type, payload = null } = action;
+  switch (type) {
     case FILTER_ACTIONS.SET_QUERY:
-      return { ...state, query: action.payload };
+      return { ...state, query: payload };
     case FILTER_ACTIONS.SET_CATEGORIES:
-      return { ...state, categories: action.payload };
+      return { ...state, categories: payload };
+    case FILTER_ACTIONS.REMOVE_CATEGORY:
+      const categories = state.categories.filter(category => category !== payload);
+      return { ...state, categories };
     case FILTER_ACTIONS.SET_RATING:
-      return { ...state, rating: action.payload };
+      return { ...state, rating: payload };
     case FILTER_ACTIONS.SET_RECENT:
-      return { ...state, recent: action.payload };
+      return { ...state, recent: payload };
     case FILTER_ACTIONS.SET_STATUS:
-      return { ...state, status: action.payload };
+      return { ...state, status: payload };
     default:
-      throw new Error(`Unknown action ${action.type}`);
+      throw new Error(`Unknown action ${type}`);
   }
 }
 
@@ -73,6 +77,7 @@ function ProjectListPage() {
   const [projects, setProjects] = useState([]);
   const [filteredProjects, setFilteredProjects] = useState([]);
   const [filters, filtersDispatch] = useReducer(filterReducer, INITIAL_FILTERS);
+  const [tags, setTags] = useState([]);
 
   useEffect(() => {
     if (hasPReps && hasProjects) setProjects(getProjects());
@@ -111,13 +116,44 @@ function ProjectListPage() {
     setFilteredProjects(take(ordered, filters.limit));
   }, [filters, projects]);
 
+  useEffect(() => {
+    const tags = [];
+    if (filters.query) {
+      tags.push({
+        label: filters.query,
+        rm: () => filtersDispatch({ type: FILTER_ACTIONS.SET_QUERY }),
+      });
+    }
+    if (filters.categories) {
+      tags.push(
+        ...filters.categories.map(category => ({
+          label: category,
+          rm: () => filtersDispatch({ type: FILTER_ACTIONS.REMOVE_CATEGORY, payload: category }),
+        }))
+      );
+    }
+    if (filters.recent) {
+      tags.push({
+        label: `${filters.recent} recently`,
+        rm: () => filtersDispatch({ type: FILTER_ACTIONS.SET_RECENT }),
+      });
+    }
+    if (filters.status) {
+      tags.push({
+        label: filters.status,
+        rm: () => filtersDispatch({ type: FILTER_ACTIONS.SET_STATUS }),
+      });
+    }
+    setTags(tags);
+  }, [filters]);
+
   return (
     <Layout>
       <S.Container>
         <ProjectSearch filters={filters} dispatch={filtersDispatch} />
 
         <S.Listing>
-          <SearchHeader title="ICON P-Rep projects" />
+          <SearchHeader title="ICON P-Rep projects" tags={tags} />
 
           {hasProjects && (
             <CardList style={{ marginTop: '2rem' }}>
