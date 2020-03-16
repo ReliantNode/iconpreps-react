@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Link } from '@reach/router';
 import { palette } from 'utils/designTokens';
 
 export const Text = styled.p`
@@ -13,7 +14,8 @@ export const A = styled.a`
   color: unset;
   text-decoration: none;
 
-  &:hover {
+  &:hover,
+  &:focus {
     text-decoration: underline;
   }
 `;
@@ -37,4 +39,14 @@ export const H3 = styled.h3`
   font-size: 1.7rem;
   line-height: 2.3rem;
   margin: 0;
+`;
+
+export const UnstyledLink = styled(Link)`
+  color: inherit;
+  text-decoration: none;
+
+  &:hover,
+  &:focus {
+    text-decoration: underline;
+  }
 `;

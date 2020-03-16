@@ -7,7 +7,7 @@ import Layout from 'components/Layout';
 import { Logo, LogoWrapper } from 'components/Logo';
 import { usePReps } from 'components/PReps';
 import SearchHeader from 'components/SearchHeader';
-import { H2, Text } from 'components/Typography';
+import { H2, Text, UnstyledLink } from 'components/Typography';
 import { palette } from 'utils/designTokens';
 import { FILTER_ACTIONS, PREP_FILTERS, PREP_ORDERINGS, pRepFilterReducer } from 'utils/filters';
 import * as S from './PRepList.styles';
@@ -101,12 +101,16 @@ function PRepListPage() {
                   <LogoWrapper>
                     {pRep.logo && <Logo src={pRep.logo} alt={`${pRep.name} logo`} />}
                   </LogoWrapper>
+
                   <S.PRepDetails>
-                    <H2>{pRep.name}</H2>
+                    <H2>
+                      <UnstyledLink to={pRep.address}>{pRep.name}</UnstyledLink>
+                    </H2>
                     <Text muted style={{ marginTop: '1rem' }}>
                       {pRep.city}, {pRep.country}
                     </Text>
                   </S.PRepDetails>
+
                   {pRep.main_category ? (
                     <S.PRepCategories>
                       <Category category={pRep.main_category} />
@@ -117,6 +121,7 @@ function PRepListPage() {
                   ) : (
                     <div style={{ flex: 1 }} />
                   )}
+
                   <S.PRepRank>
                     <S.RankBanner>
                       <Text style={{ color: palette.white, fontWeight: 600 }}>{pRep.rank}</Text>

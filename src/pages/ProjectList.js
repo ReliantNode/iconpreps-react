@@ -11,7 +11,7 @@ import ProjectSearch from 'components/ProjectSearch';
 import { useProjects } from 'components/Projects';
 import Rating from 'components/Rating';
 import SearchHeader from 'components/SearchHeader';
-import { H2, Text } from 'components/Typography';
+import { H2, Text, UnstyledLink } from 'components/Typography';
 import { DATE_FORMAT } from 'utils/constants';
 import { palette } from 'utils/designTokens';
 import {
@@ -140,24 +140,32 @@ function ProjectListPage() {
                       <Logo src={project.pRep.logo} alt={`${project.pRep.name} logo`} />
                     )}
                   </LogoWrapper>
+
                   <S.ProjectDetails>
                     <S.ProjectHeader>
                       <div>
-                        <H2>{project.name}</H2>
+                        <H2>
+                          <UnstyledLink to={String(project.id)}>{project.name}</UnstyledLink>
+                        </H2>
                         <Rating {...mockProjectRatings} style={{ marginTop: '1rem' }} />
                       </div>
                       <Category category={project.category} />
                     </S.ProjectHeader>
+
                     <Text style={{ marginTop: '1.5rem' }}>{project.description}</Text>
+
                     <S.ProjectMeta>
                       <S.ProjectStatus>{project.status}</S.ProjectStatus>
                       <S.ProjectMetaSeparator />
+
                       <Completion completed={project.progress} />
                       <S.ProjectMetaSeparator />
+
                       <Text small style={{ flex: 1 }}>
                         {format(new Date(project.start_date), DATE_FORMAT)}&nbsp;-&nbsp;
                         {format(new Date(project.end_date), DATE_FORMAT)}
                       </Text>
+
                       {isRecentProject(project, RECENT_ACTIVITY_TYPES.CREATED) ? (
                         <>
                           <S.ProjectMetaSeparator />
