@@ -7,7 +7,6 @@ import { palette } from 'utils/designTokens';
 import '@reach/checkbox/styles.css';
 
 const Label = styled.label`
-  position: relative;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -37,7 +36,7 @@ function Checkbox({ checked, children, onChange, style = {}, ...props }) {
   return (
     <Label style={style}>
       <CheckboxContainer checked={checked} onChange={onChange}>
-        <CustomCheckboxInput checked={checked} {...props} style={{ opacity: 0 }} />
+        <CustomCheckboxInput checked={checked} {...props} />
         <Check checked={checked} aria-hidden />
       </CheckboxContainer>
       {children}

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import searchIcon from 'assets/icons/search.svg';
 import CheckboxGroup from 'components/CheckboxGroup';
+import RadioGroup from 'components/RadioGroup';
 import { H3, Text } from 'components/Typography';
 import { FILTER_ACTIONS } from 'utils/constants';
 import { palette } from 'utils/designTokens';
@@ -50,6 +51,10 @@ const Separator = styled.hr`
 function ProjectSearch({ filters, dispatch }) {
   function handleCategoriesChange(categories) {
     dispatch({ type: FILTER_ACTIONS.SET_CATEGORIES, payload: categories });
+  }
+
+  function handleStatusChange(status) {
+    dispatch({ type: FILTER_ACTIONS.SET_STATUS, payload: status });
   }
 
   return (
@@ -142,6 +147,47 @@ function ProjectSearch({ filters, dispatch }) {
       <Separator />
 
       <H3>Status</H3>
+      <RadioGroup
+        options={[
+          {
+            value: 'Planning',
+            children: (
+              <>
+                <CheckboxLabel>Planning</CheckboxLabel>
+                <Text small muted>
+                  20
+                </Text>
+              </>
+            ),
+          },
+          {
+            value: 'Executing',
+            children: (
+              <>
+                <CheckboxLabel>Executing</CheckboxLabel>
+                <Text small muted>
+                  39
+                </Text>
+              </>
+            ),
+          },
+          {
+            value: 'Complete',
+            children: (
+              <>
+                <CheckboxLabel>Complete</CheckboxLabel>
+                <Text small muted>
+                  7
+                </Text>
+              </>
+            ),
+          },
+        ]}
+        value={filters.status}
+        onChange={handleStatusChange}
+        name="status"
+        style={{ marginTop: '1rem' }}
+      />
     </Container>
   );
 }
