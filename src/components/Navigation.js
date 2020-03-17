@@ -87,7 +87,7 @@ function NavLink(props) {
 }
 
 function Navigation() {
-  const { authUser, isAuthenticated } = useAuth();
+  const { isAuthenticated } = useAuth();
 
   function handleSignIn() {
     let userAddress;
@@ -151,6 +151,7 @@ function Navigation() {
     console.log('Help and FAQs!');
   }
 
+  // TODO: should use Auth user address
   const tempAddress = 'hxc28387c8801185231882022fe90d0b6cc8d6ac7c';
 
   return (

@@ -3,6 +3,7 @@ import { useParams } from '@reach/router';
 import Category from 'components/Category';
 import Layout from 'components/Layout';
 import { usePReps } from 'components/PReps';
+import ProjectFeedback from 'components/ProjectFeedback';
 import { useProjects } from 'components/Projects';
 import Rating from 'components/Rating';
 import { H1, H2, Text } from 'components/Typography';
@@ -65,7 +66,10 @@ function ProjectDetailPage() {
               <S.Card>
                 <H2>Updates</H2>
               </S.Card>
+
+              <ProjectFeedback projectId={project.id} style={{ marginTop: '5rem' }} />
             </S.Main>
+
             <S.Sidebar>
               <S.Card>
                 <H2>P-Rep team</H2>

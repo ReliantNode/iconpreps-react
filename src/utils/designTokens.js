@@ -16,6 +16,14 @@ export const palette = {
     border: '#e8ebec',
     dark: '#838383',
   },
+  users: {
+    whale: '#0f9ab2',
+    marlin: '#8f4386',
+    stingray: '#43568f',
+    octopus: '#438f8c',
+    turtle: '#8f4343',
+    goldfish: '#8f7043',
+  },
 };
 
 export const breakpoints = {

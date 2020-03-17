@@ -19,7 +19,7 @@ const Star = styled.img`
   margin-right: 0.4rem;
 `;
 
-function Rating({ overall, total, ...props }) {
+function Rating({ overall, total, terse = false, ...props }) {
   const stars = Math.round(overall);
   return (
     <Container {...props}>
@@ -33,16 +33,19 @@ function Rating({ overall, total, ...props }) {
           />
         );
       })}
-      <Text small muted style={{ marginLeft: '0.6rem' }}>
-        {total} ratings
-      </Text>
+      {total && (
+        <Text small muted style={{ marginLeft: '0.6rem' }}>
+          {terse ? `(${total})` : `${total} ratings`}
+        </Text>
+      )}
     </Container>
   );
 }
 
 Rating.propTypes = {
   overall: PropTypes.number.isRequired,
-  total: PropTypes.number.isRequired,
+  total: PropTypes.number,
+  terse: PropTypes.bool,
 };
 
 export default Rating;
