@@ -6,12 +6,7 @@ import { H2, Text } from 'components/Typography';
 import { getFeedback } from 'utils/feedbackApi';
 import * as S from './ProjectFeedback.styles';
 
-const mockProjectRatings = {
-  overall: 4,
-  total: 12,
-};
-
-function ProjectFeedback({ projectId, ...props }) {
+function ProjectFeedback({ projectId, averageRating, ...props }) {
   const { isAuthenticated } = useAuth();
   const [feedback, setFeedback] = useState([]);
 
@@ -36,7 +31,12 @@ function ProjectFeedback({ projectId, ...props }) {
 
       <S.AverageRating>
         <Text style={{ fontWeight: 500 }}>Average rating</Text>
-        <Rating {...mockProjectRatings} terse style={{ marginLeft: '1.5rem' }} />
+        <Rating
+          overall={averageRating.rating}
+          total={averageRating.total_votes}
+          style={{ marginLeft: '1.5rem' }}
+          terse
+        />
       </S.AverageRating>
 
       <S.FeedbackList>
@@ -65,6 +65,10 @@ function ProjectFeedback({ projectId, ...props }) {
 
 ProjectFeedback.propTypes = {
   projectId: PropTypes.number.isRequired,
+  averageRating: PropTypes.shape({
+    rating: PropTypes.number.isRequired,
+    total_votes: PropTypes.number.isRequired,
+  }).isRequired,
 };
 
 export default ProjectFeedback;

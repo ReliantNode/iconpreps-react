@@ -33,7 +33,7 @@ function Rating({ overall, total, terse = false, ...props }) {
           />
         );
       })}
-      {total && (
+      {total != null && (
         <Text small muted style={{ marginLeft: '0.6rem' }}>
           {terse ? `(${total})` : `${total} ratings`}
         </Text>

@@ -1,10 +1,12 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { usePReps } from 'components/PReps';
+import { getAllRatings } from 'utils/feedbackApi';
 import { getAllProjects } from 'utils/projectsApi';
 
 const INITIAL_STATE = {
   getProjects: null,
+  getRatings: null,
   hasProjects: false,
   isLoading: true,
 };
@@ -18,6 +20,7 @@ export function useProjects() {
 function Projects({ children }) {
   const { getPReps, hasPReps } = usePReps();
   const [projects, setProjects] = useState([]);
+  const [ratings, setRatings] = useState([]);
   const [isLoading, setIsLoading] = useState(INITIAL_STATE.isLoading);
   const [hasProjects, setHasProjects] = useState(INITIAL_STATE.hasProjects);
 
@@ -26,7 +29,9 @@ function Projects({ children }) {
   }, [hasPReps]); // eslint-disable-line
 
   async function loadProjects() {
-    const projects = await getAllProjects();
+    const [projects, ratings] = await Promise.all([getAllProjects(), getAllRatings()]);
+    setRatings(ratings);
+
     const pReps = getPReps();
     setProjects(
       projects.map(project => {
@@ -43,8 +48,12 @@ function Projects({ children }) {
     return projects;
   }
 
+  function getRatings() {
+    return ratings;
+  }
+
   return (
-    <ProjectsContext.Provider value={{ getProjects, hasProjects, isLoading }}>
+    <ProjectsContext.Provider value={{ getProjects, getRatings, hasProjects, isLoading }}>
       {children}
     </ProjectsContext.Provider>
   );

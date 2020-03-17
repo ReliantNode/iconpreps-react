@@ -10,17 +10,13 @@ import { H1, H2, Text } from 'components/Typography';
 import { getProject } from 'utils/projectsApi';
 import * as S from './ProjectDetail.styles';
 
-const mockProjectRatings = {
-  overall: 4,
-  total: 12,
-};
-
 function ProjectDetailPage() {
   const { projectId } = useParams();
   const { getPReps, hasPReps } = usePReps();
-  const { getProjects, hasProjects } = useProjects();
+  const { getProjects, getRatings, hasProjects } = useProjects();
   const [rawProject, setRawProject] = useState(null);
   const [project, setProject] = useState(null);
+  const [rating, setRating] = useState(null);
   const [pRep, setPRep] = useState(null);
 
   useEffect(() => {
@@ -39,6 +35,10 @@ function ProjectDetailPage() {
         progress: listProject.progress,
         status: listProject.status,
       });
+
+      let rating = getRatings().find(rating => rating.project_id === listProject.id);
+      if (!rating) rating = { rating: 0, total_votes: 0 };
+      setRating(rating);
     }
   }, [hasPReps, hasProjects, rawProject]); // eslint-disable-line
 
@@ -50,7 +50,11 @@ function ProjectDetailPage() {
             <H1>{project.name}</H1>
             <Category category={project.category} style={{ marginLeft: '5rem' }} />
           </S.Header>
-          <Rating {...mockProjectRatings} style={{ marginTop: '1.5rem' }} />
+          <Rating
+            overall={rating.rating}
+            total={rating.total_votes}
+            style={{ marginTop: '1.5rem' }}
+          />
           <Text style={{ marginTop: '2rem' }}>{project.description}</Text>
 
           <S.Container>
@@ -68,7 +72,11 @@ function ProjectDetailPage() {
                 <H2>Updates</H2>
               </S.Card>
 
-              <ProjectFeedback projectId={project.id} style={{ marginTop: '5rem' }} />
+              <ProjectFeedback
+                projectId={project.id}
+                averageRating={rating}
+                style={{ marginTop: '5rem' }}
+              />
             </S.Main>
 
             <S.Sidebar>
