@@ -13,5 +13,6 @@ async function getProjects(nextRequest, allProjects = []) {
 
 export async function getProject(projectId) {
   const response = await fetch(`${ENDPOINT}/prep-projects/${projectId}/`);
+  if (response.status !== 200) throw new Error(`Project ${projectId} not found`);
   return response.json();
 }

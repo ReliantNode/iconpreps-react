@@ -8,7 +8,7 @@ import Layout from 'components/Layout';
 import { Logo, LogoWrapper } from 'components/Logo';
 import { usePReps } from 'components/PReps';
 import ProjectList from 'components/ProjectList';
-import { H2, Text } from 'components/Typography';
+import { H1, H2, Text } from 'components/Typography';
 import { palette } from 'utils/designTokens';
 import * as S from './PRepDetail.styles';
 
@@ -97,6 +97,13 @@ function PRepDetailPage() {
             filtersToUse={{ query: true, category: true, status: true }}
             additionalFilter={filterByPRep}
           />
+        </>
+      )}
+
+      {hasPReps && !pRep && (
+        <>
+          <H1>P-Rep not found</H1>
+          <Text style={{ marginTop: '2rem' }}>The P-Rep '{pRepAddress}' doesn't exist.</Text>
         </>
       )}
     </Layout>

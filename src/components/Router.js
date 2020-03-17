@@ -1,5 +1,6 @@
 import React from 'react';
 import { Redirect, Router as ReachRouter } from '@reach/router';
+import NotFound from 'pages/NotFound';
 import PRepDetail from 'pages/PRepDetail';
 import PRepList from 'pages/PRepList';
 import ProjectDetail from 'pages/ProjectDetail';
@@ -13,6 +14,7 @@ function Router() {
       <ProjectDetail path="/projects/:projectId" />
       <PRepList path="/preps" />
       <PRepDetail path="/preps/:pRepAddress" />
+      <NotFound default />
     </ReachRouter>
   );
 }

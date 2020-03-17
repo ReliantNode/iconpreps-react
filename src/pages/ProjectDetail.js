@@ -20,7 +20,9 @@ function ProjectDetailPage() {
   const [pRep, setPRep] = useState(null);
 
   useEffect(() => {
-    getProject(projectId).then(project => setRawProject(project));
+    getProject(projectId)
+      .then(project => setRawProject(project))
+      .catch(() => setRawProject(null));
   }, [projectId]); // eslint-disable-line
 
   useEffect(() => {
@@ -89,6 +91,13 @@ function ProjectDetailPage() {
               </S.Card>
             </S.Sidebar>
           </S.Container>
+        </>
+      )}
+
+      {hasPReps && hasProjects && !rawProject && (
+        <>
+          <H1>Project not found</H1>
+          <Text style={{ marginTop: '2rem' }}>The project '{projectId}' doesn't exist.</Text>
         </>
       )}
     </Layout>
