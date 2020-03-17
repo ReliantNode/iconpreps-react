@@ -106,7 +106,7 @@ function PRepListPage() {
                     <H2>
                       <UnstyledLink to={pRep.address}>{pRep.name}</UnstyledLink>
                     </H2>
-                    <Text muted style={{ marginTop: '1rem' }}>
+                    <Text muted style={{ marginTop: '0.8rem' }}>
                       {pRep.city}, {pRep.country}
                     </Text>
                   </S.PRepDetails>

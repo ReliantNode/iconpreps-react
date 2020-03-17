@@ -3,6 +3,7 @@ import { Link } from '@reach/router';
 import { palette } from 'utils/designTokens';
 
 export const Text = styled.p`
+  font-weight: ${({ heavy }) => (heavy ? 600 : 400)};
   font-size: ${({ small }) => (small ? 1.3 : 1.5)}rem;
   line-height: ${({ small }) => (small ? 1.8 : 2.2)}rem;
   color: ${({ muted }) => (muted ? palette.gray.dark : palette.black)};
