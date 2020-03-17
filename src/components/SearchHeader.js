@@ -110,7 +110,7 @@ function SearchHeader({ title, tags = [], order, orderings = [], onChangeOrderin
         <H1>{title}</H1>
         <Ordering>
           <Text small id="order-label">
-            Sort by:
+            Sort&nbsp;by:
           </Text>
           <DropdownInput value={order} onChange={onChangeOrdering} aria-labelledby="order-label">
             <DropdownButton arrow={<DownArrow />} />
