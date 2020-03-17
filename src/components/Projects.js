@@ -8,6 +8,7 @@ const INITIAL_STATE = {
   getProjects: null,
   hasProjects: false,
   isLoading: true,
+  loadProject: null,
 };
 
 export const ProjectsContext = createContext(INITIAL_STATE);
@@ -51,8 +52,13 @@ function Projects({ children }) {
     return projects;
   }
 
+  async function loadProject(projectId) {
+    const response = await fetch(`${PROJECTS_ENDPOINT}${projectId}/`);
+    return response.json();
+  }
+
   return (
-    <ProjectsContext.Provider value={{ getProjects, hasProjects, isLoading }}>
+    <ProjectsContext.Provider value={{ getProjects, hasProjects, isLoading, loadProject }}>
       {children}
     </ProjectsContext.Provider>
   );

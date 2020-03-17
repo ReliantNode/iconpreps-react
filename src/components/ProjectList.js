@@ -145,7 +145,9 @@ function ProjectList({ title, filtersToUse, additionalFilter }) {
                   <S.ProjectHeader>
                     <div>
                       <H2>
-                        <UnstyledLink to={String(project.id)}>{project.name}</UnstyledLink>
+                        <UnstyledLink to={`/projects/${String(project.id)}`}>
+                          {project.name}
+                        </UnstyledLink>
                       </H2>
                       <Rating {...mockProjectRatings} style={{ marginTop: '1rem' }} />
                     </div>

@@ -22,7 +22,7 @@ function PRepDetailPage() {
       const pRep = getPReps().find(pRep => pRep.address === pRepAddress);
       setPRep(pRep);
     }
-  }, [hasPReps]); // eslint-disable-line
+  }, [hasPReps, pRepAddress]); // eslint-disable-line
 
   function filterByPRep(project) {
     return project.prep_address === pRepAddress;
