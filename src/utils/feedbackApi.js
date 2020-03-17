@@ -1,6 +1,6 @@
 const ENDPOINT = process.env.REACT_APP_FEEDBACK_API;
 
-export async function getRatings() {
+export async function getAllRatings() {
   const response = await fetch(`${ENDPOINT}/ratings/`);
   return response.json();
 }

@@ -7,6 +7,7 @@ import ProjectFeedback from 'components/ProjectFeedback';
 import { useProjects } from 'components/Projects';
 import Rating from 'components/Rating';
 import { H1, H2, Text } from 'components/Typography';
+import { getProject } from 'utils/projectsApi';
 import * as S from './ProjectDetail.styles';
 
 const mockProjectRatings = {
@@ -17,13 +18,13 @@ const mockProjectRatings = {
 function ProjectDetailPage() {
   const { projectId } = useParams();
   const { getPReps, hasPReps } = usePReps();
-  const { getProjects, hasProjects, loadProject } = useProjects();
+  const { getProjects, hasProjects } = useProjects();
   const [rawProject, setRawProject] = useState(null);
   const [project, setProject] = useState(null);
   const [pRep, setPRep] = useState(null);
 
   useEffect(() => {
-    loadProject(projectId).then(project => setRawProject(project));
+    getProject(projectId).then(project => setRawProject(project));
   }, [projectId]); // eslint-disable-line
 
   useEffect(() => {

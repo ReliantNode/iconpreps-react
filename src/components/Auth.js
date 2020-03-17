@@ -19,7 +19,6 @@ function Auth({ children }) {
 
   useEffect(() => {
     getAuthUser().then(me => {
-      console.log('ME!', me);
       if (me) {
         setIsAuthenticated(true);
         setAuthUser(me);

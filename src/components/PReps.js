@@ -1,7 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-
-const PREPS_ENDPOINT = `${process.env.REACT_APP_PREPS_API}/preps`;
+import { getAllPReps } from 'utils/pRepsApi';
 
 const INITIAL_STATE = {
   getPReps: null,
@@ -23,8 +22,7 @@ function PReps({ children }) {
   useEffect(() => void loadPReps(), []);
 
   async function loadPReps() {
-    const response = await fetch(PREPS_ENDPOINT);
-    const pReps = await response.json();
+    const pReps = await getAllPReps();
     setPReps(pReps);
     setIsLoading(false);
     setHasPReps(true);
