@@ -12,7 +12,7 @@ function Router() {
       <ProjectList path="/projects" />
       <ProjectDetail path="/projects/:projectId" />
       <PRepList path="/preps" />
-      <PRepDetail path="/preps/:pRepId" />
+      <PRepDetail path="/preps/:pRepAddress" />
     </ReachRouter>
   );
 }

@@ -55,7 +55,15 @@ const Separator = styled.hr`
   margin: 3rem 0;
 `;
 
-function ProjectSearch({ filters, dispatch }) {
+const useAllFilters = {
+  query: true,
+  category: true,
+  rating: true,
+  recent: true,
+  status: true,
+};
+
+function ProjectSearch({ filters, dispatch, filtersToUse = useAllFilters }) {
   const [query, setQuery] = useState('');
   const [debouncedQuery] = useDebounce(query, 400);
 
@@ -92,211 +100,231 @@ function ProjectSearch({ filters, dispatch }) {
 
   return (
     <Container>
-      <H3>Search</H3>
-      <SearchInput
-        type="text"
-        value={query}
-        onChange={handleQueryChange}
-        placeholder="Search P-Rep projects"
-      />
-      <Separator />
+      {filtersToUse.query && (
+        <>
+          <H3>Search</H3>
+          <SearchInput
+            type="text"
+            value={query}
+            onChange={handleQueryChange}
+            placeholder="Search P-Rep projects"
+          />
+          <Separator />
+        </>
+      )}
 
-      <H3>Category</H3>
-      <CheckboxGroup
-        options={[
-          {
-            value: 'Development',
-            children: (
-              <>
-                <OptionLabel>Development</OptionLabel>
-                <Text small muted>
-                  30
-                </Text>
-              </>
-            ),
-          },
-          {
-            value: 'Education',
-            children: (
-              <>
-                <OptionLabel>Education</OptionLabel>
-                <Text small muted>
-                  12
-                </Text>
-              </>
-            ),
-          },
-          {
-            value: 'Marketing',
-            children: (
-              <>
-                <OptionLabel>Marketing</OptionLabel>
-                <Text small muted>
-                  11
-                </Text>
-              </>
-            ),
-          },
-          {
-            value: 'Community',
-            children: (
-              <>
-                <OptionLabel>Community</OptionLabel>
-                <Text small muted>
-                  11
-                </Text>
-              </>
-            ),
-          },
-          {
-            value: 'Infrastructure',
-            children: (
-              <>
-                <OptionLabel>Infrastructure</OptionLabel>
-                <Text small muted>
-                  2
-                </Text>
-              </>
-            ),
-          },
-          {
-            value: 'Other',
-            children: (
-              <>
-                <OptionLabel>Other</OptionLabel>
-                <Text small muted>
-                  5
-                </Text>
-              </>
-            ),
-          },
-        ]}
-        values={filters.categories}
-        onChange={handleCategoriesChange}
-        name="categories"
-        style={{ marginTop: '1rem' }}
-      />
-      <Separator />
+      {filtersToUse.category && (
+        <>
+          <H3>Category</H3>
+          <CheckboxGroup
+            options={[
+              {
+                value: 'Development',
+                children: (
+                  <>
+                    <OptionLabel>Development</OptionLabel>
+                    <Text small muted>
+                      30
+                    </Text>
+                  </>
+                ),
+              },
+              {
+                value: 'Education',
+                children: (
+                  <>
+                    <OptionLabel>Education</OptionLabel>
+                    <Text small muted>
+                      12
+                    </Text>
+                  </>
+                ),
+              },
+              {
+                value: 'Marketing',
+                children: (
+                  <>
+                    <OptionLabel>Marketing</OptionLabel>
+                    <Text small muted>
+                      11
+                    </Text>
+                  </>
+                ),
+              },
+              {
+                value: 'Community',
+                children: (
+                  <>
+                    <OptionLabel>Community</OptionLabel>
+                    <Text small muted>
+                      11
+                    </Text>
+                  </>
+                ),
+              },
+              {
+                value: 'Infrastructure',
+                children: (
+                  <>
+                    <OptionLabel>Infrastructure</OptionLabel>
+                    <Text small muted>
+                      2
+                    </Text>
+                  </>
+                ),
+              },
+              {
+                value: 'Other',
+                children: (
+                  <>
+                    <OptionLabel>Other</OptionLabel>
+                    <Text small muted>
+                      5
+                    </Text>
+                  </>
+                ),
+              },
+            ]}
+            values={filters.categories}
+            onChange={handleCategoriesChange}
+            name="categories"
+            style={{ marginTop: '1rem' }}
+          />
+          <Separator />
+        </>
+      )}
 
-      <H3>Rating</H3>
-      <RadioGroup
-        options={[
-          {
-            value: 'AtLeast4',
-            children: (
-              <>
-                <StarsLabel amount={4}>& up</StarsLabel>
-                <Text small muted>
-                  8
-                </Text>
-              </>
-            ),
-          },
-          {
-            value: 'AtLeast3',
-            children: (
-              <>
-                <StarsLabel amount={3}>& up</StarsLabel>
-                <Text small muted>
-                  45
-                </Text>
-              </>
-            ),
-          },
-          {
-            value: 'AtLeast2',
-            children: (
-              <>
-                <StarsLabel amount={2}>& up</StarsLabel>
-                <Text small muted>
-                  59
-                </Text>
-              </>
-            ),
-          },
-        ]}
-        value={filters.rating}
-        onChange={handleRatingChange}
-        name="rating"
-        style={{ marginTop: '1rem' }}
-      />
-      <Separator />
+      {filtersToUse.rating && (
+        <>
+          <H3>Rating</H3>
+          <RadioGroup
+            options={[
+              {
+                value: 'AtLeast4',
+                children: (
+                  <>
+                    <StarsLabel amount={4}>& up</StarsLabel>
+                    <Text small muted>
+                      8
+                    </Text>
+                  </>
+                ),
+              },
+              {
+                value: 'AtLeast3',
+                children: (
+                  <>
+                    <StarsLabel amount={3}>& up</StarsLabel>
+                    <Text small muted>
+                      45
+                    </Text>
+                  </>
+                ),
+              },
+              {
+                value: 'AtLeast2',
+                children: (
+                  <>
+                    <StarsLabel amount={2}>& up</StarsLabel>
+                    <Text small muted>
+                      59
+                    </Text>
+                  </>
+                ),
+              },
+            ]}
+            value={filters.rating}
+            onChange={handleRatingChange}
+            name="rating"
+            style={{ marginTop: '1rem' }}
+          />
+          <Separator />
+        </>
+      )}
 
-      <H3>Recent activity</H3>
-      <RadioGroup
-        options={[
-          {
-            value: 'Updated',
-            children: (
-              <>
-                <OptionLabel>Updated in last 7 days</OptionLabel>
-                <Text small muted>
-                  32
-                </Text>
-              </>
-            ),
-          },
-          {
-            value: 'Created',
-            children: (
-              <>
-                <OptionLabel>Created in last 7 days</OptionLabel>
-                <Text small muted>
-                  8
-                </Text>
-              </>
-            ),
-          },
-        ]}
-        value={filters.recent}
-        onChange={handleRecentChange}
-        name="recent"
-        style={{ marginTop: '1rem' }}
-      />
-      <Separator />
+      {filtersToUse.recent && (
+        <>
+          <H3>Recent activity</H3>
+          <RadioGroup
+            options={[
+              {
+                value: 'Updated',
+                children: (
+                  <>
+                    <OptionLabel>Updated in last 7 days</OptionLabel>
+                    <Text small muted>
+                      32
+                    </Text>
+                  </>
+                ),
+              },
+              {
+                value: 'Created',
+                children: (
+                  <>
+                    <OptionLabel>Created in last 7 days</OptionLabel>
+                    <Text small muted>
+                      8
+                    </Text>
+                  </>
+                ),
+              },
+            ]}
+            value={filters.recent}
+            onChange={handleRecentChange}
+            name="recent"
+            style={{ marginTop: '1rem' }}
+          />
+          <Separator />
+        </>
+      )}
 
-      <H3>Status</H3>
-      <RadioGroup
-        options={[
-          {
-            value: 'Planning',
-            children: (
-              <>
-                <OptionLabel>Planning</OptionLabel>
-                <Text small muted>
-                  20
-                </Text>
-              </>
-            ),
-          },
-          {
-            value: 'Executing',
-            children: (
-              <>
-                <OptionLabel>Executing</OptionLabel>
-                <Text small muted>
-                  39
-                </Text>
-              </>
-            ),
-          },
-          {
-            value: 'Complete',
-            children: (
-              <>
-                <OptionLabel>Complete</OptionLabel>
-                <Text small muted>
-                  7
-                </Text>
-              </>
-            ),
-          },
-        ]}
-        value={filters.status}
-        onChange={handleStatusChange}
-        name="status"
-        style={{ marginTop: '1rem' }}
-      />
+      {filtersToUse.status && (
+        <>
+          <H3>Status</H3>
+          <RadioGroup
+            options={[
+              {
+                value: 'Planning',
+                children: (
+                  <>
+                    <OptionLabel>Planning</OptionLabel>
+                    <Text small muted>
+                      20
+                    </Text>
+                  </>
+                ),
+              },
+              {
+                value: 'Executing',
+                children: (
+                  <>
+                    <OptionLabel>Executing</OptionLabel>
+                    <Text small muted>
+                      39
+                    </Text>
+                  </>
+                ),
+              },
+              {
+                value: 'Complete',
+                children: (
+                  <>
+                    <OptionLabel>Complete</OptionLabel>
+                    <Text small muted>
+                      7
+                    </Text>
+                  </>
+                ),
+              },
+            ]}
+            value={filters.status}
+            onChange={handleStatusChange}
+            name="status"
+            style={{ marginTop: '1rem' }}
+          />
+        </>
+      )}
     </Container>
   );
 }
@@ -304,6 +332,13 @@ function ProjectSearch({ filters, dispatch }) {
 ProjectSearch.propTypes = {
   filters: PropTypes.object.isRequired,
   dispatch: PropTypes.func.isRequired,
+  filtersToUse: PropTypes.shape({
+    query: PropTypes.bool,
+    category: PropTypes.bool,
+    rating: PropTypes.bool,
+    recent: PropTypes.bool,
+    status: PropTypes.bool,
+  }),
 };
 
 export default ProjectSearch;
