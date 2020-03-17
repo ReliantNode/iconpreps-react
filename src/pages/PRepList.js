@@ -133,7 +133,10 @@ function PRepListPage() {
             </CardList>
           )}
 
-          {!hasPReps && isLoading && <div style={{ marginTop: '2rem' }}>Loading...</div>}
+          {!hasPReps && isLoading && <Text>Loading...</Text>}
+          {hasPReps && !filteredPReps.length && (
+            <Text>No P-Reps found matching the search criteria.</Text>
+          )}
         </S.Listing>
       </S.Container>
     </Layout>

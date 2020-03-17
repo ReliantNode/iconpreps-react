@@ -190,7 +190,10 @@ function ProjectList({ title, filtersToUse, additionalFilter }) {
           </CardList>
         )}
 
-        {!hasProjects && isLoading && <div style={{ marginTop: '2rem' }}>Loading...</div>}
+        {!hasProjects && isLoading && <Text>Loading...</Text>}
+        {hasProjects && !filteredProjects.length && (
+          <Text>No projects found matching the search criteria.</Text>
+        )}
       </S.Listing>
     </S.Container>
   );
