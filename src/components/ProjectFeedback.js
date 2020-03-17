@@ -7,23 +7,19 @@ import { getFeedback } from 'utils/feedbackApi';
 import * as S from './ProjectFeedback.styles';
 
 function ProjectFeedback({ projectId, averageRating, ...props }) {
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, showLoginModal } = useAuth();
   const [feedback, setFeedback] = useState([]);
 
   useEffect(() => {
     getFeedback(projectId).then(feedback => setFeedback(feedback));
   }, [projectId]);
 
-  function handleSignIn() {
-    console.log('Sign in!');
-  }
-
   return (
     <>
       <S.Header {...props}>
         <H2>Ratings and feedback</H2>
         {!isAuthenticated && (
-          <S.LoginButton type="button" onClick={handleSignIn}>
+          <S.LoginButton type="button" onClick={showLoginModal}>
             Add your feedback
           </S.LoginButton>
         )}

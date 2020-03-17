@@ -5,10 +5,7 @@ import iconLogo from 'assets/logo-icon.svg';
 import downArrowIcon from 'assets/icons/down-arrow-white.svg';
 import { useAuth } from 'components/Auth';
 import { Text } from 'components/Typography';
-import { getAuthToken, login } from 'utils/authApi';
-import { ICONEX_RELAY } from 'utils/constants';
 import { palette } from 'utils/designTokens';
-import { wait } from 'utils/wait';
 
 const Container = styled.div`
   display: flex;
@@ -87,65 +84,7 @@ function NavLink(props) {
 }
 
 function Navigation() {
-  const { isAuthenticated } = useAuth();
-
-  function handleSignIn() {
-    let userAddress;
-    const tokenPromise = getAuthToken();
-
-    window.addEventListener(ICONEX_RELAY.RESPONSE, relayEventHandler);
-
-    window.dispatchEvent(
-      new CustomEvent(ICONEX_RELAY.REQUEST, {
-        detail: { type: 'REQUEST_ADDRESS' },
-      })
-    );
-
-    async function handleResponseAddress(address) {
-      userAddress = address;
-      await wait();
-
-      try {
-        const token = await tokenPromise;
-        window.dispatchEvent(
-          new CustomEvent(ICONEX_RELAY.REQUEST, {
-            detail: {
-              type: 'REQUEST_SIGNING',
-              payload: { from: address, hash: token },
-            },
-          })
-        );
-      } catch (error) {
-        window.removeEventListener(ICONEX_RELAY.RESPONSE, relayEventHandler);
-      }
-    }
-
-    async function handleResponseSigning(signature) {
-      const auth = await login(userAddress, signature);
-      console.log('AUTH?', auth);
-
-      window.removeEventListener(ICONEX_RELAY.RESPONSE, relayEventHandler);
-    }
-
-    function handleCancelSigning() {
-      window.removeEventListener(ICONEX_RELAY.RESPONSE, relayEventHandler);
-    }
-
-    function relayEventHandler(event) {
-      const { type, payload } = event.detail;
-      switch (type) {
-        case 'RESPONSE_ADDRESS':
-          return handleResponseAddress(payload);
-        case 'RESPONSE_SIGNING':
-          return handleResponseSigning(payload);
-        case 'CANCEL':
-        case 'CANCEL_SIGNING':
-          return handleCancelSigning(payload);
-        default:
-          console.warn(`No handler setup for event ${type}`);
-      }
-    }
-  }
+  const { isAuthenticated, showLoginModal } = useAuth();
 
   function handleShowHelp() {
     console.log('Help and FAQs!');
@@ -173,7 +112,7 @@ function Navigation() {
           <img src={downArrowIcon} alt="Down arrow" style={{ width: '0.9rem' }} />
         </AddressContainer>
       ) : (
-        <Button type="button" onClick={handleSignIn}>
+        <Button type="button" onClick={showLoginModal}>
           Sign in
         </Button>
       )}
