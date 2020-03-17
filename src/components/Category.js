@@ -5,6 +5,7 @@ import tagIcon from 'assets/icons/tag.svg';
 import { palette } from 'utils/designTokens';
 
 const Container = styled.div`
+  flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -19,6 +20,7 @@ const Text = styled.p`
   line-height: 1.8rem;
   color: ${palette.brand.primary};
   margin: 0 0 0 0.6rem;
+  white-space: nowrap;
 `;
 
 const Icon = styled.img`
