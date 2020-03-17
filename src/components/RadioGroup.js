@@ -30,9 +30,10 @@ const RadioContainer = styled.div`
 `;
 
 const Radio = styled.div`
-  width: 1.1rem;
-  height: 1.1rem;
+  width: 100%;
+  height: 100%;
   background: ${palette.gray.dark};
+  border: 0.4rem solid ${palette.white};
   border-radius: 100%;
   transition: transform 0.2s;
   transform: ${({ checked }) => (checked ? 'scale(1)' : 'scale(0)')};
