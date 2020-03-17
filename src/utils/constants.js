@@ -1,1 +1,6 @@
 export const DATE_FORMAT = 'MMM d, yyyy';
+
+export const ICONEX_RELAY = {
+  REQUEST: 'ICONEX_RELAY_REQUEST',
+  RESPONSE: 'ICONEX_RELAY_RESPONSE',
+};

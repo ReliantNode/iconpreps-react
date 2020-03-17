@@ -10,7 +10,7 @@ import '@reach/listbox/styles.css';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import closeIcon from 'assets/icons/close.svg';
-import downArrowIcon from 'assets/icons/down-arrow.svg';
+import downArrowIcon from 'assets/icons/down-arrow-black.svg';
 import { H1, Text } from 'components/Typography';
 import { palette } from 'utils/designTokens';
 

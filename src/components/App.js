@@ -1,5 +1,6 @@
 import React from 'react';
 import { createGlobalStyle } from 'styled-components';
+import Auth from 'components/Auth';
 import PReps from 'components/PReps';
 import Projects from 'components/Projects';
 import Router from 'components/Router';
@@ -34,8 +35,10 @@ function App() {
   return (
     <PReps>
       <Projects>
-        <GlobalStyle />
-        <Router />
+        <Auth>
+          <GlobalStyle />
+          <Router />
+        </Auth>
       </Projects>
     </PReps>
   );

@@ -1,7 +1,14 @@
 import React from 'react';
 import { Link as ReachLink } from '@reach/router';
 import styled from 'styled-components';
+import iconLogo from 'assets/logo-icon.svg';
+import downArrowIcon from 'assets/icons/down-arrow-white.svg';
+import { useAuth } from 'components/Auth';
+import { Text } from 'components/Typography';
+import { getAuthToken, login } from 'utils/authApi';
+import { ICONEX_RELAY } from 'utils/constants';
 import { palette } from 'utils/designTokens';
+import { wait } from 'utils/wait';
 
 const Container = styled.div`
   display: flex;
@@ -55,6 +62,11 @@ const Button = styled.button`
   cursor: pointer;
 `;
 
+const AddressContainer = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
 const Separator = styled.div`
   width: 0.5rem;
   height: 0.5rem;
@@ -75,13 +87,71 @@ function NavLink(props) {
 }
 
 function Navigation() {
+  const { authUser, isAuthenticated } = useAuth();
+
   function handleSignIn() {
-    console.log('Sign in!');
+    let userAddress;
+    const tokenPromise = getAuthToken();
+
+    window.addEventListener(ICONEX_RELAY.RESPONSE, relayEventHandler);
+
+    window.dispatchEvent(
+      new CustomEvent(ICONEX_RELAY.REQUEST, {
+        detail: { type: 'REQUEST_ADDRESS' },
+      })
+    );
+
+    async function handleResponseAddress(address) {
+      userAddress = address;
+      await wait();
+
+      try {
+        const token = await tokenPromise;
+        window.dispatchEvent(
+          new CustomEvent(ICONEX_RELAY.REQUEST, {
+            detail: {
+              type: 'REQUEST_SIGNING',
+              payload: { from: address, hash: token },
+            },
+          })
+        );
+      } catch (error) {
+        window.removeEventListener(ICONEX_RELAY.RESPONSE, relayEventHandler);
+      }
+    }
+
+    async function handleResponseSigning(signature) {
+      const auth = await login(userAddress, signature);
+      console.log('AUTH?', auth);
+
+      window.removeEventListener(ICONEX_RELAY.RESPONSE, relayEventHandler);
+    }
+
+    function handleCancelSigning() {
+      window.removeEventListener(ICONEX_RELAY.RESPONSE, relayEventHandler);
+    }
+
+    function relayEventHandler(event) {
+      const { type, payload } = event.detail;
+      switch (type) {
+        case 'RESPONSE_ADDRESS':
+          return handleResponseAddress(payload);
+        case 'RESPONSE_SIGNING':
+          return handleResponseSigning(payload);
+        case 'CANCEL':
+        case 'CANCEL_SIGNING':
+          return handleCancelSigning(payload);
+        default:
+          console.warn(`No handler setup for event ${type}`);
+      }
+    }
   }
 
   function handleShowHelp() {
     console.log('Help and FAQs!');
   }
+
+  const tempAddress = 'hxc28387c8801185231882022fe90d0b6cc8d6ac7c';
 
   return (
     <Container>
@@ -93,9 +163,19 @@ function Navigation() {
         Help & FAQs
       </ButtonLink>
       <Separator />
-      <Button type="button" onClick={handleSignIn}>
-        Sign in
-      </Button>
+      {isAuthenticated ? (
+        <AddressContainer>
+          <img src={iconLogo} alt="ICON logo" style={{ width: '2.2rem' }} />
+          <Text heavy style={{ color: palette.white, margin: '0 0.9rem 0 0.7rem' }}>
+            {tempAddress.substr(0, 8)}…{tempAddress.substr(-4)}
+          </Text>
+          <img src={downArrowIcon} alt="Down arrow" style={{ width: '0.9rem' }} />
+        </AddressContainer>
+      ) : (
+        <Button type="button" onClick={handleSignIn}>
+          Sign in
+        </Button>
+      )}
     </Container>
   );
 }
