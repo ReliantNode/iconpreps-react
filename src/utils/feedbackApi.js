@@ -24,6 +24,6 @@ export async function addFeedback(projectId, rating, comment) {
       comment,
     }),
   });
-  if (response.status !== 200) throw new Error('Failed sending request.');
+  if (response.status !== 201) throw new Error('Failed sending request.');
   return response.json();
 }
