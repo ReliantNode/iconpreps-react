@@ -10,6 +10,7 @@ import { usePReps } from 'components/PReps';
 import ProjectList from 'components/ProjectList';
 import { H1, H2, Text } from 'components/Typography';
 import { palette } from 'utils/designTokens';
+import { formatLargeNumber } from 'utils/formatNumber';
 import * as S from './PRepDetail.styles';
 
 function PRepDetailPage() {
@@ -48,19 +49,19 @@ function PRepDetailPage() {
 
             <S.PRepStats>
               <S.PRepStat>
-                <Text heavy>1.4M</Text>
+                <Text heavy>{formatLargeNumber(pRep.votes)}</Text>
                 <Text muted small>
                   Votes
                 </Text>
               </S.PRepStat>
               <S.PRepStat>
-                <Text heavy>126</Text>
+                <Text heavy>{formatLargeNumber(pRep.voters)}</Text>
                 <Text muted small>
                   Voters
                 </Text>
               </S.PRepStat>
               <S.PRepStat>
-                <Text heavy>3</Text>
+                <Text heavy>{pRep.projects}</Text>
                 <Text muted small>
                   Projects
                 </Text>
