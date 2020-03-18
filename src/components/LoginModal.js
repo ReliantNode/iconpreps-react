@@ -78,16 +78,13 @@ const LoginButton = styled.button`
   font-size: 1.6rem;
   line-height: 2.2rem;
   color: ${palette.white};
-  background: ${palette.brand.primary};
+  background: ${({ disabled, working }) =>
+    working ? palette.brand.dark : disabled ? palette.gray.dark : palette.brand.primary};
   border: none;
   border-radius: 0.4rem;
   padding: 0;
   margin-top: 3rem;
   cursor: pointer;
-
-  &[disabled] {
-    background: ${palette.gray.dark};
-  }
 `;
 
 function LoginModal({ isOpen, onClose, ...props }) {
@@ -95,6 +92,7 @@ function LoginModal({ isOpen, onClose, ...props }) {
   const [hasExtension, setHasExtension] = useState(false);
   const [hasAccount, setHasAccount] = useState(false);
   const [isChecking, setIsChecking] = useState(true);
+  const [isWorking, setIsWorking] = useState(false);
 
   useEffect(() => {
     setIsChecking(true);
@@ -135,8 +133,7 @@ function LoginModal({ isOpen, onClose, ...props }) {
     let userAddress;
     const tokenPromise = getAuthToken();
 
-    window.addEventListener(ICONEX_RELAY.RESPONSE, relayEventHandler);
-
+    window.addEventListener(ICONEX_RELAY.RESPONSE, relayEventHandler, { once: true });
     window.dispatchEvent(
       new CustomEvent(ICONEX_RELAY.REQUEST, {
         detail: { type: 'REQUEST_ADDRESS' },
@@ -144,11 +141,13 @@ function LoginModal({ isOpen, onClose, ...props }) {
     );
 
     async function handleResponseAddress(address) {
+      setIsWorking(true);
       userAddress = address;
       await wait();
 
       try {
         const token = await tokenPromise;
+        window.addEventListener(ICONEX_RELAY.RESPONSE, relayEventHandler, { once: true });
         window.dispatchEvent(
           new CustomEvent(ICONEX_RELAY.REQUEST, {
             detail: {
@@ -158,24 +157,19 @@ function LoginModal({ isOpen, onClose, ...props }) {
           })
         );
       } catch (error) {
-        window.removeEventListener(ICONEX_RELAY.RESPONSE, relayEventHandler);
+        setIsWorking(false);
       }
     }
 
     async function handleResponseSigning(signature) {
       await login(userAddress, signature);
       onClose();
-
-      window.removeEventListener(ICONEX_RELAY.RESPONSE, relayEventHandler);
-    }
-
-    function handleCancelSigning() {
-      // TODO: show message if user cancelled?
-      window.removeEventListener(ICONEX_RELAY.RESPONSE, relayEventHandler);
+      setIsWorking(false);
     }
 
     function relayEventHandler(event) {
       const { type, payload } = event.detail;
+      console.log('HERE?', { type, payload });
       switch (type) {
         case 'RESPONSE_ADDRESS':
           return handleResponseAddress(payload);
@@ -183,7 +177,7 @@ function LoginModal({ isOpen, onClose, ...props }) {
           return handleResponseSigning(payload);
         case 'CANCEL':
         case 'CANCEL_SIGNING':
-          return handleCancelSigning(payload);
+          return setIsWorking(false);
         default:
           console.warn(`No handler setup for event ${type}`);
       }
@@ -217,14 +211,15 @@ function LoginModal({ isOpen, onClose, ...props }) {
               <LoginButton
                 type="button"
                 onClick={handleLogin}
-                disabled={isChecking || !hasExtension || !hasAccount}
+                disabled={isWorking || isChecking || !hasExtension || !hasAccount}
+                working={isWorking}
               >
                 <img
                   src={iconLogo}
                   alt="ICON logo"
                   style={{ width: '3rem', marginRight: '1rem' }}
                 />
-                <span>Login with ICON</span>
+                <span>{isWorking ? 'Logging in' : 'Login'} with ICON</span>
                 <Text heavy style={{ fontSize: '1.6rem', color: palette.white }}></Text>
               </LoginButton>
               <Text
