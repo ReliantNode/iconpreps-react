@@ -42,39 +42,6 @@ export const ProjectMetaSeparator = styled.div`
   margin: 0 2.5rem;
 `;
 
-function getColorByStatus(status) {
-  switch (status) {
-    case 'Planning':
-    case 'Complete':
-      return palette.white;
-    case 'Executing':
-    default:
-      return palette.black;
-  }
-}
-
-function getBgByStatus(status) {
-  switch (status) {
-    case 'Planning':
-      return palette.pink;
-    case 'Complete':
-      return palette.green;
-    case 'Executing':
-    default:
-      return palette.yellow;
-  }
-}
-
-export const ProjectStatus = styled.div`
-  font-weight: 500;
-  font-size: 1.1rem;
-  line-height: 1.5rem;
-  color: ${({ children }) => getColorByStatus(children)};
-  background: ${({ children }) => getBgByStatus(children)};
-  padding: 0.4rem 2.3rem 0.5rem;
-  border-radius: 1.5rem;
-`;
-
 export const ProjectRecent = styled.div`
   display: flex;
   align-items: center;

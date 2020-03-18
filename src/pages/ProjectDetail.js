@@ -1,13 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from '@reach/router';
+import { format } from 'date-fns';
 import { pick } from 'lodash-es';
 import Category from 'components/Category';
+import Completion from 'components/Completion';
 import Layout from 'components/Layout';
 import { usePReps } from 'components/PReps';
 import ProjectFeedback from 'components/ProjectFeedback';
+import ProjectStatus from 'components/ProjectStatus';
 import { useProjects } from 'components/Projects';
 import Rating from 'components/Rating';
-import { H1, H2, Text } from 'components/Typography';
+import { H1, H2, H6, Text } from 'components/Typography';
+import { DATE_FORMAT } from 'utils/constants';
 import { getProject } from 'utils/projectsApi';
 import * as S from './ProjectDetail.styles';
 
@@ -62,6 +66,27 @@ function ProjectDetailPage() {
             <S.Main>
               <S.Card>
                 <H2>Project overview</H2>
+                <S.ProjectOverview>
+                  <S.ProjectOverviewItem>
+                    <H6>Status</H6>
+                    <ProjectStatus status={project.status} />
+                  </S.ProjectOverviewItem>
+                  <S.ProjectOverviewItem>
+                    <H6>Completed</H6>
+                    <Completion completed={project.progress} />
+                  </S.ProjectOverviewItem>
+                  <S.ProjectOverviewItem style={{ flex: 1 }}>
+                    <H6>Project timeline</H6>
+                    <Text small>
+                      {format(new Date(project.start_date), DATE_FORMAT)}&nbsp;-&nbsp;
+                      {format(new Date(project.end_date), DATE_FORMAT)}
+                    </Text>
+                  </S.ProjectOverviewItem>
+                  <S.ProjectOverviewItem>
+                    <H6>Last updated</H6>
+                    <Text small>{format(new Date(project.updated_date), DATE_FORMAT)}</Text>
+                  </S.ProjectOverviewItem>
+                </S.ProjectOverview>
               </S.Card>
 
               <S.Card>

@@ -17,7 +17,7 @@ const Bar = styled.div`
   height: 0.5rem;
   border-radius: 0.5rem;
   background: ${palette.gray.bar};
-  margin-top: 1rem;
+  margin-top: 0.8rem;
   overflow: hidden;
 `;
 

@@ -8,6 +8,7 @@ import Completion from 'components/Completion';
 import { Logo, LogoWrapper } from 'components/Logo';
 import { usePReps } from 'components/PReps';
 import ProjectSearch from 'components/ProjectSearch';
+import ProjectStatus from 'components/ProjectStatus';
 import { useProjects } from 'components/Projects';
 import Rating from 'components/Rating';
 import SearchHeader from 'components/SearchHeader';
@@ -169,7 +170,7 @@ function ProjectList({ title, filtersToUse, additionalFilter }) {
                   <Text style={{ marginTop: '1.5rem' }}>{project.description}</Text>
 
                   <S.ProjectMeta>
-                    <S.ProjectStatus>{project.status}</S.ProjectStatus>
+                    <ProjectStatus status={project.status} />
                     <S.ProjectMetaSeparator />
 
                     <Completion completed={project.progress} />

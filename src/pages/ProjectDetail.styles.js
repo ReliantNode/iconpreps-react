@@ -31,6 +31,30 @@ export const Card = styled.div`
   margin-top: 3rem;
 `;
 
+export const ProjectOverview = styled.div`
+  display: flex;
+  align-items: stretch;
+  justify-content: space-between;
+  min-height: 5.5rem;
+  margin-top: 2.5rem;
+`;
+
+export const ProjectOverviewItem = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-left: 1px solid ${palette.gray.border};
+  padding: 0 3rem;
+
+  &:first-child {
+    border: none;
+    padding-left: 0;
+  }
+  &:last-child {
+    padding-right: 0;
+  }
+`;
+
 export const ProjectDescription = styled.div`
   font-weight: 400;
   font-size: 1.5rem;

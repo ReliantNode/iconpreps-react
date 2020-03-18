@@ -42,6 +42,29 @@ export const H3 = styled.h3`
   margin: 0;
 `;
 
+export const H4 = styled.h4`
+  font-weight: 600;
+  font-size: 1.5rem;
+  line-height: 2.2rem;
+  margin: 0;
+`;
+
+export const H5 = styled.h5`
+  font-weight: 500;
+  font-size: 1.5rem;
+  line-height: 2.2rem;
+  margin: 0;
+`;
+
+export const H6 = styled.h6`
+  font-weight: 600;
+  font-size: 1.2rem;
+  line-height: 1.6rem;
+  text-transform: uppercase;
+  color: #898f9e;
+  margin: 0;
+`;
+
 export const UnstyledLink = styled(Link)`
   color: inherit;
   text-decoration: none;
