@@ -6,9 +6,9 @@ import Category from 'components/Category';
 import Layout from 'components/Layout';
 import { Logo, LogoWrapper } from 'components/Logo';
 import { usePReps } from 'components/PReps';
+import RankBanner from 'components/RankBanner';
 import SearchHeader from 'components/SearchHeader';
 import { H2, Text, UnstyledLink } from 'components/Typography';
-import { palette } from 'utils/designTokens';
 import { FILTER_ACTIONS, PREP_FILTERS, PREP_ORDERINGS, pRepFilterReducer } from 'utils/filters';
 import * as S from './PRepList.styles';
 import PRepSearch from 'components/PRepSearch';
@@ -123,9 +123,10 @@ function PRepListPage() {
                   )}
 
                   <S.PRepRank>
-                    <S.RankBanner>
-                      <Text style={{ color: palette.white, fontWeight: 600 }}>{pRep.rank}</Text>
-                    </S.RankBanner>
+                    <RankBanner
+                      rank={pRep.rank}
+                      style={{ marginTop: '-33px', marginLeft: '-10px' }}
+                    />
                     <Badge>{pRep.rank <= 22 ? 'Main' : 'Sub'} P-Rep</Badge>
                   </S.PRepRank>
                 </Card>

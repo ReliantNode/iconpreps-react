@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { palette } from 'utils/designTokens';
 
 export const LogoWrapper = styled.div`
+  flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: center;

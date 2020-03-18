@@ -1,3 +1,4 @@
+import { Link } from '@reach/router';
 import styled from 'styled-components';
 import { palette } from 'utils/designTokens';
 
@@ -23,6 +24,7 @@ export const Sidebar = styled.div`
 `;
 
 export const Card = styled.div`
+  position: relative;
   background: ${palette.white};
   border: 1px solid ${palette.gray.border};
   border-radius: 0.6rem;
@@ -53,6 +55,29 @@ export const ProjectOverviewItem = styled.div`
   &:last-child {
     padding-right: 0;
   }
+`;
+
+export const PRepDetail = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-top: 1.5rem;
+`;
+
+export const PRepLink = styled(Link)`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 5rem;
+  font-weight: 600;
+  font-size: 1.6rem;
+  line-height: 2.2rem;
+  text-decoration: none;
+  color: ${palette.white};
+  background: ${palette.brand.primary};
+  border: none;
+  border-radius: 0.4rem;
+  margin-top: 3rem;
 `;
 
 export const ProjectDescription = styled.div`

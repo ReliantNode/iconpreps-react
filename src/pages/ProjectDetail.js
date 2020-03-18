@@ -5,12 +5,14 @@ import { pick } from 'lodash-es';
 import Category from 'components/Category';
 import Completion from 'components/Completion';
 import Layout from 'components/Layout';
+import { Logo, LogoWrapper } from 'components/Logo';
 import { usePReps } from 'components/PReps';
 import ProjectFeedback from 'components/ProjectFeedback';
 import ProjectStatus from 'components/ProjectStatus';
 import { useProjects } from 'components/Projects';
+import RankBanner from 'components/RankBanner';
 import Rating from 'components/Rating';
-import { H1, H2, H6, Text } from 'components/Typography';
+import { H1, H2, H4, H6, Text } from 'components/Typography';
 import { DATE_FORMAT } from 'utils/constants';
 import { getProject } from 'utils/projectsApi';
 import * as S from './ProjectDetail.styles';
@@ -104,6 +106,22 @@ function ProjectDetailPage() {
             <S.Sidebar>
               <S.Card>
                 <H2>P-Rep team</H2>
+                <RankBanner
+                  rank={pRep.rank}
+                  style={{ position: 'absolute', top: '-8px', right: '3rem' }}
+                />
+                <S.PRepDetail>
+                  <LogoWrapper>
+                    {pRep.logo && <Logo src={pRep.logo} alt={`${pRep.name} logo`} />}
+                  </LogoWrapper>
+                  <div style={{ marginLeft: '1.5rem' }}>
+                    <H4>{pRep.name}</H4>
+                    <Text muted style={{ marginTop: '0.5rem' }}>
+                      {pRep.city}, {pRep.country}
+                    </Text>
+                  </div>
+                </S.PRepDetail>
+                <S.PRepLink to={`/preps/${pRep.address}`}>View more of their projects</S.PRepLink>
               </S.Card>
 
               <S.Card>

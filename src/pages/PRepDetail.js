@@ -8,8 +8,8 @@ import Layout from 'components/Layout';
 import { Logo, LogoWrapper } from 'components/Logo';
 import { usePReps } from 'components/PReps';
 import ProjectList from 'components/ProjectList';
+import RankBanner from 'components/RankBanner';
 import { H1, H2, Text } from 'components/Typography';
-import { palette } from 'utils/designTokens';
 import { formatLargeNumber } from 'utils/formatNumber';
 import * as S from './PRepDetail.styles';
 
@@ -87,9 +87,7 @@ function PRepDetailPage() {
             </S.PRepLinks>
 
             <S.PRepRank>
-              <S.RankBanner>
-                <Text style={{ color: palette.white, fontWeight: 600 }}>{pRep.rank}</Text>
-              </S.RankBanner>
+              <RankBanner rank={pRep.rank} style={{ marginTop: '-38px', marginLeft: '-10px' }} />
               <Badge>{pRep.rank <= 22 ? 'Main' : 'Sub'} P-Rep</Badge>
             </S.PRepRank>
           </S.Header>
