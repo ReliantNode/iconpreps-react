@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
+import '@reach/dialog/styles.css';
 import { Menu, MenuPopover } from '@reach/menu-button';
 import '@reach/menu-button/styles.css';
 import { positionMatchWidth } from '@reach/popover';
+import { animated, useTransition } from 'react-spring';
 import iconLogo from 'assets/logo-icon.svg';
+import closeIcon from 'assets/icons/close.svg';
 import downArrowIcon from 'assets/icons/down-arrow-white.svg';
 import hamburgerIcon from 'assets/icons/hamburger.svg';
 import { useAuth } from 'components/Auth';
@@ -24,21 +27,79 @@ function NavLink(props) {
 
 function Navigation() {
   const { authUser, isAuthenticated, logout, showLoginModal } = useAuth();
+  const [isShowingMenu, setIsShowingMenu] = useState(false);
 
-  function handleShowMenu() {
-    console.log('Mobile menu!');
+  const AnimatedDialogOverlay = animated(S.DialogOverlay);
+  const AnimatedDialogContent = animated(S.DialogContent);
+  const transitions = useTransition(isShowingMenu, null, {
+    from: { opacity: 0, y: 50 },
+    enter: { opacity: 1, y: 0 },
+    leave: { opacity: 0, y: 50 },
+  });
+
+  function onClose() {
+    setIsShowingMenu(false);
   }
 
   function handleShowHelp() {
     console.log('Help and FAQs!');
+    onClose();
+  }
+
+  function handleLogin() {
+    onClose();
+    showLoginModal();
   }
 
   return (
     <>
       <S.HamburgerContainer>
-        <S.HamburgerButton type="button" onClick={handleShowMenu}>
+        <S.HamburgerButton type="button" onClick={() => setIsShowingMenu(true)}>
           <img src={hamburgerIcon} alt="Hamburger menu icon" style={{ width: '2.4rem' }} />
         </S.HamburgerButton>
+
+        {transitions.map(
+          ({ item, key, props: styles }) =>
+            item && (
+              <AnimatedDialogOverlay
+                onDismiss={onClose}
+                key={key}
+                style={{ opacity: styles.opacity }}
+              >
+                <AnimatedDialogContent
+                  style={{
+                    transform: styles.y.interpolate(value => `translate3d(0px, ${value}px, 0px)`),
+                  }}
+                  aria-label="Menu"
+                >
+                  <S.MenuHeader>
+                    <S.MenuTitle>Menu</S.MenuTitle>
+                    <S.MenuCloseButton type="button" onClick={onClose}>
+                      <img src={closeIcon} alt="Close" style={{ width: '1.7rem' }} />
+                    </S.MenuCloseButton>
+                  </S.MenuHeader>
+                  <S.MenuBody>
+                    <S.NavMenuLink to="/projects" onClick={onClose}>
+                      Projects
+                    </S.NavMenuLink>
+                    <S.NavMenuLink to="/preps" onClick={onClose}>
+                      P-Reps
+                    </S.NavMenuLink>
+                    <S.NavMenuButton type="button" onClick={handleShowHelp}>
+                      Help & FAQs
+                    </S.NavMenuButton>
+                    <S.NavMenuButton
+                      type="button"
+                      onClick={handleLogin}
+                      style={{ color: palette.brand.primary }}
+                    >
+                      Sign in
+                    </S.NavMenuButton>
+                  </S.MenuBody>
+                </AnimatedDialogContent>
+              </AnimatedDialogOverlay>
+            )
+        )}
       </S.HamburgerContainer>
 
       <S.NavContainer>

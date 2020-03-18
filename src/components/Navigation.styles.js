@@ -1,6 +1,11 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
+import {
+  DialogContent as ReachDialogContent,
+  DialogOverlay as ReachDialogOverlay,
+} from '@reach/dialog';
 import { MenuButton, MenuItem, MenuItems } from '@reach/menu-button';
 import { Link as ReachLink } from '@reach/router';
+import { H1 } from 'components/Typography';
 import { breakpoints, palette } from 'utils/designTokens';
 
 export const HamburgerContainer = styled.div`
@@ -30,6 +35,87 @@ export const HamburgerButton = styled.button`
   background: none;
   border: none;
   cursor: pointer;
+`;
+
+export const DialogOverlay = styled(ReachDialogOverlay)`
+  background: 'rgba(16, 15, 16, 0.6)';
+  backdrop-filter: blur(6px);
+`;
+
+export const DialogContent = styled(ReachDialogContent)`
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: auto;
+  background: ${palette.background};
+  border: 1px solid ${palette.gray.border};
+  border-radius: 1rem 1rem 0 0;
+  box-shadow: 0 2px 5px 0 rgba(206, 210, 219, 0.5);
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+`;
+
+export const MenuHeader = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 7rem;
+  border-bottom: 1px solid ${palette.gray.border};
+  padding: 2rem;
+`;
+
+export const MenuTitle = styled(H1)`
+  font-size: 2rem;
+  line-height: 2.7rem;
+`;
+
+export const MenuCloseButton = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+
+  &:focus {
+    outline: none; /* bad! */
+  }
+`;
+
+export const MenuBody = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 2rem;
+`;
+
+const navMenuItems = css`
+  font-weight: 500;
+  font-size: 1.5rem;
+  line-height: 2.2rem;
+  text-align: left;
+  text-decoration: none;
+  color: ${palette.black};
+  background: none;
+  border: none;
+  border-bottom: 1px solid ${palette.gray.border};
+  padding: 2rem 0;
+  margin: 0;
+  cursor: pointer;
+
+  &:last-child {
+    border: none;
+  }
+`;
+export const NavMenuButton = styled.button`
+  ${navMenuItems}
+`;
+export const NavMenuLink = styled(ReachLink)`
+  ${navMenuItems}
 `;
 
 export const Link = styled(ReachLink)`
