@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from '@reach/router';
 import { format } from 'date-fns';
-import { pick } from 'lodash-es';
+import { pick, shuffle, take } from 'lodash-es';
 import Category from 'components/Category';
 import Completion from 'components/Completion';
 import Layout from 'components/Layout';
@@ -12,7 +12,7 @@ import ProjectStatus from 'components/ProjectStatus';
 import { useProjects } from 'components/Projects';
 import RankBanner from 'components/RankBanner';
 import Rating from 'components/Rating';
-import { H1, H2, H4, H6, Text } from 'components/Typography';
+import { H1, H2, H4, H5, H6, Text, UnstyledLink } from 'components/Typography';
 import { DATE_FORMAT } from 'utils/constants';
 import { getProject } from 'utils/projectsApi';
 import * as S from './ProjectDetail.styles';
@@ -23,6 +23,7 @@ function ProjectDetailPage() {
   const { getProjects, hasProjects } = useProjects();
   const [rawProject, setRawProject] = useState(null);
   const [project, setProject] = useState(null);
+  const [relatedProjects, setRelatedProjects] = useState([]);
   const [pRep, setPRep] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -44,6 +45,16 @@ function ProjectDetailPage() {
         ...rawProject,
         ...pick(listProject, ['category', 'progress', 'status', 'rating', 'rating_count']),
       });
+
+      const relatedProjects = take(
+        shuffle(
+          getProjects().filter(
+            project => project.category === listProject.category && project.id !== listProject.id
+          )
+        ),
+        3
+      );
+      setRelatedProjects(relatedProjects);
 
       setIsLoading(false);
     }
@@ -125,7 +136,22 @@ function ProjectDetailPage() {
               </S.Card>
 
               <S.Card>
-                <H2>More development projects</H2>
+                <H2>More {project.category.toLowerCase()} projects</H2>
+                {relatedProjects.map(project => (
+                  <S.RelatedProject key={project.id}>
+                    <H5>
+                      <UnstyledLink to={`/projects/${project.id}`}>{project.name}</UnstyledLink>
+                    </H5>
+                    <Rating
+                      overall={project.rating}
+                      total={project.rating_count}
+                      style={{ marginTop: '1rem' }}
+                    />
+                    <Text small style={{ marginTop: '1.5rem' }}>
+                      {project.description}
+                    </Text>
+                  </S.RelatedProject>
+                ))}
               </S.Card>
             </S.Sidebar>
           </S.Container>

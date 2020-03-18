@@ -80,6 +80,12 @@ export const PRepLink = styled(Link)`
   margin-top: 3rem;
 `;
 
+export const RelatedProject = styled.div`
+  border-top: 1px solid ${palette.gray.border};
+  padding-top: 2rem;
+  margin-top: 2rem;
+`;
+
 export const ProjectDescription = styled.div`
   font-weight: 400;
   font-size: 1.5rem;
