@@ -11,6 +11,7 @@ import ProjectSearch from 'components/ProjectSearch';
 import { useProjects } from 'components/Projects';
 import Rating from 'components/Rating';
 import SearchHeader from 'components/SearchHeader';
+import Stars from 'components/Stars';
 import { H2, Text, UnstyledLink } from 'components/Typography';
 import { DATE_FORMAT } from 'utils/constants';
 import { palette } from 'utils/designTokens';
@@ -60,6 +61,8 @@ function ProjectList({ title, filtersToUse, additionalFilter }) {
 
       if (filters.categories.length && !filters.categories.includes(project.category)) return false;
 
+      if (filters.rating && String(filters.rating) > project.rating) return false;
+
       if (filters.status && filters.status !== project.status) return false;
 
       if (filters.recent) {
@@ -92,6 +95,16 @@ function ProjectList({ title, filtersToUse, additionalFilter }) {
           rm: () => filtersDispatch({ type: FILTER_ACTIONS.REMOVE_CATEGORY, payload: category }),
         }))
       );
+    }
+    if (filters.rating) {
+      tags.push({
+        label: (
+          <Stars amount={parseInt(filters.rating)} style={{ display: 'flex' }}>
+            & up
+          </Stars>
+        ),
+        rm: () => filtersDispatch({ type: FILTER_ACTIONS.SET_RATING }),
+      });
     }
     if (filters.recent) {
       tags.push({

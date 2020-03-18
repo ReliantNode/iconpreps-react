@@ -200,7 +200,7 @@ function ProjectSearch({ filters, dispatch, filtersToUse = useAllFilters }) {
           <RadioGroup
             options={[
               {
-                value: 'AtLeast4',
+                value: '4',
                 children: (
                   <>
                     <StarsLabel amount={4}>& up</StarsLabel>
@@ -211,7 +211,7 @@ function ProjectSearch({ filters, dispatch, filtersToUse = useAllFilters }) {
                 ),
               },
               {
-                value: 'AtLeast3',
+                value: '3',
                 children: (
                   <>
                     <StarsLabel amount={3}>& up</StarsLabel>
@@ -222,7 +222,7 @@ function ProjectSearch({ filters, dispatch, filtersToUse = useAllFilters }) {
                 ),
               },
               {
-                value: 'AtLeast2',
+                value: '2',
                 children: (
                   <>
                     <StarsLabel amount={2}>& up</StarsLabel>
