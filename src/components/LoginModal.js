@@ -169,7 +169,6 @@ function LoginModal({ isOpen, onClose, ...props }) {
 
     function relayEventHandler(event) {
       const { type, payload } = event.detail;
-      console.log('HERE?', { type, payload });
       switch (type) {
         case 'RESPONSE_ADDRESS':
           return handleResponseAddress(payload);
