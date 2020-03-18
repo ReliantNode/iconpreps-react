@@ -6,8 +6,9 @@ import { animated, useTransition } from 'react-spring';
 import styled from 'styled-components';
 import iconLogo from 'assets/logo-icon.svg';
 import closeIcon from 'assets/icons/close.svg';
+import { useAuth } from 'components/Auth';
 import { H1, H2, Text } from 'components/Typography';
-import { getAuthToken, login } from 'utils/authApi';
+import { getAuthToken } from 'utils/authApi';
 import { ICONEX_RELAY } from 'utils/constants';
 import { palette } from 'utils/designTokens';
 import { wait } from 'utils/wait';
@@ -86,6 +87,8 @@ const LoginButton = styled.button`
 `;
 
 function LoginModal({ isOpen, onClose, ...props }) {
+  const { login } = useAuth();
+
   const AnimatedDialogOverlay = animated(StyledDialogOverlay);
   const AnimatedDialogContent = animated(StyledDialogContent);
   const transitions = useTransition(isOpen, null, {
@@ -126,15 +129,14 @@ function LoginModal({ isOpen, onClose, ...props }) {
     }
 
     async function handleResponseSigning(signature) {
-      const auth = await login(userAddress, signature);
-      // TODO: handle updating auth state?
-      console.log('AUTH?', auth);
+      await login(userAddress, signature);
       onClose();
 
       window.removeEventListener(ICONEX_RELAY.RESPONSE, relayEventHandler);
     }
 
     function handleCancelSigning() {
+      // TODO: show message if user cancelled?
       window.removeEventListener(ICONEX_RELAY.RESPONSE, relayEventHandler);
     }
 

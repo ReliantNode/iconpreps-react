@@ -1286,6 +1286,19 @@
     "@xstate/fsm" "^1.3.0"
     tslib "^1.10.0"
 
+"@reach/menu-button@^0.9.0":
+  version "0.9.0"
+  resolved "https://registry.yarnpkg.com/@reach/menu-button/-/menu-button-0.9.0.tgz#c79b5a2bd66c038c0f35ecd1d8feed73bb1d23b7"
+  integrity sha512-O82C4z8Ki8BTubIJNTtPlD578mIXP5tptqXT4u+1vS9QLKU6mIse03FWjLtbRiGAZSeukKKwIIc0N40OqUqgDQ==
+  dependencies:
+    "@reach/auto-id" "^0.9.0"
+    "@reach/descendants" "^0.9.0"
+    "@reach/popover" "^0.9.0"
+    "@reach/utils" "^0.9.0"
+    prop-types "^15.7.2"
+    tslib "^1.10.0"
+    warning "^4.0.3"
+
 "@reach/observe-rect@^1.1.0":
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/@reach/observe-rect/-/observe-rect-1.1.0.tgz#4e967a93852b6004c3895d9ed8d4e5b41895afde"

@@ -26,7 +26,7 @@ export async function login(address, signature) {
     },
     credentials: 'include',
     body: JSON.stringify({
-      userName: address,
+      username: address,
       signature,
     }),
   });

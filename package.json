@@ -17,6 +17,8 @@
     "@reach/checkbox": "^0.9.0",
     "@reach/dialog": "^0.9.0",
     "@reach/listbox": "^0.9.0",
+    "@reach/menu-button": "^0.9.0",
+    "@reach/popover": "^0.9.0",
     "@reach/router": "^1.3.3",
     "date-fns": "^2.10.0",
     "lodash-es": "^4.17.15",

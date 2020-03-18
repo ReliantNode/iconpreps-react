@@ -1,4 +1,7 @@
 import React from 'react';
+import { Menu, MenuButton, MenuItem, MenuItems, MenuPopover } from '@reach/menu-button';
+import '@reach/menu-button/styles.css';
+import { positionMatchWidth } from '@reach/popover';
 import { Link as ReachLink } from '@reach/router';
 import styled from 'styled-components';
 import iconLogo from 'assets/logo-icon.svg';
@@ -6,6 +9,7 @@ import downArrowIcon from 'assets/icons/down-arrow-white.svg';
 import { useAuth } from 'components/Auth';
 import { Text } from 'components/Typography';
 import { palette } from 'utils/designTokens';
+import { formatAddress } from 'utils/formatAddress';
 
 const Container = styled.div`
   display: flex;
@@ -59,9 +63,36 @@ const Button = styled.button`
   cursor: pointer;
 `;
 
-const AddressContainer = styled.div`
+const DropdownButton = styled(MenuButton)`
   display: flex;
   align-items: center;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  outline: none; /* TODO: bad! */
+`;
+
+const DropdownList = styled(MenuItems)`
+  position: absolute;
+  right: 0;
+  width: 14rem;
+  background: ${palette.white};
+  border: 1px solid ${palette.gray.border};
+  border-radius: 0.3rem;
+  padding: 0.5rem 0;
+`;
+
+const DropdownItem = styled(MenuItem)`
+  font-weight: 500;
+  font-size: 1.3rem;
+  line-height: 1.8rem;
+  padding: 0.7rem 1.5rem;
+
+  &[data-selected] {
+    color: ${palette.black};
+    background: ${palette.gray.border};
+  }
 `;
 
 const Separator = styled.div`
@@ -84,14 +115,11 @@ function NavLink(props) {
 }
 
 function Navigation() {
-  const { isAuthenticated, showLoginModal } = useAuth();
+  const { authUser, isAuthenticated, logout, showLoginModal } = useAuth();
 
   function handleShowHelp() {
     console.log('Help and FAQs!');
   }
-
-  // TODO: should use Auth user address
-  const tempAddress = 'hxc28387c8801185231882022fe90d0b6cc8d6ac7c';
 
   return (
     <Container>
@@ -104,13 +132,20 @@ function Navigation() {
       </ButtonLink>
       <Separator />
       {isAuthenticated ? (
-        <AddressContainer>
-          <img src={iconLogo} alt="ICON logo" style={{ width: '2.2rem' }} />
-          <Text heavy style={{ color: palette.white, margin: '0 0.9rem 0 0.7rem' }}>
-            {tempAddress.substr(0, 8)}…{tempAddress.substr(-4)}
-          </Text>
-          <img src={downArrowIcon} alt="Down arrow" style={{ width: '0.9rem' }} />
-        </AddressContainer>
+        <Menu>
+          <DropdownButton>
+            <img src={iconLogo} alt="ICON logo" style={{ width: '2.2rem' }} />
+            <Text heavy style={{ color: palette.white, margin: '0 0.9rem 0 0.7rem' }}>
+              {formatAddress(authUser.username)}
+            </Text>
+            <img src={downArrowIcon} alt="Down arrow" style={{ width: '0.9rem' }} />
+          </DropdownButton>
+          <MenuPopover position={positionMatchWidth}>
+            <DropdownList>
+              <DropdownItem onSelect={logout}>Sign out</DropdownItem>
+            </DropdownList>
+          </MenuPopover>
+        </Menu>
       ) : (
         <Button type="button" onClick={showLoginModal}>
           Sign in

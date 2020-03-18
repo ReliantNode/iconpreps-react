@@ -1,11 +1,13 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import LoginModal from 'components/LoginModal';
-import { getAuthUser } from 'utils/authApi';
+import * as authApi from 'utils/authApi';
 
 const INITIAL_STATE = {
   authUser: null,
   isAuthenticated: false,
+  login: null,
+  logout: null,
   showLoginModal: null,
 };
 
@@ -21,10 +23,10 @@ function Auth({ children }) {
   const [isLoggingIn, setIsLoggingIn] = useState(false);
 
   useEffect(() => {
-    getAuthUser().then(me => {
-      if (me) {
+    authApi.getAuthUser().then(authUser => {
+      if (authUser) {
+        setAuthUser(authUser);
         setIsAuthenticated(true);
-        setAuthUser(me);
       }
     });
   }, []);
@@ -33,8 +35,21 @@ function Auth({ children }) {
     setIsLoggingIn(true);
   }
 
+  async function login(address, signature) {
+    await authApi.login(address, signature);
+    const authUser = await authApi.getAuthUser();
+    setAuthUser(authUser);
+    setIsAuthenticated(true);
+  }
+
+  async function logout() {
+    await authApi.logout();
+    setIsAuthenticated(false);
+    setAuthUser(null);
+  }
+
   return (
-    <AuthContext.Provider value={{ authUser, isAuthenticated, showLoginModal }}>
+    <AuthContext.Provider value={{ authUser, isAuthenticated, login, logout, showLoginModal }}>
       {children}
       <LoginModal isOpen={isLoggingIn} onClose={() => setIsLoggingIn(false)} />
     </AuthContext.Provider>
