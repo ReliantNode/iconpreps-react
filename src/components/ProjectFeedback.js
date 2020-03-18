@@ -18,7 +18,12 @@ function ProjectFeedback({ project, ...props }) {
   const [error, setError] = useState('');
   const [isWorking, setIsWorking] = useState(false);
 
-  useEffect(() => void loadFeedback(project.id), [project.id]);
+  useEffect(() => {
+    loadFeedback(project.id);
+    setRating(0);
+    setComment('');
+    setError('');
+  }, [project.id]);
 
   async function loadFeedback(projectId) {
     const feedback = await getFeedback(projectId);
