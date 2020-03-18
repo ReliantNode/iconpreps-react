@@ -104,12 +104,26 @@ function ProjectDetailPage() {
 
               <S.Card>
                 <H2 style={{ marginBottom: '2rem' }}>Description</H2>
-                <S.ProjectDescription dangerouslySetInnerHTML={{ __html: project.details }} />
+                <S.EmbeddedHTML dangerouslySetInnerHTML={{ __html: project.details }} />
               </S.Card>
 
-              <S.Card>
-                <H2>Updates</H2>
-              </S.Card>
+              {(project.updates || project.final_update) && (
+                <S.Card>
+                  <H2 style={{ marginBottom: '2rem' }}>Updates</H2>
+                  {project.updates && (
+                    <S.ProjectUpdate>
+                      <H4>Update</H4>
+                      <S.EmbeddedHTML dangerouslySetInnerHTML={{ __html: project.updates }} />
+                    </S.ProjectUpdate>
+                  )}
+                  {project.final_update && (
+                    <S.ProjectUpdate>
+                      <H4>Final update</H4>
+                      <S.EmbeddedHTML dangerouslySetInnerHTML={{ __html: project.final_update }} />
+                    </S.ProjectUpdate>
+                  )}
+                </S.Card>
+              )}
 
               <ProjectFeedback project={project} style={{ marginTop: '5rem' }} />
             </S.Main>

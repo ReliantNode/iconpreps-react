@@ -86,7 +86,40 @@ export const RelatedProject = styled.div`
   margin-top: 2rem;
 `;
 
-export const ProjectDescription = styled.div`
+export const ProjectUpdate = styled.div`
+  position: relative;
+  padding-left: 3rem;
+  padding-bottom: 3rem;
+  &:last-child {
+    padding-bottom: 0;
+  }
+
+  &:before {
+    content: '';
+    position: absolute;
+    top: 0.4rem;
+    left: 0;
+    width: 1.2rem;
+    height: 1.2rem;
+    background: ${palette.white};
+    border: 2px solid ${palette.brand.primary};
+    border-radius: 100%;
+    z-index: 2;
+  }
+
+  &:after {
+    content: '';
+    position: absolute;
+    top: 2rem;
+    bottom: 0;
+    left: 0.5rem;
+    width: 2px;
+    background: ${palette.gray.bar};
+    z-index: 1;
+  }
+`;
+
+export const EmbeddedHTML = styled.div`
   font-weight: 400;
   font-size: 1.5rem;
   line-height: 2.2rem;
