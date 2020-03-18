@@ -16,11 +16,13 @@ function PRepDetailPage() {
   const { pRepAddress } = useParams();
   const { getPReps, hasPReps } = usePReps();
   const [pRep, setPRep] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     if (hasPReps) {
       const pRep = getPReps().find(pRep => pRep.address === pRepAddress);
       setPRep(pRep);
+      setIsLoading(false);
     }
   }, [hasPReps, pRepAddress]); // eslint-disable-line
 
@@ -100,7 +102,7 @@ function PRepDetailPage() {
         </>
       )}
 
-      {hasPReps && !pRep && (
+      {!(isLoading || pRep) && (
         <>
           <H1>P-Rep not found</H1>
           <Text style={{ marginTop: '2rem' }}>The P-Rep '{pRepAddress}' doesn't exist.</Text>

@@ -18,8 +18,11 @@ function ProjectDetailPage() {
   const [rawProject, setRawProject] = useState(null);
   const [project, setProject] = useState(null);
   const [pRep, setPRep] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    setIsLoading(true);
+
     getProject(projectId)
       .then(project => setRawProject(project))
       .catch(() => setRawProject(null));
@@ -35,6 +38,8 @@ function ProjectDetailPage() {
         ...rawProject,
         ...pick(listProject, ['category', 'progress', 'status', 'rating', 'rating_count']),
       });
+
+      setIsLoading(false);
     }
   }, [hasPReps, hasProjects, rawProject]); // eslint-disable-line
 
@@ -84,7 +89,7 @@ function ProjectDetailPage() {
         </>
       )}
 
-      {hasPReps && hasProjects && !rawProject && (
+      {!(isLoading || rawProject) && (
         <>
           <H1>Project not found</H1>
           <Text style={{ marginTop: '2rem' }}>The project '{projectId}' doesn't exist.</Text>
