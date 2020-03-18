@@ -13,11 +13,14 @@ const Container = styled.footer`
   align-items: center;
   justify-content: space-between;
   height: 13rem;
-  width: 100%;
-  max-width: ${breakpoints.desktop}px;
-  margin: 0 auto;
+  margin: 0 2rem;
   padding: 3rem 0;
   border-top: 1px solid ${palette.gray.border};
+
+  @media screen and (min-width: ${breakpoints.xl}) {
+    max-width: ${breakpoints.xl};
+    margin: 0 auto;
+  }
 `;
 
 const FooterLeft = styled.div`

@@ -17,10 +17,13 @@ const Container = styled.div`
 
 const Content = styled.main`
   flex: 1;
-  width: 100%;
-  max-width: ${breakpoints.desktop}px;
-  margin: 0 auto;
+  margin: 0 2rem;
   padding: 5rem 0;
+
+  @media screen and (min-width: ${breakpoints.xl}) {
+    max-width: ${breakpoints.xl};
+    margin: 0 auto;
+  }
 `;
 
 function Layout({ children }) {
