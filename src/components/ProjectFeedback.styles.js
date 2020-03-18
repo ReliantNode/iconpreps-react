@@ -5,6 +5,7 @@ import octopusIcon from 'assets/icons/octopus.svg';
 import stingrayIcon from 'assets/icons/stingray.svg';
 import turtleIcon from 'assets/icons/turtle.svg';
 import whaleIcon from 'assets/icons/whale.svg';
+import { USER_LEVELS } from 'utils/constants';
 import { palette } from 'utils/designTokens';
 
 export const Header = styled.div`
@@ -41,6 +42,65 @@ export const FeedbackItem = styled.div`
   margin-top: 2rem;
 `;
 
+function getUserIcon(userLevel) {
+  switch (userLevel) {
+    case USER_LEVELS.WHALE:
+      return whaleIcon;
+    case USER_LEVELS.MARLIN:
+      return marlinIcon;
+    case USER_LEVELS.STINGRAY:
+      return stingrayIcon;
+    case USER_LEVELS.OCTOPUS:
+      return octopusIcon;
+    case USER_LEVELS.TURTLE:
+      return turtleIcon;
+    case USER_LEVELS.GOLDFISH:
+      return goldfishIcon;
+    case USER_LEVELS.NON_ICONIST:
+      return null;
+    default:
+      throw new Error(`Invalid user level ${userLevel}`);
+  }
+}
+
+function getUserColor(userLevel) {
+  switch (userLevel) {
+    case USER_LEVELS.WHALE:
+      return palette.users.whale;
+    case USER_LEVELS.MARLIN:
+      return palette.users.marlin;
+    case USER_LEVELS.STINGRAY:
+      return palette.users.stingray;
+    case USER_LEVELS.OCTOPUS:
+      return palette.users.octopus;
+    case USER_LEVELS.TURTLE:
+      return palette.users.turtle;
+    case USER_LEVELS.GOLDFISH:
+      return palette.users.goldfish;
+    case USER_LEVELS.NON_ICONIST:
+      return palette.gray.dark;
+    default:
+      throw new Error(`Invalid user level ${userLevel}`);
+  }
+}
+
+export const UserIcon = styled.div`
+  width: 6rem;
+  height: 6rem;
+  background: ${({ userLevel }) =>
+    `no-repeat center/2.8rem url(${getUserIcon(userLevel)}) ${getUserColor(userLevel)}`};
+  border-radius: 100%;
+  margin-top: 1rem;
+`;
+
+export const Separator = styled.hr`
+  width: 100%;
+  height: 1px;
+  background: ${palette.gray.border};
+  border: none;
+  margin: 4rem 0;
+`;
+
 export const Feedback = styled.div`
   flex: 1;
   background: ${palette.white};
@@ -61,47 +121,47 @@ export const Comment = styled.div`
   /* TODO: handle styling HTML elements? */
 `;
 
-function getUserIcon(userLevel) {
-  switch (userLevel) {
-    case 'Whale':
-      return whaleIcon;
-    case 'Marlin':
-      return marlinIcon;
-    case 'Stingray':
-      return stingrayIcon;
-    case 'Octopus':
-      return octopusIcon;
-    case 'Turtle':
-      return turtleIcon;
-    case 'Goldfish':
-    default:
-      return goldfishIcon;
-  }
-}
+export const CommentInput = styled.textarea`
+  width: 100%;
+  height: 10rem;
+  min-height: 5rem;
+  font-weight: 400;
+  font-size: 1.5rem;
+  line-height: 2.2rem;
+  color: ${palette.black};
+  background: ${palette.background};
+  border: 1px solid ${palette.gray.border};
+  border-radius: 0.3rem;
+  resize: vertical;
+  padding: 1rem;
+  margin-top: 2rem;
+`;
 
-function getUserColor(userLevel) {
-  switch (userLevel) {
-    case 'Whale':
-      return palette.users.whale;
-    case 'Marlin':
-      return palette.users.marlin;
-    case 'Stingray':
-      return palette.users.stingray;
-    case 'Octopus':
-      return palette.users.octopus;
-    case 'Turtle':
-      return palette.users.turtle;
-    case 'Goldfish':
-    default:
-      return palette.users.goldfish;
-  }
-}
+export const FeedbackActions = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 2rem;
+`;
 
-export const UserIcon = styled.div`
-  width: 6rem;
-  height: 6rem;
-  background: ${({ userLevel }) =>
-    `no-repeat center/2.8rem url(${getUserIcon(userLevel)}) ${getUserColor(userLevel)}`};
-  border-radius: 100%;
-  margin-top: 1rem;
+export const FeedbackButton = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 23rem;
+  height: 5rem;
+  font-weight: 600;
+  font-size: 1.6rem;
+  line-height: 2.2rem;
+  color: ${palette.white};
+  background: ${palette.brand.primary};
+  border: none;
+  border-radius: 0.4rem;
+  padding: 0;
+  margin-left: 2rem;
+  cursor: pointer;
+
+  &[disabled] {
+    background: ${palette.brand.dark};
+  }
 `;

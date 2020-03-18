@@ -1,18 +1,75 @@
 import React, { useEffect, useState } from 'react';
+import { format } from 'date-fns';
 import PropTypes from 'prop-types';
 import { useAuth } from 'components/Auth';
 import Rating from 'components/Rating';
+import SetRating from 'components/SetRating';
 import { H2, Text } from 'components/Typography';
-import { getFeedback } from 'utils/feedbackApi';
+import { DATE_FORMAT, USER_LEVELS } from 'utils/constants';
+import { palette } from 'utils/designTokens';
+import { addFeedback, getFeedback } from 'utils/feedbackApi';
+import { formatAddress } from 'utils/formatAddress';
 import * as S from './ProjectFeedback.styles';
 
 function ProjectFeedback({ project, ...props }) {
-  const { isAuthenticated, showLoginModal } = useAuth();
+  const { authUser, isAuthenticated, showLoginModal } = useAuth();
   const [feedback, setFeedback] = useState([]);
+  const [rating, setRating] = useState(0);
+  const [comment, setComment] = useState('');
+  const [error, setError] = useState('');
+  const [isWorking, setIsWorking] = useState(false);
 
-  useEffect(() => {
-    getFeedback(project.id).then(feedback => setFeedback(feedback));
-  }, [project.id]);
+  useEffect(() => void loadFeedback(project.id), [project.id]);
+
+  async function loadFeedback(projectId) {
+    const feedback = await getFeedback(projectId);
+    setFeedback(feedback);
+  }
+
+  function handleCommentChange(event) {
+    setComment(event.target.value);
+  }
+
+  async function handleLeaveFeedback(event) {
+    event.preventDefault();
+    setIsWorking(true);
+
+    const errorMessage = getValidationError();
+    if (errorMessage) {
+      setError(errorMessage);
+      setIsWorking(false);
+      return;
+    } else {
+      setError('');
+    }
+
+    try {
+      const result = await addFeedback(project.id, rating, comment);
+      console.log({ result });
+      setRating(0);
+      setComment('');
+      loadFeedback(project.id);
+    } catch (error) {
+      console.error(`Failed adding feedback. ${error.message}`);
+      setError('Failed adding feedback.');
+    }
+
+    setIsWorking(false);
+  }
+
+  function getValidationError() {
+    if (authUser.level === USER_LEVELS.NON_ICONIST) {
+      return 'You must delegate more ICX to leave feedback.';
+    }
+    if (!rating) {
+      return 'You must choose a rating.';
+    }
+    if (!comment) {
+      return 'You must enter a feedback comment.';
+    }
+
+    return false;
+  }
 
   return (
     <>
@@ -24,6 +81,44 @@ function ProjectFeedback({ project, ...props }) {
           </S.LoginButton>
         )}
       </S.Header>
+
+      {isAuthenticated && (
+        <>
+          <S.FeedbackItem style={{ marginTop: '4rem' }}>
+            <S.UserIcon userLevel={authUser.level} />
+            <S.Feedback>
+              <S.FeedbackHeader>
+                <Text heavy>{authUser.level}</Text>
+                <Text small muted style={{ textDecoration: 'underline', marginLeft: '0.5rem' }}>
+                  ({formatAddress(authUser.username)})
+                </Text>
+                <Text small muted style={{ marginLeft: '0.5rem' }}>
+                  on {format(new Date(), DATE_FORMAT)}
+                </Text>
+              </S.FeedbackHeader>
+              <SetRating
+                value={rating}
+                onChange={rating => setRating(rating)}
+                style={{ marginTop: '1.4rem' }}
+              />
+              <S.CommentInput
+                value={comment}
+                onChange={handleCommentChange}
+                placeholder="What do you think of this project?"
+              />
+              <S.FeedbackActions>
+                <Text small style={{ color: palette.red }}>
+                  {error}
+                </Text>
+                <S.FeedbackButton type="button" onClick={handleLeaveFeedback} disabled={isWorking}>
+                  Leav{isWorking ? 'ing' : 'e'} feedback
+                </S.FeedbackButton>
+              </S.FeedbackActions>
+            </S.Feedback>
+          </S.FeedbackItem>
+          <S.Separator />
+        </>
+      )}
 
       <S.AverageRating>
         <Text style={{ fontWeight: 500 }}>Average rating</Text>
@@ -38,15 +133,15 @@ function ProjectFeedback({ project, ...props }) {
       <S.FeedbackList>
         {feedback.map(feedback => (
           <S.FeedbackItem key={feedback.id}>
-            <S.UserIcon userLevel={feedback.user_level} />
+            <S.UserIcon userLevel={feedback.level} />
             <S.Feedback>
               <S.FeedbackHeader>
-                <Text heavy>{feedback.user_level}</Text>
+                <Text heavy>{feedback.level}</Text>
                 <Text small muted style={{ textDecoration: 'underline', marginLeft: '0.5rem' }}>
-                  ({feedback.username})
+                  ({formatAddress(feedback.username)})
                 </Text>
                 <Text small muted style={{ marginLeft: '0.5rem' }}>
-                  on Mar 5, 2020
+                  on {format(new Date(feedback.updated_date), DATE_FORMAT)}
                 </Text>
               </S.FeedbackHeader>
               <Rating overall={feedback.rating} style={{ marginTop: '1.4rem' }} />

@@ -7,9 +7,11 @@ export const palette = {
   green: '#4fb83b',
   green2: '#20d261',
   beige: '#ccac93',
+  red: '#e33e18',
   brand: {
     background: '#e1f6f9',
     primary: '#00b8cc',
+    dark: '#34a6b3',
   },
   gray: {
     bar: '#cbced4',
