@@ -19,6 +19,7 @@ const Inner = styled.div`
   margin: 0 2rem;
 
   @media screen and (min-width: ${breakpoints.xl}) {
+    width: 100%;
     max-width: ${breakpoints.xl};
     margin: 0 auto;
   }

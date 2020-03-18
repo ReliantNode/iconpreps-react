@@ -21,6 +21,7 @@ const Content = styled.main`
   padding: 5rem 0;
 
   @media screen and (min-width: ${breakpoints.xl}) {
+    width: 100%;
     max-width: ${breakpoints.xl};
     margin: 0 auto;
   }
