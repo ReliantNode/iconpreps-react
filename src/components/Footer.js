@@ -10,27 +10,48 @@ import { breakpoints, palette } from 'utils/designTokens';
 
 const Container = styled.footer`
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  height: 13rem;
+  flex-direction: column;
   margin: 0 2rem;
-  padding: 3rem 0;
   border-top: 1px solid ${palette.gray.border};
 
+  @media screen and (min-width: ${breakpoints.md}) {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    height: 13rem;
+    padding: 3rem 0;
+  }
+
   @media screen and (min-width: ${breakpoints.xl}) {
+    width: 100%;
     max-width: ${breakpoints.xl};
     margin: 0 auto;
   }
 `;
 
-const FooterLeft = styled.div`
+const FooterFirst = styled.div`
   display: flex;
+  justify-content: center;
+  padding: 3rem 2rem;
+
+  @media screen and (min-width: ${breakpoints.md}) {
+    justify-content: flex-start;
+    padding: 0;
+  }
 `;
 
-const FooterRight = styled.div`
+const FooterSecond = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
+  align-items: center;
+  border-top: 1px solid ${palette.gray.border};
+  padding: 3rem 2rem;
+
+  @media screen and (min-width: ${breakpoints.md}) {
+    align-items: flex-end;
+    border: none;
+    padding: 0;
+  }
 `;
 
 const Logo = styled.img`
@@ -45,8 +66,21 @@ const PRepDetails = styled.div`
   margin-left: 2rem;
 `;
 
+const Slogan = styled(Text)`
+  @media screen and (min-width: ${breakpoints.md}) {
+    order: 2;
+    margin-top: 1.5rem;
+  }
+`;
+
 const PRepLinks = styled.div`
   display: flex;
+  margin-top: 2rem;
+
+  @media screen and (min-width: ${breakpoints.md}) {
+    order: 1;
+    margin: 0;
+  }
 `;
 
 const PRepLink = styled.a`
@@ -68,7 +102,7 @@ const LinkIcon = styled.img`
 function Header() {
   return (
     <Container>
-      <FooterLeft>
+      <FooterFirst>
         <Logo src={logoReliantNode} alt="ReliantNode logo" />
         <PRepDetails>
           <Text>A ReliantNode P-Rep project.</Text>
@@ -78,8 +112,11 @@ function Header() {
             </A>
           </Text>
         </PRepDetails>
-      </FooterLeft>
-      <FooterRight>
+      </FooterFirst>
+      <FooterSecond>
+        <Slogan>
+          <i>Helping to build the future of ICON.</i>
+        </Slogan>
         <PRepLinks>
           <PRepLink
             href="https://twitter.com/ReliantNode"
@@ -95,10 +132,7 @@ function Header() {
             <LinkIcon src={githubIcon} alt="GitHub icon" />
           </PRepLink>
         </PRepLinks>
-        <Text style={{ marginTop: '1.5rem' }}>
-          <i>Helping to build the future of ICON.</i>
-        </Text>
-      </FooterRight>
+      </FooterSecond>
     </Container>
   );
 }
