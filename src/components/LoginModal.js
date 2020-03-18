@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { DialogContent, DialogOverlay } from '@reach/dialog';
 import '@reach/dialog/styles.css';
 import PropTypes from 'prop-types';
@@ -84,10 +84,44 @@ const LoginButton = styled.button`
   padding: 0;
   margin-top: 3rem;
   cursor: pointer;
+
+  &[disabled] {
+    background: ${palette.gray.dark};
+  }
 `;
 
 function LoginModal({ isOpen, onClose, ...props }) {
   const { login } = useAuth();
+  const [hasExtension, setHasExtension] = useState(false);
+  const [hasAccount, setHasAccount] = useState(false);
+  const [isChecking, setIsChecking] = useState(true);
+
+  useEffect(() => {
+    setIsChecking(true);
+    window.addEventListener(ICONEX_RELAY.RESPONSE, iconCheckHandler, { once: true });
+
+    function iconCheckHandler(event) {
+      const { type, payload } = event.detail;
+      switch (type) {
+        case 'RESPONSE_HAS_ACCOUNT':
+          setHasExtension(true);
+          setHasAccount(payload.hasAccount);
+          setIsChecking(false);
+          return;
+        default:
+          console.warn(`No handler setup for event ${type}`);
+      }
+    }
+
+    setTimeout(() => {
+      setTimeout(() => setIsChecking(false), 2000);
+      window.dispatchEvent(
+        new CustomEvent(ICONEX_RELAY.REQUEST, {
+          detail: { type: 'REQUEST_HAS_ACCOUNT' },
+        })
+      );
+    }, 1000); // need to delay sending REQUEST_HAS_ACCOUNT?
+  }, []); // eslint-disable-line
 
   const AnimatedDialogOverlay = animated(StyledDialogOverlay);
   const AnimatedDialogContent = animated(StyledDialogContent);
@@ -180,7 +214,11 @@ function LoginModal({ isOpen, onClose, ...props }) {
                 We’ll then associate your feedback to a wallet address. By default, your name will
                 remain anonymous.
               </Text>
-              <LoginButton type="button" onClick={handleLogin}>
+              <LoginButton
+                type="button"
+                onClick={handleLogin}
+                disabled={isChecking || !hasExtension || !hasAccount}
+              >
                 <img
                   src={iconLogo}
                   alt="ICON logo"
@@ -189,8 +227,25 @@ function LoginModal({ isOpen, onClose, ...props }) {
                 <span>Login with ICON</span>
                 <Text heavy style={{ fontSize: '1.6rem', color: palette.white }}></Text>
               </LoginButton>
-              <Text small muted style={{ marginTop: '2rem' }}>
-                You must have staked ICX to leave feedback.
+              <Text
+                small
+                muted
+                error={!isChecking && (!hasExtension || !hasAccount)}
+                style={{ marginTop: '2rem' }}
+              >
+                {isChecking ? (
+                  <>Checking for ICONex extension...</>
+                ) : !hasExtension ? (
+                  <>
+                    You need to be using an ICON-supported browser
+                    <br />
+                    (eg. <b>Chrome</b> with <b>ICONex extension</b> or the <b>MyIconWallet</b> app)
+                  </>
+                ) : !hasAccount ? (
+                  <>You need to add an ICON account to your ICON-supported browser</>
+                ) : (
+                  <>You must have staked ICX to leave feedback.</>
+                )}
               </Text>
             </Main>
           </AnimatedDialogContent>

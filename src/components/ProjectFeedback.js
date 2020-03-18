@@ -6,7 +6,6 @@ import Rating from 'components/Rating';
 import SetRating from 'components/SetRating';
 import { H2, Text } from 'components/Typography';
 import { DATE_FORMAT, USER_LEVELS } from 'utils/constants';
-import { palette } from 'utils/designTokens';
 import { addFeedback, getFeedback } from 'utils/feedbackApi';
 import { formatAddress } from 'utils/formatAddress';
 import * as S from './ProjectFeedback.styles';
@@ -107,7 +106,7 @@ function ProjectFeedback({ project, ...props }) {
                 placeholder="What do you think of this project?"
               />
               <S.FeedbackActions>
-                <Text small style={{ color: palette.red }}>
+                <Text small error>
                   {error}
                 </Text>
                 <S.FeedbackButton type="button" onClick={handleLeaveFeedback} disabled={isWorking}>
