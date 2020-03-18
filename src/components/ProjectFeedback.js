@@ -6,13 +6,13 @@ import { H2, Text } from 'components/Typography';
 import { getFeedback } from 'utils/feedbackApi';
 import * as S from './ProjectFeedback.styles';
 
-function ProjectFeedback({ projectId, averageRating, ...props }) {
+function ProjectFeedback({ project, ...props }) {
   const { isAuthenticated, showLoginModal } = useAuth();
   const [feedback, setFeedback] = useState([]);
 
   useEffect(() => {
-    getFeedback(projectId).then(feedback => setFeedback(feedback));
-  }, [projectId]);
+    getFeedback(project.id).then(feedback => setFeedback(feedback));
+  }, [project.id]);
 
   return (
     <>
@@ -28,8 +28,8 @@ function ProjectFeedback({ projectId, averageRating, ...props }) {
       <S.AverageRating>
         <Text style={{ fontWeight: 500 }}>Average rating</Text>
         <Rating
-          overall={averageRating.rating}
-          total={averageRating.total_votes}
+          overall={project.rating}
+          total={project.rating_count}
           style={{ marginLeft: '1.5rem' }}
           terse
         />
@@ -60,10 +60,10 @@ function ProjectFeedback({ projectId, averageRating, ...props }) {
 }
 
 ProjectFeedback.propTypes = {
-  projectId: PropTypes.number.isRequired,
-  averageRating: PropTypes.shape({
+  project: PropTypes.shape({
+    id: PropTypes.number.isRequired,
     rating: PropTypes.number.isRequired,
-    total_votes: PropTypes.number.isRequired,
+    rating_count: PropTypes.number.isRequired,
   }).isRequired,
 };
 

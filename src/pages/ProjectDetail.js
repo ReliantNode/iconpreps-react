@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from '@reach/router';
+import { pick } from 'lodash-es';
 import Category from 'components/Category';
 import Layout from 'components/Layout';
 import { usePReps } from 'components/PReps';
@@ -13,10 +14,9 @@ import * as S from './ProjectDetail.styles';
 function ProjectDetailPage() {
   const { projectId } = useParams();
   const { getPReps, hasPReps } = usePReps();
-  const { getProjects, getRatings, hasProjects } = useProjects();
+  const { getProjects, hasProjects } = useProjects();
   const [rawProject, setRawProject] = useState(null);
   const [project, setProject] = useState(null);
-  const [rating, setRating] = useState(null);
   const [pRep, setPRep] = useState(null);
 
   useEffect(() => {
@@ -33,14 +33,8 @@ function ProjectDetailPage() {
       const listProject = getProjects().find(project => String(project.id) === projectId);
       setProject({
         ...rawProject,
-        category: listProject.category,
-        progress: listProject.progress,
-        status: listProject.status,
+        ...pick(listProject, ['category', 'progress', 'status', 'rating', 'rating_count']),
       });
-
-      let rating = getRatings().find(rating => rating.project_id === listProject.id);
-      if (!rating) rating = { rating: 0, total_votes: 0 };
-      setRating(rating);
     }
   }, [hasPReps, hasProjects, rawProject]); // eslint-disable-line
 
@@ -53,8 +47,8 @@ function ProjectDetailPage() {
             <Category category={project.category} style={{ marginLeft: '5rem' }} />
           </S.Header>
           <Rating
-            overall={rating.rating}
-            total={rating.total_votes}
+            overall={project.rating}
+            total={project.rating_count}
             style={{ marginTop: '1.5rem' }}
           />
           <Text style={{ marginTop: '2rem' }}>{project.description}</Text>
@@ -74,11 +68,7 @@ function ProjectDetailPage() {
                 <H2>Updates</H2>
               </S.Card>
 
-              <ProjectFeedback
-                projectId={project.id}
-                averageRating={rating}
-                style={{ marginTop: '5rem' }}
-              />
+              <ProjectFeedback project={project} style={{ marginTop: '5rem' }} />
             </S.Main>
 
             <S.Sidebar>
