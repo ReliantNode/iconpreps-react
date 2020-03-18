@@ -12,6 +12,16 @@ export const FILTER_ACTIONS = {
 
 export const PROJECT_ORDERINGS = {
   RANDOM: { value: 'Random', label: 'Random', fn: projects => shuffle(projects) },
+  RATINGS: {
+    value: 'Ratings',
+    label: 'Highest Rating',
+    fn: projects => orderBy(projects, ['rating', 'rating_count'], ['desc', 'desc']),
+  },
+  REVIEWS: {
+    value: 'Reviews',
+    label: 'Most reviews',
+    fn: projects => orderBy(projects, ['rating_count', 'rating'], ['desc', 'desc']),
+  },
   CREATED: {
     value: 'Newest',
     label: 'Newest Project',
