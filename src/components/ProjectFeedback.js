@@ -89,17 +89,22 @@ function ProjectFeedback({ project, ...props }) {
       {isAuthenticated && (
         <>
           <S.FeedbackItem style={{ marginTop: '4rem' }}>
-            <S.UserIcon userLevel={authUser.level} />
             <S.Feedback>
-              <S.FeedbackHeader>
-                <Text heavy>{authUser.level}</Text>
-                <Text small muted style={{ textDecoration: 'underline', marginLeft: '0.5rem' }}>
-                  ({formatAddress(authUser.username)})
-                </Text>
-                <Text small muted style={{ marginLeft: '0.5rem' }}>
-                  on {format(new Date(), DATE_FORMAT)}
-                </Text>
-              </S.FeedbackHeader>
+              <S.LogoAndHeader>
+                <S.UserIcon userLevel={authUser.level} />
+                <S.FeedbackHeader>
+                  <div style={{ display: 'flex', alignItems: 'center' }}>
+                    <Text heavy>{authUser.level}</Text>
+                    <Text small muted style={{ textDecoration: 'underline', marginLeft: '0.5rem' }}>
+                      ({formatAddress(authUser.username)})
+                    </Text>
+                  </div>
+                  <Text small muted className="feedback-date">
+                    <span className="md-show">on </span>
+                    {format(new Date(), DATE_FORMAT)}
+                  </Text>
+                </S.FeedbackHeader>
+              </S.LogoAndHeader>
               <SetRating
                 value={rating}
                 onChange={rating => setRating(rating)}
@@ -111,7 +116,7 @@ function ProjectFeedback({ project, ...props }) {
                 placeholder="What do you think of this project?"
               />
               <S.FeedbackActions>
-                <Text small error>
+                <Text small error className="error-message">
                   {error}
                 </Text>
                 <S.FeedbackButton type="button" onClick={handleLeaveFeedback} disabled={isWorking}>

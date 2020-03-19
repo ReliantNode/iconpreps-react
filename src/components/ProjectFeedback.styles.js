@@ -188,17 +188,22 @@ export const CommentInput = styled.textarea`
 `;
 
 export const FeedbackActions = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
   margin-top: 2rem;
+
+  @media screen and (max-width: ${breakpoints.max.sm}) {
+  }
+
+  @media screen and (min-width: ${breakpoints.min.md}) {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
 `;
 
 export const FeedbackButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 23rem;
   height: 5rem;
   font-weight: 600;
   font-size: 1.6rem;
@@ -208,10 +213,19 @@ export const FeedbackButton = styled.button`
   border: none;
   border-radius: 0.4rem;
   padding: 0;
-  margin-left: 2rem;
   cursor: pointer;
 
   &[disabled] {
     background: ${palette.brand.dark};
+  }
+
+  @media screen and (max-width: ${breakpoints.max.sm}) {
+    width: 100%;
+    margin-top: 2rem;
+  }
+
+  @media screen and (min-width: ${breakpoints.min.md}) {
+    width: 23rem;
+    margin-left: 2rem;
   }
 `;
