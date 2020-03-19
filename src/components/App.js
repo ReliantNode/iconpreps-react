@@ -17,7 +17,7 @@ const GlobalStyle = createGlobalStyle`
 
   body {
     margin: 0;
-    font-family: 'Muli', sans-serif;
+    font-family: 'Avenir Next', 'Muli', sans-serif;
     font-weight: 400;
     font-size: 1.5rem;
     line-height: 2.2rem;
