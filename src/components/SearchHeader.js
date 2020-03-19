@@ -89,15 +89,12 @@ const DropdownOption = styled(ListboxOption)`
 `;
 
 const Tags = styled.div`
-  display: flex;
-  align-items: flex-start;
-  justify-content: flex-start;
   min-height: 4rem;
-  margin-top: 2rem;
+  margin-top: 1rem;
 `;
 
 const Tag = styled.div`
-  display: flex;
+  display: inline-flex;
   align-items: stretch;
   background: ${palette.white};
   border: 1px solid ${palette.gray.border};
@@ -162,7 +159,10 @@ function SearchHeader({
       </Title>
       <Tags>
         {tags.map(({ label, rm }, index) => (
-          <Tag key={label} style={{ marginLeft: index !== 0 ? '1rem' : 0 }}>
+          <Tag
+            key={label}
+            style={{ marginTop: '1rem', marginRight: index !== tags.length - 1 ? '1rem' : 0 }}
+          >
             <TagLabel>{label}</TagLabel>
             <TagButton onClick={rm}>
               <img
