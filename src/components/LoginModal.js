@@ -16,6 +16,7 @@ import { wait } from 'utils/wait';
 const StyledDialogOverlay = styled(DialogOverlay)`
   background: 'rgba(16, 15, 16, 0.6)';
   backdrop-filter: blur(6px);
+  padding: 0 2rem;
 `;
 
 const StyledDialogContent = styled(DialogContent)`
