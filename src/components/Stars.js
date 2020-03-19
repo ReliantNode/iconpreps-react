@@ -21,7 +21,7 @@ function Stars({ amount, children, className }) {
       {new Array(amount).fill().map((_, index) => (
         <Star src={goldStarIcon} alt={'Gold star'} key={index} />
       ))}
-      <div style={{ marginLeft: '0.5rem' }}>{children}</div>
+      <div style={{ marginLeft: '0.5rem', marginTop: '0.2rem' }}>{children}</div>
     </Container>
   );
 }
