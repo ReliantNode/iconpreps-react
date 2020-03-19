@@ -9,7 +9,7 @@ export const Container = styled.div`
 export const Listing = styled.div`
   flex: 1;
 
-  @media screen and (min-width: ${breakpoints.lg}) {
+  @media screen and (min-width: ${breakpoints.min.lg}) {
     margin-left: 3rem;
   }
 `;
@@ -17,7 +17,7 @@ export const Listing = styled.div`
 export const PRepSearchContainer = styled.div`
   display: none;
 
-  @media screen and (min-width: ${breakpoints.lg}) {
+  @media screen and (min-width: ${breakpoints.min.lg}) {
     display: block;
     flex-shrink: 0;
     width: 26rem;

@@ -12,7 +12,7 @@ export const HamburgerContainer = styled.div`
   display: flex;
   align-items: center;
 
-  @media screen and (min-width: ${breakpoints.md}) {
+  @media screen and (min-width: ${breakpoints.min.md}) {
     display: none;
   }
 `;
@@ -21,7 +21,7 @@ export const NavContainer = styled.nav`
   display: none;
   align-items: center;
 
-  @media screen and (min-width: ${breakpoints.md}) {
+  @media screen and (min-width: ${breakpoints.min.md}) {
     display: flex;
   }
 `;

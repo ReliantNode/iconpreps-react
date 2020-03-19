@@ -29,8 +29,16 @@ export const palette = {
 };
 
 export const breakpoints = {
-  sm: '640px',
-  md: '768px',
-  lg: '1024px',
-  xl: '1140px',
+  min: {
+    sm: '640px',
+    md: '768px',
+    lg: '1024px',
+    xl: '1140px',
+  },
+  max: {
+    xl: '639px',
+    sm: '767px',
+    md: '1023px',
+    lg: '1139px',
+  },
 };

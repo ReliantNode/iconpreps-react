@@ -20,9 +20,9 @@ const Content = styled.main`
   margin: 0 2rem;
   padding: 5rem 0;
 
-  @media screen and (min-width: ${breakpoints.xl}) {
+  @media screen and (min-width: ${breakpoints.min.xl}) {
     width: 100%;
-    max-width: ${breakpoints.xl};
+    max-width: ${breakpoints.min.xl};
     margin: 0 auto;
   }
 `;

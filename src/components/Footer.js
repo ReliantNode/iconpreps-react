@@ -14,7 +14,7 @@ const Container = styled.footer`
   margin: 0 2rem;
   border-top: 1px solid ${palette.gray.border};
 
-  @media screen and (min-width: ${breakpoints.md}) {
+  @media screen and (min-width: ${breakpoints.min.md}) {
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
@@ -22,9 +22,9 @@ const Container = styled.footer`
     padding: 3rem 0;
   }
 
-  @media screen and (min-width: ${breakpoints.xl}) {
+  @media screen and (min-width: ${breakpoints.min.xl}) {
     width: 100%;
-    max-width: ${breakpoints.xl};
+    max-width: ${breakpoints.min.xl};
     margin: 0 auto;
   }
 `;
@@ -34,7 +34,7 @@ const FooterFirst = styled.div`
   justify-content: center;
   padding: 3rem 2rem;
 
-  @media screen and (min-width: ${breakpoints.md}) {
+  @media screen and (min-width: ${breakpoints.min.md}) {
     justify-content: flex-start;
     padding: 0;
   }
@@ -47,7 +47,7 @@ const FooterSecond = styled.div`
   border-top: 1px solid ${palette.gray.border};
   padding: 3rem 2rem;
 
-  @media screen and (min-width: ${breakpoints.md}) {
+  @media screen and (min-width: ${breakpoints.min.md}) {
     align-items: flex-end;
     border: none;
     padding: 0;
@@ -67,7 +67,7 @@ const PRepDetails = styled.div`
 `;
 
 const Slogan = styled(Text)`
-  @media screen and (min-width: ${breakpoints.md}) {
+  @media screen and (min-width: ${breakpoints.min.md}) {
     order: 2;
     margin-top: 1.5rem;
   }
@@ -77,7 +77,7 @@ const PRepLinks = styled.div`
   display: flex;
   margin-top: 2rem;
 
-  @media screen and (min-width: ${breakpoints.md}) {
+  @media screen and (min-width: ${breakpoints.min.md}) {
     order: 1;
     margin: 0;
   }
