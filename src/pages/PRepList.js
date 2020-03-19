@@ -9,7 +9,7 @@ import { Logo, LogoWrapper } from 'components/Logo';
 import { usePReps } from 'components/PReps';
 import RankBanner from 'components/RankBanner';
 import SearchHeader from 'components/SearchHeader';
-import { H2, H5, H6, Text, UnstyledLink } from 'components/Typography';
+import { H5, H6, Text, UnstyledLink } from 'components/Typography';
 import { FILTER_ACTIONS, PREP_FILTERS, PREP_ORDERINGS, pRepFilterReducer } from 'utils/filters';
 import * as S from './PRepList.styles';
 import PRepSearch from 'components/PRepSearch';
@@ -115,9 +115,9 @@ function PRepListPage() {
                     </LogoWrapper>
 
                     <S.PRepDetails>
-                      <H2>
+                      <S.PRepName>
                         <UnstyledLink to={pRep.address}>{pRep.name}</UnstyledLink>
-                      </H2>
+                      </S.PRepName>
                       <Text muted>
                         {pRep.city}, {pRep.country}
                       </Text>

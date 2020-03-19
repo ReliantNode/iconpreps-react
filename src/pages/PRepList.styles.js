@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import Badge from 'components/Badge';
-import { H5, Text } from 'components/Typography';
+import { H2, H5, Text } from 'components/Typography';
 import { breakpoints, palette } from 'utils/designTokens';
 
 export const Container = styled.div`
@@ -10,6 +10,7 @@ export const Container = styled.div`
 
 export const Listing = styled.div`
   flex: 1;
+  min-width: 0;
 
   @media screen and (min-width: ${breakpoints.min.lg}) {
     margin-left: 3rem;
@@ -25,6 +26,7 @@ export const Filters = styled.div`
     right: 0;
     min-height: 100%;
     background: ${palette.white};
+    z-index: 99;
   }
 
   @media screen and (min-width: ${breakpoints.min.lg}) {
@@ -48,6 +50,7 @@ export const PRepDetails = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  min-width: 0;
 
   @media screen and (max-width: ${breakpoints.max.sm}) {
     padding-left: 1.2rem;
@@ -65,6 +68,12 @@ export const PRepDetails = styled.div`
       margin-top: 0.8rem;
     }
   }
+`;
+
+export const PRepName = styled(H2)`
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 export const PRepCategories = styled.div`
