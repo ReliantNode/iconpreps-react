@@ -21,8 +21,8 @@ export const Filters = styled.div`
     display: ${({ showing }) => (showing ? 'block' : 'none')};
     position: absolute;
     top: 0;
-    left: -2rem;
-    right: -2rem;
+    left: 0;
+    right: 0;
     min-height: 100%;
     background: ${palette.white};
   }
