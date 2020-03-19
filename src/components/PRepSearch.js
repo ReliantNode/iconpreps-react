@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { useDebounce } from 'use-debounce';
 import searchIcon from 'assets/icons/search.svg';
 import CheckboxGroup from 'components/CheckboxGroup';
+import { usePReps } from 'components/PReps';
 import { H3, Text } from 'components/Typography';
 import { FILTER_ACTIONS } from 'utils/filters';
 import { palette } from 'utils/designTokens';
@@ -42,9 +43,21 @@ const Separator = styled.hr`
   margin: 3rem 0;
 `;
 
+const defaultPRepFilters = {
+  categories: [],
+};
+
 function PRepSearch({ filters, dispatch }) {
+  const { getFilters, hasFilters } = usePReps();
+  const [pRepFilters, setPRepFilters] = useState(defaultPRepFilters);
   const [query, setQuery] = useState('');
   const [debouncedQuery] = useDebounce(query, 400);
+
+  useEffect(() => {
+    if (hasFilters) {
+      setPRepFilters(getFilters());
+    }
+  }, [hasFilters]); // eslint-disable-line
 
   useEffect(() => {
     dispatch({ type: FILTER_ACTIONS.SET_QUERY, payload: debouncedQuery });
@@ -78,74 +91,17 @@ function PRepSearch({ filters, dispatch }) {
 
       <H3>Category</H3>
       <CheckboxGroup
-        options={[
-          {
-            value: 'Development',
-            children: (
-              <>
-                <OptionLabel>Development</OptionLabel>
-                <Text small muted>
-                  30
-                </Text>
-              </>
-            ),
-          },
-          {
-            value: 'Education',
-            children: (
-              <>
-                <OptionLabel>Education</OptionLabel>
-                <Text small muted>
-                  12
-                </Text>
-              </>
-            ),
-          },
-          {
-            value: 'Marketing',
-            children: (
-              <>
-                <OptionLabel>Marketing</OptionLabel>
-                <Text small muted>
-                  11
-                </Text>
-              </>
-            ),
-          },
-          {
-            value: 'Community',
-            children: (
-              <>
-                <OptionLabel>Community</OptionLabel>
-                <Text small muted>
-                  11
-                </Text>
-              </>
-            ),
-          },
-          {
-            value: 'Infrastructure',
-            children: (
-              <>
-                <OptionLabel>Infrastructure</OptionLabel>
-                <Text small muted>
-                  2
-                </Text>
-              </>
-            ),
-          },
-          {
-            value: 'Other',
-            children: (
-              <>
-                <OptionLabel>Other</OptionLabel>
-                <Text small muted>
-                  5
-                </Text>
-              </>
-            ),
-          },
-        ]}
+        options={pRepFilters.categories.map(category => ({
+          value: category.name,
+          children: (
+            <>
+              <OptionLabel>{category.name}</OptionLabel>
+              <Text small muted>
+                {category.count}
+              </Text>
+            </>
+          ),
+        }))}
         values={filters.categories}
         onChange={handleCategoriesChange}
         name="categories"
