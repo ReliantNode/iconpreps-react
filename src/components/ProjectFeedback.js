@@ -27,7 +27,7 @@ function ProjectFeedback({ project, ...props }) {
 
   async function loadFeedback(projectId) {
     const feedback = await getFeedback(projectId);
-    setFeedback(feedback);
+    setFeedback(orderBy(feedback, ['updated_date'], ['desc']));
   }
 
   function handleCommentChange(event) {
