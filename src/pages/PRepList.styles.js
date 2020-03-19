@@ -26,7 +26,7 @@ export const Filters = styled.div`
     right: 0;
     min-height: 100%;
     background: ${palette.white};
-    z-index: 99;
+    z-index: 10;
   }
 
   @media screen and (min-width: ${breakpoints.min.lg}) {

@@ -75,6 +75,7 @@ const DropdownPopover = styled(ListboxPopover)`
   border: 1px solid ${palette.gray.border};
   border-radius: 0.3rem;
   padding: 0.5rem 0;
+  z-index: 20;
 `;
 
 const DropdownOption = styled(ListboxOption)`
