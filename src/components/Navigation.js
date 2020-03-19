@@ -79,20 +79,12 @@ function Navigation() {
                     </S.MenuCloseButton>
                   </S.MenuHeader>
                   <S.MenuBody>
-                    <S.NavMenuLink to="/projects" onClick={onClose}>
-                      Projects
-                    </S.NavMenuLink>
-                    <S.NavMenuLink to="/preps" onClick={onClose}>
-                      P-Reps
-                    </S.NavMenuLink>
+                    <S.NavMenuLink to="/projects">Projects</S.NavMenuLink>
+                    <S.NavMenuLink to="/preps">P-Reps</S.NavMenuLink>
                     <S.NavMenuButton type="button" onClick={handleShowHelp}>
                       Help & FAQs
                     </S.NavMenuButton>
-                    <S.NavMenuButton
-                      type="button"
-                      onClick={handleLogin}
-                      style={{ color: palette.brand.primary }}
-                    >
+                    <S.NavMenuButton type="button" onClick={handleLogin} branded>
                       Sign in
                     </S.NavMenuButton>
                   </S.MenuBody>

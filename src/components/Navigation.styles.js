@@ -5,6 +5,8 @@ import {
 } from '@reach/dialog';
 import { MenuButton, MenuItem, MenuItems } from '@reach/menu-button';
 import { Link as ReachLink } from '@reach/router';
+import rightArrowBlackIcon from 'assets/icons/right-arrow-black.svg';
+import rightArrowBrandIcon from 'assets/icons/right-arrow-brand.svg';
 import { H1 } from 'components/Typography';
 import { breakpoints, palette } from 'utils/designTokens';
 
@@ -99,8 +101,13 @@ const navMenuItems = css`
   line-height: 2.2rem;
   text-align: left;
   text-decoration: none;
-  color: ${palette.black};
-  background: none;
+  color: ${({ branded }) => (branded ? palette.brand.primary : palette.black)};
+  background-color: unset;
+  background-image: ${({ branded }) =>
+    `url(${branded ? rightArrowBrandIcon : rightArrowBlackIcon})`};
+  background-repeat: no-repeat;
+  background-position: center right;
+  background-size: 0.8rem;
   border: none;
   border-bottom: 1px solid ${palette.gray.border};
   padding: 2rem 0;
