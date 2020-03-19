@@ -137,17 +137,22 @@ function ProjectFeedback({ project, ...props }) {
       <S.FeedbackList>
         {feedback.map(feedback => (
           <S.FeedbackItem key={feedback.id}>
-            <S.UserIcon userLevel={feedback.level} />
             <S.Feedback>
-              <S.FeedbackHeader>
-                <Text heavy>{feedback.level}</Text>
-                <Text small muted style={{ textDecoration: 'underline', marginLeft: '0.5rem' }}>
-                  ({formatAddress(feedback.username)})
-                </Text>
-                <Text small muted style={{ marginLeft: '0.5rem' }}>
-                  on {format(new Date(feedback.updated_date), DATE_FORMAT)}
-                </Text>
-              </S.FeedbackHeader>
+              <S.LogoAndHeader>
+                <S.UserIcon userLevel={feedback.level} />
+                <S.FeedbackHeader>
+                  <div style={{ display: 'flex', alignItems: 'center' }}>
+                    <Text heavy>{feedback.level}</Text>
+                    <Text small muted style={{ textDecoration: 'underline', marginLeft: '0.5rem' }}>
+                      ({formatAddress(feedback.username)})
+                    </Text>
+                  </div>
+                  <Text small muted className="feedback-date">
+                    <span className="md-show">on </span>
+                    {format(new Date(feedback.updated_date), DATE_FORMAT)}
+                  </Text>
+                </S.FeedbackHeader>
+              </S.LogoAndHeader>
               <Rating overall={feedback.rating} style={{ marginTop: '1.4rem' }} />
               <S.Comment>{feedback.comment}</S.Comment>
             </S.Feedback>

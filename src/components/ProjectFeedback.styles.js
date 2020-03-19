@@ -6,11 +6,15 @@ import stingrayIcon from 'assets/icons/stingray.svg';
 import turtleIcon from 'assets/icons/turtle.svg';
 import whaleIcon from 'assets/icons/whale.svg';
 import { USER_LEVELS } from 'utils/constants';
-import { palette } from 'utils/designTokens';
+import { breakpoints, palette } from 'utils/designTokens';
 
 export const Header = styled.div`
   display: flex;
   align-items: center;
+
+  @media screen and (max-width: ${breakpoints.max.sm}) {
+    justify-content: space-between;
+  }
 `;
 
 export const LoginButton = styled.button`
@@ -29,14 +33,28 @@ export const LoginButton = styled.button`
 export const AverageRating = styled.div`
   display: flex;
   align-items: center;
-  margin-top: 4rem;
+
+  @media screen and (max-width: ${breakpoints.max.sm}) {
+    margin-top: 3rem;
+  }
+
+  @media screen and (min-width: ${breakpoints.min.md}) {
+    margin-top: 4rem;
+  }
 `;
 
 export const FeedbackList = styled.div`
-  margin-top: 4rem;
+  @media screen and (max-width: ${breakpoints.max.sm}) {
+    margin-top: 3rem;
+  }
+
+  @media screen and (min-width: ${breakpoints.min.md}) {
+    margin-top: 4rem;
+  }
 `;
 
 export const FeedbackItem = styled.div`
+  position: relative;
   display: flex;
   align-items: flex-start;
   margin-top: 2rem;
@@ -85,12 +103,18 @@ function getUserColor(userLevel) {
 }
 
 export const UserIcon = styled.div`
+  flex-shrink: 0;
   width: 6rem;
   height: 6rem;
   background: ${({ userLevel }) =>
     `no-repeat center/2.8rem url(${getUserIcon(userLevel)}) ${getUserColor(userLevel)}`};
   border-radius: 100%;
-  margin-top: 1rem;
+
+  @media screen and (min-width: ${breakpoints.min.md}) {
+    position: absolute;
+    left: 0;
+    top: 1rem;
+  }
 `;
 
 export const Separator = styled.hr`
@@ -107,13 +131,39 @@ export const Feedback = styled.div`
   border: 1px solid ${palette.gray.border};
   border-radius: 0.6rem;
   box-shadow: 0 2px 5px 0 rgba(206, 210, 219, 0.5);
-  padding: 3rem 4rem;
-  margin-left: 2rem;
+
+  @media screen and (max-width: ${breakpoints.max.sm}) {
+    padding: 2rem;
+  }
+
+  @media screen and (min-width: ${breakpoints.min.md}) {
+    padding: 3rem 4rem;
+    margin-left: 8rem;
+  }
+`;
+
+export const LogoAndHeader = styled.div`
+  display: flex;
+  align-items: center;
 `;
 
 export const FeedbackHeader = styled.div`
-  display: flex;
-  align-items: center;
+  @media screen and (max-width: ${breakpoints.max.sm}) {
+    margin-left: 2rem;
+
+    .feedback-date {
+      margin-top: 0.8rem;
+    }
+  }
+
+  @media screen and (min-width: ${breakpoints.min.md}) {
+    display: flex;
+    align-items: center;
+
+    .feedback-date {
+      margin-left: 0.5rem;
+    }
+  }
 `;
 
 export const Comment = styled.div`

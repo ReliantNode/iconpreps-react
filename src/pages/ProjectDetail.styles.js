@@ -10,9 +10,7 @@ export const Header = styled.div`
 `;
 
 export const Container = styled.div`
-  @media screen and (max-width: ${breakpoints.max.sm}) {
-  }
-  @media screen and (min-width: ${breakpoints.min.md}) {
+  @media screen and (min-width: ${breakpoints.min.lg}) {
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
@@ -21,6 +19,18 @@ export const Container = styled.div`
 
 export const Main = styled.div`
   flex: 1;
+
+  @media screen and (max-width: ${breakpoints.max.sm}) {
+    .project-feedback {
+      margin-top: 3rem;
+    }
+  }
+
+  @media screen and (min-width: ${breakpoints.min.md}) {
+    .project-feedback {
+      margin-top: 5rem;
+    }
+  }
 `;
 
 export const Sidebar = styled.div`

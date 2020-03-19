@@ -94,7 +94,7 @@ function ProjectDetailPage() {
                 <ProjectUpdatesCard project={project} />
               )}
 
-              <ProjectFeedback project={project} style={{ marginTop: '5rem' }} />
+              <ProjectFeedback project={project} className="project-feedback" />
               <RelatedProjectsCard
                 project={project}
                 relatedProjects={relatedProjects}
