@@ -45,7 +45,7 @@ export const DialogOverlay = styled(ReachDialogOverlay)`
 `;
 
 export const DialogContent = styled(ReachDialogContent)`
-  position: fixed;
+  position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
