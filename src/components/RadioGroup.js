@@ -32,7 +32,7 @@ const RadioContainer = styled.div`
 const Radio = styled.div`
   width: 100%;
   height: 100%;
-  background: ${palette.gray.dark};
+  background: rgba(16, 15, 16, 0.8);
   border: 0.4rem solid ${palette.white};
   border-radius: 100%;
   transition: transform 0.2s;

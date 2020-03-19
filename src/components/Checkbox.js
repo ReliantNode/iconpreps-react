@@ -26,7 +26,7 @@ const Check = styled.div`
   bottom: 0;
   left: 0;
   right: 0;
-  background: no-repeat 0.4rem /1.2rem url(${checkIcon}) #403f40;
+  background: no-repeat 0.4rem /1.2rem url(${checkIcon}) rgba(16, 15, 16, 0.8);
   transition: transform 0.2s;
   transform: ${({ checked }) => (checked ? 'scale(1)' : 'scale(0)')};
 `;
