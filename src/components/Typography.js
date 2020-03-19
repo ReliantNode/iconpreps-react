@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { Link } from '@reach/router';
-import { palette } from 'utils/designTokens';
+import { breakpoints, palette } from 'utils/designTokens';
 
 export const Text = styled.p`
   font-weight: ${({ heavy }) => (heavy ? 600 : 400)};
@@ -23,9 +23,17 @@ export const A = styled.a`
 
 export const H1 = styled.h1`
   font-weight: 600;
-  font-size: 2.6rem;
-  line-height: 3.6rem;
   margin: 0;
+
+  @media screen and (max-width: ${breakpoints.max.sm}) {
+    font-size: 2rem;
+    line-height: 2.7rem;
+  }
+
+  @media screen and (min-width: ${breakpoints.min.md}) {
+    font-size: 2.6rem;
+    line-height: 3.6rem;
+  }
 `;
 
 export const H2 = styled.h2`
