@@ -87,7 +87,7 @@ function ProjectList({ title, filtersToUse, additionalFilter }) {
     const tags = [];
     if (filters.query) {
       tags.push({
-        label: filters.query,
+        label: `Search for: ${filters.query}`,
         rm: () => filtersDispatch({ type: FILTER_ACTIONS.SET_QUERY, payload: '' }),
       });
     }
