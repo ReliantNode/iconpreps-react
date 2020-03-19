@@ -24,7 +24,10 @@ export const LogoAndDetails = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  margin-top: 3rem;
+
+  @media screen and (max-width: ${breakpoints.max.md}) {
+    margin-top: 3rem;
+  }
 `;
 
 export const PRepDetails = styled.div`
