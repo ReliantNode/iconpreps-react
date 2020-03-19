@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { format } from 'date-fns';
+import { orderBy } from 'lodash-es';
 import PropTypes from 'prop-types';
 import { useAuth } from 'components/Auth';
 import Rating from 'components/Rating';
@@ -93,7 +94,7 @@ function ProjectFeedback({ project, ...props }) {
               <S.LogoAndHeader>
                 <S.UserIcon userLevel={authUser.level} />
                 <S.FeedbackHeader>
-                  <div style={{ display: 'flex', alignItems: 'center' }}>
+                  <div style={{ display: 'flex' }}>
                     <Text heavy>{authUser.level}</Text>
                     <Text small muted style={{ textDecoration: 'underline', marginLeft: '0.5rem' }}>
                       ({formatAddress(authUser.username)})
@@ -146,7 +147,7 @@ function ProjectFeedback({ project, ...props }) {
               <S.LogoAndHeader>
                 <S.UserIcon userLevel={feedback.level} />
                 <S.FeedbackHeader>
-                  <div style={{ display: 'flex', alignItems: 'center' }}>
+                  <div style={{ display: 'flex' }}>
                     <Text heavy>{feedback.level}</Text>
                     <Text small muted style={{ textDecoration: 'underline', marginLeft: '0.5rem' }}>
                       ({formatAddress(feedback.username)})
