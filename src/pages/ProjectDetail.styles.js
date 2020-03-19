@@ -176,7 +176,10 @@ export const EmbeddedHTML = styled.div`
   font-weight: 400;
   font-size: 1.5rem;
   line-height: 2.2rem;
-  color: ${palette.black};
+
+  * {
+    color: ${palette.black} !important;
+  }
 
   p,
   ul {
@@ -216,5 +219,14 @@ export const EmbeddedHTML = styled.div`
     &:hover {
       text-decoration: underline;
     }
+  }
+
+  img {
+    height: auto !important;
+  }
+
+  pre,
+  code {
+    white-space: pre-wrap;
   }
 `;
