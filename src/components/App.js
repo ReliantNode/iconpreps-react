@@ -32,21 +32,19 @@ const GlobalStyle = createGlobalStyle`
   }
 
   /* Responsive utilities */
-  .sm-show,
-  .md-show,
-  .lg-show {
-    display: none !important;
+  @media screen and (max-width: ${breakpoints.max.sm}) {
+    .md-show { display: none !important; }
+  }
+  @media screen and (max-width: ${breakpoints.max.md}) {
+    .lg-show { display: none !important; }
   }
   @media screen and (min-width: ${breakpoints.min.sm}) {
-    .sm-show { display: inherit !important; }
     .sm-hide { display: none !important; }
   }
   @media screen and (min-width: ${breakpoints.min.md}) {
-    .md-show { display: inherit !important; }
     .md-hide { display: none !important; }
   }
   @media screen and (min-width: ${breakpoints.min.lg}) {
-    .lg-show { display: inherit !important; }
     .lg-hide { display: none !important; }
   }
 `;
