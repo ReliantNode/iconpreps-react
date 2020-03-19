@@ -8,6 +8,7 @@ export const CardList = styled.ul`
 `;
 
 export const Card = styled.li`
+  position: relative;
   background: ${palette.white};
   border: 1px solid ${palette.gray.border};
   border-radius: 0.6rem;

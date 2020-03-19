@@ -54,7 +54,7 @@ const ApplyButton = styled.button`
 
 const Order = styled.div`
   border-bottom: 1px solid ${palette.gray.border};
-  padding: 2rem 0;
+  padding: 2rem 0 3rem;
   margin: 0 2rem;
 `;
 

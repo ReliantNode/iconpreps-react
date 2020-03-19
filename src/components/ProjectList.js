@@ -2,7 +2,7 @@ import React, { useEffect, useReducer, useState } from 'react';
 import { format, isAfter, parseISO, subDays } from 'date-fns';
 import { take } from 'lodash-es';
 import PropTypes from 'prop-types';
-import { Card, CardList } from 'components/Cards';
+import { CardList } from 'components/Cards';
 import Category from 'components/Category';
 import Completion from 'components/Completion';
 import FiltersHeader from 'components/FiltersHeader';
@@ -14,7 +14,7 @@ import { useProjects } from 'components/Projects';
 import Rating from 'components/Rating';
 import SearchHeader from 'components/SearchHeader';
 import Stars from 'components/Stars';
-import { H2, Text, UnstyledLink } from 'components/Typography';
+import { Text, UnstyledLink } from 'components/Typography';
 import { DATE_FORMAT } from 'utils/constants';
 import { palette } from 'utils/designTokens';
 import {
@@ -154,64 +154,79 @@ function ProjectList({ title, filtersToUse, additionalFilter }) {
         {hasProjects && (
           <CardList style={{ marginTop: '2rem' }}>
             {filteredProjects.map(project => (
-              <Card key={project.id} style={{ alignItems: 'flex-start' }}>
-                <LogoWrapper>
-                  {project.pRep && project.pRep.logo && (
-                    <Logo src={project.pRep.logo} alt={`${project.pRep.name} logo`} />
-                  )}
-                </LogoWrapper>
+              <S.Card key={project.id}>
+                <S.LogoAndHeader>
+                  <LogoWrapper>
+                    {project.pRep && project.pRep.logo && (
+                      <Logo src={project.pRep.logo} alt={`${project.pRep.name} logo`} />
+                    )}
+                  </LogoWrapper>
 
-                <S.ProjectDetails>
                   <S.ProjectHeader>
-                    <div>
-                      <H2>
+                    <div style={{ minWidth: 0 }}>
+                      <S.ProjectName>
                         <UnstyledLink to={`/projects/${String(project.id)}`}>
                           {project.name}
                         </UnstyledLink>
-                      </H2>
+                      </S.ProjectName>
                       <Rating
                         overall={project.rating}
                         total={project.rating_count}
-                        style={{ marginTop: '1rem' }}
+                        className="rating"
                       />
                     </div>
-                    <Category category={project.category} />
+                    <Category category={project.category} className="md-show" />
                   </S.ProjectHeader>
+                </S.LogoAndHeader>
 
-                  <Text style={{ marginTop: '1.5rem' }}>{project.description}</Text>
+                <S.Description>{project.description}</S.Description>
 
-                  <S.ProjectMeta>
-                    <ProjectStatus status={project.status} />
-                    <S.ProjectMetaSeparator />
+                <S.ProjectMetaMobile>
+                  <Category category={project.category} />
+                  {isRecentProject(project, RECENT_ACTIVITY_TYPES.CREATED) ? (
+                    <S.ProjectRecent>
+                      <S.Dot style={{ background: palette.beige }} />
+                      <Text small>Recently created</Text>
+                    </S.ProjectRecent>
+                  ) : isRecentProject(project, RECENT_ACTIVITY_TYPES.UPDATED) ? (
+                    <S.ProjectRecent>
+                      <S.Dot style={{ background: palette.brand.primary }} />
+                      <Text small>Recently updated</Text>
+                    </S.ProjectRecent>
+                  ) : null}
+                </S.ProjectMetaMobile>
 
-                    <Completion completed={project.progress} />
-                    <S.ProjectMetaSeparator />
+                <S.ProjectMeta>
+                  <ProjectStatus status={project.status} />
 
-                    <Text small style={{ flex: 1 }}>
-                      {format(new Date(project.start_date), DATE_FORMAT)}&nbsp;-&nbsp;
-                      {format(new Date(project.end_date), DATE_FORMAT)}
-                    </Text>
+                  <S.ProjectMetaSeparator />
+                  <Completion completed={project.progress} />
 
-                    {isRecentProject(project, RECENT_ACTIVITY_TYPES.CREATED) ? (
-                      <>
-                        <S.ProjectMetaSeparator />
-                        <S.ProjectRecent>
-                          <S.Dot style={{ background: palette.beige }} />
-                          <Text small>Recently created</Text>
-                        </S.ProjectRecent>
-                      </>
-                    ) : isRecentProject(project, RECENT_ACTIVITY_TYPES.UPDATED) ? (
-                      <>
-                        <S.ProjectMetaSeparator />
-                        <S.ProjectRecent>
-                          <S.Dot style={{ background: palette.brand.primary }} />
-                          <Text small>Recently updated</Text>
-                        </S.ProjectRecent>
-                      </>
-                    ) : null}
-                  </S.ProjectMeta>
-                </S.ProjectDetails>
-              </Card>
+                  <S.ProjectMetaSeparator className="md-show" />
+                  <Text small style={{ flex: 1 }} className="md-show">
+                    {format(new Date(project.start_date), DATE_FORMAT)}&nbsp;-&nbsp;
+                    {format(new Date(project.end_date), DATE_FORMAT)}
+                  </Text>
+
+                  {isRecentProject(project, RECENT_ACTIVITY_TYPES.CREATED) ? (
+                    <>
+                      <S.ProjectMetaSeparator className="md-show" />
+                      <S.ProjectRecent className="md-show">
+                        <S.Dot style={{ background: palette.beige }} />
+                        <Text small>Recently created</Text>
+                      </S.ProjectRecent>
+                    </>
+                  ) : isRecentProject(project, RECENT_ACTIVITY_TYPES.UPDATED) ? (
+                    <>
+                      <S.ProjectMetaSeparator className="md-show" />
+                      <S.ProjectRecent className="md-show">
+                        <S.Dot style={{ background: palette.brand.primary }} />
+                        <Text small>Recently updated</Text>
+                      </S.ProjectRecent>
+                    </>
+                  ) : null}
+                </S.ProjectMeta>
+              </S.Card>
             ))}
           </CardList>
         )}
