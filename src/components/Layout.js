@@ -18,14 +18,10 @@ const Container = styled.div`
 const Content = styled.main`
   position: relative;
   flex: 1;
-  margin: 0 2rem;
-  padding: 5rem 0;
-
-  @media screen and (min-width: ${breakpoints.min.xl}) {
-    width: 100%;
-    max-width: ${breakpoints.min.xl};
-    margin: 0 auto;
-  }
+  width: 100%;
+  max-width: ${breakpoints.min.xl};
+  padding: 5rem 2rem;
+  margin: 0 auto;
 `;
 
 function Layout({ children }) {

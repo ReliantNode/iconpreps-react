@@ -16,13 +16,10 @@ const Inner = styled.div`
   align-items: center;
   justify-content: space-between;
   height: 7rem;
-  margin: 0 2rem;
-
-  @media screen and (min-width: ${breakpoints.min.xl}) {
-    width: 100%;
-    max-width: ${breakpoints.min.xl};
-    margin: 0 auto;
-  }
+  width: 100%;
+  max-width: ${breakpoints.min.xl};
+  padding: 0 2rem;
+  margin: 0 auto;
 `;
 
 const Logo = styled.img`

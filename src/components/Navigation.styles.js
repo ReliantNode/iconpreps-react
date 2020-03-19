@@ -30,10 +30,10 @@ export const HamburgerButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 4rem;
   height: 4rem;
   background: none;
   border: none;
+  padding: 0;
   cursor: pointer;
 `;
 

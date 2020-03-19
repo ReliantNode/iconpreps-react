@@ -9,10 +9,16 @@ import { A, Text } from 'components/Typography';
 import { breakpoints, palette } from 'utils/designTokens';
 
 const Container = styled.footer`
+  width: 100%;
+  max-width: ${breakpoints.min.xl};
+  padding: 0 2rem;
+  margin: 0 auto;
+`;
+
+const Inner = styled.div`
+  border-top: 1px solid ${palette.gray.border};
   display: flex;
   flex-direction: column;
-  margin: 0 2rem;
-  border-top: 1px solid ${palette.gray.border};
 
   @media screen and (min-width: ${breakpoints.min.md}) {
     flex-direction: row;
@@ -20,12 +26,6 @@ const Container = styled.footer`
     justify-content: space-between;
     height: 13rem;
     padding: 3rem 0;
-  }
-
-  @media screen and (min-width: ${breakpoints.min.xl}) {
-    width: 100%;
-    max-width: ${breakpoints.min.xl};
-    margin: 0 auto;
   }
 `;
 
@@ -102,37 +102,43 @@ const LinkIcon = styled.img`
 function Header() {
   return (
     <Container>
-      <FooterFirst>
-        <Logo src={logoReliantNode} alt="ReliantNode logo" />
-        <PRepDetails>
-          <Text>A ReliantNode P-Rep project.</Text>
-          <Text style={{ marginTop: '1rem' }}>
-            <A href="https://www.reliantnode.com/" target="_blank" rel="noopener noreferrer">
-              Learn more <img src={rightArrowIcon} alt="Right arrow" style={{ height: '1rem' }} />
-            </A>
-          </Text>
-        </PRepDetails>
-      </FooterFirst>
-      <FooterSecond>
-        <Slogan>
-          <i>Helping to build the future of ICON.</i>
-        </Slogan>
-        <PRepLinks>
-          <PRepLink
-            href="https://twitter.com/ReliantNode"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <LinkIcon src={twitterIcon} alt="Twitter icon" />
-          </PRepLink>
-          <PRepLink href="https://www.reliantnode.com/" target="_blank" rel="noopener noreferrer">
-            <LinkIcon src={webIcon} alt="Website icon" />
-          </PRepLink>
-          <PRepLink href="https://github.com/ReliantNode" target="_blank" rel="noopener noreferrer">
-            <LinkIcon src={githubIcon} alt="GitHub icon" />
-          </PRepLink>
-        </PRepLinks>
-      </FooterSecond>
+      <Inner>
+        <FooterFirst>
+          <Logo src={logoReliantNode} alt="ReliantNode logo" />
+          <PRepDetails>
+            <Text>A ReliantNode P-Rep project.</Text>
+            <Text style={{ marginTop: '1rem' }}>
+              <A href="https://www.reliantnode.com/" target="_blank" rel="noopener noreferrer">
+                Learn more <img src={rightArrowIcon} alt="Right arrow" style={{ height: '1rem' }} />
+              </A>
+            </Text>
+          </PRepDetails>
+        </FooterFirst>
+        <FooterSecond>
+          <Slogan>
+            <i>Helping to build the future of ICON.</i>
+          </Slogan>
+          <PRepLinks>
+            <PRepLink
+              href="https://twitter.com/ReliantNode"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <LinkIcon src={twitterIcon} alt="Twitter icon" />
+            </PRepLink>
+            <PRepLink href="https://www.reliantnode.com/" target="_blank" rel="noopener noreferrer">
+              <LinkIcon src={webIcon} alt="Website icon" />
+            </PRepLink>
+            <PRepLink
+              href="https://github.com/ReliantNode"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <LinkIcon src={githubIcon} alt="GitHub icon" />
+            </PRepLink>
+          </PRepLinks>
+        </FooterSecond>
+      </Inner>
     </Container>
   );
 }
