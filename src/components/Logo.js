@@ -1,17 +1,23 @@
 import styled from 'styled-components';
-import { palette } from 'utils/designTokens';
+import { breakpoints, palette } from 'utils/designTokens';
 
 export const LogoWrapper = styled.div`
   flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 7.5rem;
-  height: 7.5rem;
+  width: 5rem;
+  height: 5rem;
   background: ${({ children }) => (!children ? palette.brand.primary : 'none')};
-  border: 2px solid ${palette.gray.border};
-  border-radius: 7.5rem;
+  border: 1px solid ${palette.gray.border};
+  border-radius: 100%;
   overflow: hidden;
+
+  @media screen and (min-width: ${breakpoints.min.md}) {
+    width: 7.5rem;
+    height: 7.5rem;
+    border: 2px solid ${palette.gray.border};
+  }
 `;
 
 export const Logo = styled.img`

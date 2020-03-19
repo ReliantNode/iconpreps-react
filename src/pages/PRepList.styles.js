@@ -1,4 +1,6 @@
 import styled from 'styled-components';
+import Badge from 'components/Badge';
+import { H5, Text } from 'components/Typography';
 import { breakpoints, palette } from 'utils/designTokens';
 
 export const Container = styled.div`
@@ -36,12 +38,33 @@ export const Filters = styled.div`
   }
 `;
 
+export const LogoAndDetails = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+`;
+
 export const PRepDetails = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  min-width: 20rem;
-  padding: 0 3rem 0 1.5rem;
+
+  @media screen and (max-width: ${breakpoints.max.sm}) {
+    padding-left: 1.2rem;
+
+    ${Text} {
+      margin-top: 0.2rem;
+    }
+  }
+
+  @media screen and (min-width: ${breakpoints.min.md}) {
+    min-width: 20rem;
+    padding: 0 3rem 0 1.5rem;
+
+    ${Text} {
+      margin-top: 0.8rem;
+    }
+  }
 `;
 
 export const PRepCategories = styled.div`
@@ -49,16 +72,60 @@ export const PRepCategories = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  padding: 0 3rem;
-  border-left: 1px solid ${palette.gray.border};
+
+  @media screen and (max-width: ${breakpoints.max.sm}) {
+    border-top: 1px solid ${palette.gray.border};
+    padding-top: 2rem;
+    margin-top: 2rem;
+  }
+
+  @media screen and (min-width: ${breakpoints.min.md}) {
+    border-left: 1px solid ${palette.gray.border};
+    padding: 0 3rem;
+  }
 `;
 
 export const PRepRank = styled.div`
-  flex: 0;
   display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: space-between;
-  padding-left: 2.5rem;
-  border-left: 1px solid ${palette.gray.border};
+
+  @media screen and (max-width: ${breakpoints.max.sm}) {
+    border-top: 1px solid ${palette.gray.border};
+    padding-top: 2rem;
+    margin-top: 2rem;
+
+    ${Badge} {
+      margin-left: 2rem;
+    }
+
+    .rank-banner {
+      display: none;
+    }
+  }
+
+  @media screen and (min-width: ${breakpoints.min.md}) {
+    flex-shrink: 0;
+    flex-direction: column;
+    justify-content: space-between;
+    padding-left: 2.5rem;
+    border-left: 1px solid ${palette.gray.border};
+
+    .rank-banner {
+      margin-top: -33px;
+      margin-left: -10px;
+    }
+  }
+`;
+
+export const PRepRankText = styled.div`
+  display: flex;
+  align-items: center;
+
+  ${H5} {
+    margin-left: 1.5rem;
+  }
+
+  @media screen and (min-width: ${breakpoints.min.md}) {
+    display: none;
+  }
 `;

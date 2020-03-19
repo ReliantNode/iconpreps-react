@@ -9,7 +9,7 @@ import { Logo, LogoWrapper } from 'components/Logo';
 import { usePReps } from 'components/PReps';
 import RankBanner from 'components/RankBanner';
 import SearchHeader from 'components/SearchHeader';
-import { H2, Text, UnstyledLink } from 'components/Typography';
+import { H2, H5, H6, Text, UnstyledLink } from 'components/Typography';
 import { FILTER_ACTIONS, PREP_FILTERS, PREP_ORDERINGS, pRepFilterReducer } from 'utils/filters';
 import * as S from './PRepList.styles';
 import PRepSearch from 'components/PRepSearch';
@@ -109,18 +109,20 @@ function PRepListPage() {
             <CardList style={{ marginTop: '2rem' }}>
               {filteredPReps.map(pRep => (
                 <Card key={pRep.address}>
-                  <LogoWrapper>
-                    {pRep.logo && <Logo src={pRep.logo} alt={`${pRep.name} logo`} />}
-                  </LogoWrapper>
+                  <S.LogoAndDetails>
+                    <LogoWrapper>
+                      {pRep.logo && <Logo src={pRep.logo} alt={`${pRep.name} logo`} />}
+                    </LogoWrapper>
 
-                  <S.PRepDetails>
-                    <H2>
-                      <UnstyledLink to={pRep.address}>{pRep.name}</UnstyledLink>
-                    </H2>
-                    <Text muted style={{ marginTop: '0.8rem' }}>
-                      {pRep.city}, {pRep.country}
-                    </Text>
-                  </S.PRepDetails>
+                    <S.PRepDetails>
+                      <H2>
+                        <UnstyledLink to={pRep.address}>{pRep.name}</UnstyledLink>
+                      </H2>
+                      <Text muted>
+                        {pRep.city}, {pRep.country}
+                      </Text>
+                    </S.PRepDetails>
+                  </S.LogoAndDetails>
 
                   {pRep.main_category ? (
                     <S.PRepCategories>
@@ -134,10 +136,11 @@ function PRepListPage() {
                   )}
 
                   <S.PRepRank>
-                    <RankBanner
-                      rank={pRep.rank}
-                      style={{ marginTop: '-33px', marginLeft: '-10px' }}
-                    />
+                    <S.PRepRankText>
+                      <H6>Rank</H6>
+                      <H5>#{pRep.rank}</H5>
+                    </S.PRepRankText>
+                    <RankBanner rank={pRep.rank} className="rank-banner" />
                     <Badge>{pRep.rank <= 22 ? 'Main' : 'Sub'} P-Rep</Badge>
                   </S.PRepRank>
                 </Card>
