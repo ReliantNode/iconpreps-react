@@ -99,15 +99,18 @@ export const PRepDetail = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  margin-top: 1.5rem;
 
   @media screen and (max-width: ${breakpoints.max.sm}) {
+    margin-top: 2.5rem;
+
     ${Text} {
       margin-top: 0.2rem;
     }
   }
 
   @media screen and (min-width: ${breakpoints.min.md}) {
+    margin-top: 1.5rem;
+
     ${Text} {
       margin-top: 0.5rem;
     }

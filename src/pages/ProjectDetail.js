@@ -80,14 +80,14 @@ function ProjectDetailPage() {
           <Category
             category={project.category}
             style={{ marginTop: '1.5rem' }}
-            className="md-hide"
+            className="lg-hide"
           />
           <S.Description>{project.description}</S.Description>
 
           <S.Container>
             <S.Main>
               <ProjectOverviewCard project={project} />
-              <PRepTeamCard pRep={pRep} className="md-hide" />
+              <PRepTeamCard pRep={pRep} className="lg-hide" />
               <ProjectDescriptionCard project={project} />
 
               {(project.updates || project.final_update) && (
@@ -102,7 +102,7 @@ function ProjectDetailPage() {
               />
             </S.Main>
 
-            <S.Sidebar className="md-show">
+            <S.Sidebar className="lg-show">
               <PRepTeamCard pRep={pRep} />
               <RelatedProjectsCard project={project} relatedProjects={relatedProjects} />
             </S.Sidebar>
@@ -120,9 +120,9 @@ function ProjectDetailPage() {
   );
 }
 
-function ProjectOverviewCard({ project }) {
+function ProjectOverviewCard({ project, ...props }) {
   return (
-    <S.Card>
+    <S.Card {...props}>
       <H2>Project overview</H2>
       <S.ProjectOverview>
         <S.ProjectOverviewItem>
@@ -149,9 +149,9 @@ function ProjectOverviewCard({ project }) {
   );
 }
 
-function PRepTeamCard({ pRep }) {
+function PRepTeamCard({ pRep, ...props }) {
   return (
-    <S.Card>
+    <S.Card {...props}>
       <H2>P-Rep team</H2>
       <RankBanner rank={pRep.rank} style={{ position: 'absolute', top: '-8px', right: '3rem' }} />
       <S.PRepDetail>
@@ -168,18 +168,18 @@ function PRepTeamCard({ pRep }) {
   );
 }
 
-function ProjectDescriptionCard({ project }) {
+function ProjectDescriptionCard({ project, ...props }) {
   return (
-    <S.Card>
+    <S.Card {...props}>
       <H2 style={{ marginBottom: '2rem' }}>Description</H2>
       <S.EmbeddedHTML dangerouslySetInnerHTML={{ __html: project.details }} />
     </S.Card>
   );
 }
 
-function ProjectUpdatesCard({ project }) {
+function ProjectUpdatesCard({ project, ...props }) {
   return (
-    <S.Card>
+    <S.Card {...props}>
       <H2 style={{ marginBottom: '2rem' }}>Updates</H2>
       {project.updates && (
         <S.ProjectUpdate>
@@ -197,9 +197,9 @@ function ProjectUpdatesCard({ project }) {
   );
 }
 
-function RelatedProjectsCard({ project, relatedProjects }) {
+function RelatedProjectsCard({ project, relatedProjects, ...props }) {
   return (
-    <S.Card>
+    <S.Card {...props}>
       <H2>More {project.category.toLowerCase()} projects</H2>
       {relatedProjects.map(project => (
         <S.RelatedProject key={project.id}>
