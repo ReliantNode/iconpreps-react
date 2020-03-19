@@ -20,8 +20,15 @@ const Content = styled.main`
   flex: 1;
   width: 100%;
   max-width: ${breakpoints.min.xl};
-  padding: 5rem 2rem;
   margin: 0 auto;
+
+  @media screen and (max-width: ${breakpoints.max.sm}) {
+    padding: 3rem 2rem;
+  }
+
+  @media screen and (min-width: ${breakpoints.min.md}) {
+    padding: 5rem 2rem;
+  }
 `;
 
 function Layout({ children }) {

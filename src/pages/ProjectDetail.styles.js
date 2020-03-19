@@ -1,6 +1,7 @@
 import { Link } from '@reach/router';
 import styled from 'styled-components';
-import { palette } from 'utils/designTokens';
+import { H6, Text } from 'components/Typography';
+import { breakpoints, palette } from 'utils/designTokens';
 
 export const Header = styled.div`
   display: flex;
@@ -9,9 +10,13 @@ export const Header = styled.div`
 `;
 
 export const Container = styled.div`
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
+  @media screen and (max-width: ${breakpoints.max.sm}) {
+  }
+  @media screen and (min-width: ${breakpoints.min.md}) {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+  }
 `;
 
 export const Main = styled.div`
@@ -29,31 +34,64 @@ export const Card = styled.div`
   border: 1px solid ${palette.gray.border};
   border-radius: 0.6rem;
   box-shadow: 0 2px 5px 0 rgba(206, 210, 219, 0.5);
-  padding: 3rem;
-  margin-top: 3rem;
+
+  @media screen and (max-width: ${breakpoints.max.sm}) {
+    padding: 2rem;
+    margin-top: 2.5rem;
+  }
+
+  @media screen and (min-width: ${breakpoints.min.md}) {
+    padding: 3rem;
+    margin-top: 3rem;
+  }
+`;
+
+export const Description = styled(Text)`
+  @media screen and (max-width: ${breakpoints.max.sm}) {
+    margin-top: 1.5rem;
+  }
+
+  @media screen and (min-width: ${breakpoints.min.md}) {
+    margin-top: 2rem;
+  }
 `;
 
 export const ProjectOverview = styled.div`
-  display: flex;
-  align-items: stretch;
-  justify-content: space-between;
-  min-height: 5.5rem;
-  margin-top: 2.5rem;
+  @media screen and (min-width: ${breakpoints.min.md}) {
+    display: flex;
+    align-items: stretch;
+    justify-content: space-between;
+    min-height: 5.5rem;
+    margin-top: 2.5rem;
+  }
 `;
 
 export const ProjectOverviewItem = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  border-left: 1px solid ${palette.gray.border};
-  padding: 0 3rem;
 
   &:first-child {
     border: none;
-    padding-left: 0;
   }
-  &:last-child {
-    padding-right: 0;
+
+  @media screen and (max-width: ${breakpoints.max.sm}) {
+    align-items: flex-start;
+    border-top: 1px solid ${palette.gray.border};
+    padding: 2rem 0;
+
+    &:last-child {
+      padding-bottom: 0;
+    }
+
+    ${H6} {
+      margin-bottom: 2rem;
+    }
+  }
+
+  @media screen and (min-width: ${breakpoints.min.md}) {
+    justify-content: space-between;
+    border-left: 1px solid ${palette.gray.border};
+    padding: 0 3rem;
   }
 `;
 
@@ -62,6 +100,18 @@ export const PRepDetail = styled.div`
   align-items: center;
   justify-content: flex-start;
   margin-top: 1.5rem;
+
+  @media screen and (max-width: ${breakpoints.max.sm}) {
+    ${Text} {
+      margin-top: 0.2rem;
+    }
+  }
+
+  @media screen and (min-width: ${breakpoints.min.md}) {
+    ${Text} {
+      margin-top: 0.5rem;
+    }
+  }
 `;
 
 export const PRepLink = styled(Link)`

@@ -66,107 +66,45 @@ function ProjectDetailPage() {
         <>
           <S.Header>
             <H1>{project.name}</H1>
-            <Category category={project.category} style={{ marginLeft: '5rem' }} />
+            <Category
+              category={project.category}
+              style={{ marginLeft: '5rem' }}
+              className="md-show"
+            />
           </S.Header>
           <Rating
             overall={project.rating}
             total={project.rating_count}
             style={{ marginTop: '1.5rem' }}
           />
-          <Text style={{ marginTop: '2rem' }}>{project.description}</Text>
+          <Category
+            category={project.category}
+            style={{ marginTop: '1.5rem' }}
+            className="md-hide"
+          />
+          <S.Description>{project.description}</S.Description>
 
           <S.Container>
             <S.Main>
-              <S.Card>
-                <H2>Project overview</H2>
-                <S.ProjectOverview>
-                  <S.ProjectOverviewItem>
-                    <H6>Status</H6>
-                    <ProjectStatus status={project.status} />
-                  </S.ProjectOverviewItem>
-                  <S.ProjectOverviewItem>
-                    <H6>Completed</H6>
-                    <Completion completed={project.progress} />
-                  </S.ProjectOverviewItem>
-                  <S.ProjectOverviewItem style={{ flex: 1 }}>
-                    <H6>Project timeline</H6>
-                    <Text small>
-                      {format(new Date(project.start_date), DATE_FORMAT)}&nbsp;-&nbsp;
-                      {format(new Date(project.end_date), DATE_FORMAT)}
-                    </Text>
-                  </S.ProjectOverviewItem>
-                  <S.ProjectOverviewItem>
-                    <H6>Last updated</H6>
-                    <Text small>{format(new Date(project.updated_date), DATE_FORMAT)}</Text>
-                  </S.ProjectOverviewItem>
-                </S.ProjectOverview>
-              </S.Card>
-
-              <S.Card>
-                <H2 style={{ marginBottom: '2rem' }}>Description</H2>
-                <S.EmbeddedHTML dangerouslySetInnerHTML={{ __html: project.details }} />
-              </S.Card>
+              <ProjectOverviewCard project={project} />
+              <PRepTeamCard pRep={pRep} className="md-hide" />
+              <ProjectDescriptionCard project={project} />
 
               {(project.updates || project.final_update) && (
-                <S.Card>
-                  <H2 style={{ marginBottom: '2rem' }}>Updates</H2>
-                  {project.updates && (
-                    <S.ProjectUpdate>
-                      <H4>Update</H4>
-                      <S.EmbeddedHTML dangerouslySetInnerHTML={{ __html: project.updates }} />
-                    </S.ProjectUpdate>
-                  )}
-                  {project.final_update && (
-                    <S.ProjectUpdate>
-                      <H4>Final update</H4>
-                      <S.EmbeddedHTML dangerouslySetInnerHTML={{ __html: project.final_update }} />
-                    </S.ProjectUpdate>
-                  )}
-                </S.Card>
+                <ProjectUpdatesCard project={project} />
               )}
 
               <ProjectFeedback project={project} style={{ marginTop: '5rem' }} />
+              <RelatedProjectsCard
+                project={project}
+                relatedProjects={relatedProjects}
+                className="md-hide"
+              />
             </S.Main>
 
-            <S.Sidebar>
-              <S.Card>
-                <H2>P-Rep team</H2>
-                <RankBanner
-                  rank={pRep.rank}
-                  style={{ position: 'absolute', top: '-8px', right: '3rem' }}
-                />
-                <S.PRepDetail>
-                  <LogoWrapper>
-                    {pRep.logo && <Logo src={pRep.logo} alt={`${pRep.name} logo`} />}
-                  </LogoWrapper>
-                  <div style={{ marginLeft: '1.5rem' }}>
-                    <H4>{pRep.name}</H4>
-                    <Text muted style={{ marginTop: '0.5rem' }}>
-                      {pRep.city}, {pRep.country}
-                    </Text>
-                  </div>
-                </S.PRepDetail>
-                <S.PRepLink to={`/preps/${pRep.address}`}>View more of their projects</S.PRepLink>
-              </S.Card>
-
-              <S.Card>
-                <H2>More {project.category.toLowerCase()} projects</H2>
-                {relatedProjects.map(project => (
-                  <S.RelatedProject key={project.id}>
-                    <H5>
-                      <UnstyledLink to={`/projects/${project.id}`}>{project.name}</UnstyledLink>
-                    </H5>
-                    <Rating
-                      overall={project.rating}
-                      total={project.rating_count}
-                      style={{ marginTop: '1rem' }}
-                    />
-                    <Text small style={{ marginTop: '1.5rem' }}>
-                      {project.description}
-                    </Text>
-                  </S.RelatedProject>
-                ))}
-              </S.Card>
+            <S.Sidebar className="md-show">
+              <PRepTeamCard pRep={pRep} />
+              <RelatedProjectsCard project={project} relatedProjects={relatedProjects} />
             </S.Sidebar>
           </S.Container>
         </>
@@ -179,6 +117,106 @@ function ProjectDetailPage() {
         </>
       )}
     </Layout>
+  );
+}
+
+function ProjectOverviewCard({ project }) {
+  return (
+    <S.Card>
+      <H2>Project overview</H2>
+      <S.ProjectOverview>
+        <S.ProjectOverviewItem>
+          <H6>Status</H6>
+          <ProjectStatus status={project.status} />
+        </S.ProjectOverviewItem>
+        <S.ProjectOverviewItem>
+          <H6>Completed</H6>
+          <Completion completed={project.progress} />
+        </S.ProjectOverviewItem>
+        <S.ProjectOverviewItem style={{ flex: 1 }}>
+          <H6>Project timeline</H6>
+          <Text small>
+            {format(new Date(project.start_date), DATE_FORMAT)}&nbsp;-&nbsp;
+            {format(new Date(project.end_date), DATE_FORMAT)}
+          </Text>
+        </S.ProjectOverviewItem>
+        <S.ProjectOverviewItem>
+          <H6>Last updated</H6>
+          <Text small>{format(new Date(project.updated_date), DATE_FORMAT)}</Text>
+        </S.ProjectOverviewItem>
+      </S.ProjectOverview>
+    </S.Card>
+  );
+}
+
+function PRepTeamCard({ pRep }) {
+  return (
+    <S.Card>
+      <H2>P-Rep team</H2>
+      <RankBanner rank={pRep.rank} style={{ position: 'absolute', top: '-8px', right: '3rem' }} />
+      <S.PRepDetail>
+        <LogoWrapper>{pRep.logo && <Logo src={pRep.logo} alt={`${pRep.name} logo`} />}</LogoWrapper>
+        <div style={{ marginLeft: '1.5rem' }}>
+          <H4>{pRep.name}</H4>
+          <Text muted>
+            {pRep.city}, {pRep.country}
+          </Text>
+        </div>
+      </S.PRepDetail>
+      <S.PRepLink to={`/preps/${pRep.address}`}>View more of their projects</S.PRepLink>
+    </S.Card>
+  );
+}
+
+function ProjectDescriptionCard({ project }) {
+  return (
+    <S.Card>
+      <H2 style={{ marginBottom: '2rem' }}>Description</H2>
+      <S.EmbeddedHTML dangerouslySetInnerHTML={{ __html: project.details }} />
+    </S.Card>
+  );
+}
+
+function ProjectUpdatesCard({ project }) {
+  return (
+    <S.Card>
+      <H2 style={{ marginBottom: '2rem' }}>Updates</H2>
+      {project.updates && (
+        <S.ProjectUpdate>
+          <H4>Update</H4>
+          <S.EmbeddedHTML dangerouslySetInnerHTML={{ __html: project.updates }} />
+        </S.ProjectUpdate>
+      )}
+      {project.final_update && (
+        <S.ProjectUpdate>
+          <H4>Final update</H4>
+          <S.EmbeddedHTML dangerouslySetInnerHTML={{ __html: project.final_update }} />
+        </S.ProjectUpdate>
+      )}
+    </S.Card>
+  );
+}
+
+function RelatedProjectsCard({ project, relatedProjects }) {
+  return (
+    <S.Card>
+      <H2>More {project.category.toLowerCase()} projects</H2>
+      {relatedProjects.map(project => (
+        <S.RelatedProject key={project.id}>
+          <H5 style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+            <UnstyledLink to={`/projects/${project.id}`}>{project.name}</UnstyledLink>
+          </H5>
+          <Rating
+            overall={project.rating}
+            total={project.rating_count}
+            style={{ marginTop: '1rem' }}
+          />
+          <Text small style={{ marginTop: '1.5rem' }}>
+            {project.description}
+          </Text>
+        </S.RelatedProject>
+      ))}
+    </S.Card>
   );
 }
 
