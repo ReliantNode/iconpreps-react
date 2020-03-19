@@ -129,7 +129,9 @@ function ProjectList({ title, filtersToUse, additionalFilter }) {
 
   return (
     <S.Container>
-      <ProjectSearch filters={filters} dispatch={filtersDispatch} filtersToUse={filtersToUse} />
+      <S.ProjectSearchContainer>
+        <ProjectSearch filters={filters} dispatch={filtersDispatch} filtersToUse={filtersToUse} />
+      </S.ProjectSearchContainer>
 
       <S.Listing>
         <SearchHeader

@@ -83,7 +83,9 @@ function PRepListPage() {
   return (
     <Layout>
       <S.Container>
-        <PRepSearch filters={filters} dispatch={filtersDispatch} />
+        <S.PRepSearchContainer>
+          <PRepSearch filters={filters} dispatch={filtersDispatch} />
+        </S.PRepSearchContainer>
 
         <S.Listing>
           <SearchHeader

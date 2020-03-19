@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { palette } from 'utils/designTokens';
+import { breakpoints, palette } from 'utils/designTokens';
 
 export const Container = styled.div`
   display: flex;
@@ -8,7 +8,24 @@ export const Container = styled.div`
 
 export const Listing = styled.div`
   flex: 1;
-  margin-left: 3rem;
+
+  @media screen and (min-width: ${breakpoints.lg}) {
+    margin-left: 3rem;
+  }
+`;
+
+export const ProjectSearchContainer = styled.div`
+  display: none;
+
+  @media screen and (min-width: ${breakpoints.lg}) {
+    display: block;
+    flex-shrink: 0;
+    width: 26rem;
+    background: ${palette.white};
+    border: 1px solid ${palette.gray.border};
+    border-radius: 0.6rem;
+    box-shadow: 0 2px 5px 0 rgba(206, 210, 219, 0.5);
+  }
 `;
 
 export const ProjectDetails = styled.div`

@@ -9,13 +9,7 @@ import { FILTER_ACTIONS } from 'utils/filters';
 import { palette } from 'utils/designTokens';
 
 const Container = styled.div`
-  flex-shrink: 0;
-  width: 26rem;
   padding: 3rem 2rem;
-  background: ${palette.white};
-  border: 1px solid ${palette.gray.border};
-  border-radius: 0.6rem;
-  box-shadow: 0 2px 5px 0 rgba(206, 210, 219, 0.5);
 `;
 
 const SearchInput = styled.input`
