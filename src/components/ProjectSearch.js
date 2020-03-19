@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { useDebounce } from 'use-debounce';
 import searchIcon from 'assets/icons/search.svg';
 import CheckboxGroup from 'components/CheckboxGroup';
+import { useProjects } from 'components/Projects';
 import RadioGroup from 'components/RadioGroup';
 import Stars from 'components/Stars';
 import { H3, Text } from 'components/Typography';
@@ -61,9 +62,22 @@ const useAllFilters = {
   status: true,
 };
 
+const defaultProjectFilters = {
+  categories: [],
+  statuses: [],
+};
+
 function ProjectSearch({ filters, dispatch, filtersToUse = useAllFilters }) {
+  const { getFilters, hasFilters } = useProjects();
+  const [projectFilters, setProjectFilters] = useState(defaultProjectFilters);
   const [query, setQuery] = useState('');
   const [debouncedQuery] = useDebounce(query, 400);
+
+  useEffect(() => {
+    if (hasFilters) {
+      setProjectFilters(getFilters());
+    }
+  }, [hasFilters]); // eslint-disable-line
 
   useEffect(() => {
     dispatch({ type: FILTER_ACTIONS.SET_QUERY, payload: debouncedQuery });
@@ -115,74 +129,17 @@ function ProjectSearch({ filters, dispatch, filtersToUse = useAllFilters }) {
         <>
           <H3>Category</H3>
           <CheckboxGroup
-            options={[
-              {
-                value: 'Development',
-                children: (
-                  <>
-                    <OptionLabel>Development</OptionLabel>
-                    <Text small muted>
-                      30
-                    </Text>
-                  </>
-                ),
-              },
-              {
-                value: 'Education',
-                children: (
-                  <>
-                    <OptionLabel>Education</OptionLabel>
-                    <Text small muted>
-                      12
-                    </Text>
-                  </>
-                ),
-              },
-              {
-                value: 'Marketing',
-                children: (
-                  <>
-                    <OptionLabel>Marketing</OptionLabel>
-                    <Text small muted>
-                      11
-                    </Text>
-                  </>
-                ),
-              },
-              {
-                value: 'Community',
-                children: (
-                  <>
-                    <OptionLabel>Community</OptionLabel>
-                    <Text small muted>
-                      11
-                    </Text>
-                  </>
-                ),
-              },
-              {
-                value: 'Infrastructure',
-                children: (
-                  <>
-                    <OptionLabel>Infrastructure</OptionLabel>
-                    <Text small muted>
-                      2
-                    </Text>
-                  </>
-                ),
-              },
-              {
-                value: 'Other',
-                children: (
-                  <>
-                    <OptionLabel>Other</OptionLabel>
-                    <Text small muted>
-                      5
-                    </Text>
-                  </>
-                ),
-              },
-            ]}
+            options={projectFilters.categories.map(category => ({
+              value: category.name,
+              children: (
+                <>
+                  <OptionLabel>{category.name}</OptionLabel>
+                  <Text small muted>
+                    {category.count}
+                  </Text>
+                </>
+              ),
+            }))}
             values={filters.categories}
             onChange={handleCategoriesChange}
             name="categories"
@@ -202,9 +159,7 @@ function ProjectSearch({ filters, dispatch, filtersToUse = useAllFilters }) {
                 children: (
                   <>
                     <StarsLabel amount={4}>& up</StarsLabel>
-                    <Text small muted>
-                      8
-                    </Text>
+                    <Text small muted></Text>
                   </>
                 ),
               },
@@ -213,9 +168,7 @@ function ProjectSearch({ filters, dispatch, filtersToUse = useAllFilters }) {
                 children: (
                   <>
                     <StarsLabel amount={3}>& up</StarsLabel>
-                    <Text small muted>
-                      45
-                    </Text>
+                    <Text small muted></Text>
                   </>
                 ),
               },
@@ -224,9 +177,7 @@ function ProjectSearch({ filters, dispatch, filtersToUse = useAllFilters }) {
                 children: (
                   <>
                     <StarsLabel amount={2}>& up</StarsLabel>
-                    <Text small muted>
-                      59
-                    </Text>
+                    <Text small muted></Text>
                   </>
                 ),
               },
@@ -250,9 +201,7 @@ function ProjectSearch({ filters, dispatch, filtersToUse = useAllFilters }) {
                 children: (
                   <>
                     <OptionLabel>Updated in last 7 days</OptionLabel>
-                    <Text small muted>
-                      32
-                    </Text>
+                    <Text small muted></Text>
                   </>
                 ),
               },
@@ -261,9 +210,7 @@ function ProjectSearch({ filters, dispatch, filtersToUse = useAllFilters }) {
                 children: (
                   <>
                     <OptionLabel>Created in last 7 days</OptionLabel>
-                    <Text small muted>
-                      8
-                    </Text>
+                    <Text small muted></Text>
                   </>
                 ),
               },
@@ -281,41 +228,17 @@ function ProjectSearch({ filters, dispatch, filtersToUse = useAllFilters }) {
         <>
           <H3>Status</H3>
           <RadioGroup
-            options={[
-              {
-                value: 'Planning',
-                children: (
-                  <>
-                    <OptionLabel>Planning</OptionLabel>
-                    <Text small muted>
-                      20
-                    </Text>
-                  </>
-                ),
-              },
-              {
-                value: 'Executing',
-                children: (
-                  <>
-                    <OptionLabel>Executing</OptionLabel>
-                    <Text small muted>
-                      39
-                    </Text>
-                  </>
-                ),
-              },
-              {
-                value: 'Complete',
-                children: (
-                  <>
-                    <OptionLabel>Complete</OptionLabel>
-                    <Text small muted>
-                      7
-                    </Text>
-                  </>
-                ),
-              },
-            ]}
+            options={projectFilters.statuses.map(status => ({
+              value: status.name,
+              children: (
+                <>
+                  <OptionLabel>{status.name}</OptionLabel>
+                  <Text small muted>
+                    {status.count}
+                  </Text>
+                </>
+              ),
+            }))}
             value={filters.status}
             onChange={handleStatusChange}
             name="status"

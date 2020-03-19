@@ -2,11 +2,13 @@ import React, { createContext, useContext, useEffect, useState } from 'react';
 import { pick } from 'lodash-es';
 import PropTypes from 'prop-types';
 import { usePReps } from 'components/PReps';
-import { getAllRatings } from 'utils/feedbackApi';
-import { getAllProjects } from 'utils/projectsApi';
+import * as feedbackApi from 'utils/feedbackApi';
+import * as projectsApi from 'utils/projectsApi';
 
 const INITIAL_STATE = {
+  getFilters: null,
   getProjects: null,
+  hasFilters: false,
   hasProjects: false,
   isLoading: true,
 };
@@ -20,15 +22,22 @@ export function useProjects() {
 function Projects({ children }) {
   const { getPReps, hasPReps } = usePReps();
   const [projects, setProjects] = useState([]);
+  const [filters, setFilters] = useState({});
   const [isLoading, setIsLoading] = useState(INITIAL_STATE.isLoading);
   const [hasProjects, setHasProjects] = useState(INITIAL_STATE.hasProjects);
+  const [hasFilters, setHasFilters] = useState(INITIAL_STATE.hasFilters);
 
   useEffect(() => {
     if (hasPReps) loadProjects();
   }, [hasPReps]); // eslint-disable-line
 
+  useEffect(() => void loadFilters(), []);
+
   async function loadProjects() {
-    const [projects, ratings] = await Promise.all([getAllProjects(), getAllRatings()]);
+    const [projects, ratings] = await Promise.all([
+      projectsApi.getAllProjects(),
+      feedbackApi.getAllRatings(),
+    ]);
 
     const pReps = getPReps();
     setProjects(
@@ -47,12 +56,24 @@ function Projects({ children }) {
     setHasProjects(true);
   }
 
+  async function loadFilters() {
+    const filters = await projectsApi.getFilters();
+    setFilters(filters);
+    setHasFilters(true);
+  }
+
   function getProjects() {
     return projects;
   }
 
+  function getFilters() {
+    return filters;
+  }
+
   return (
-    <ProjectsContext.Provider value={{ getProjects, hasProjects, isLoading }}>
+    <ProjectsContext.Provider
+      value={{ getFilters, getProjects, hasFilters, hasProjects, isLoading }}
+    >
       {children}
     </ProjectsContext.Provider>
   );

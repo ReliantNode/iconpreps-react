@@ -1,7 +1,7 @@
-const ENDPOINT = process.env.REACT_APP_COMMUNITY_API;
+const COMMUNITY_API = process.env.REACT_APP_COMMUNITY_API;
 
 export async function getAllProjects() {
-  return getProjects(`${ENDPOINT}/prep-projects/?limit=50&ordering=created_date`);
+  return getProjects(`${COMMUNITY_API}/prep-projects/?limit=50&ordering=created_date`);
 }
 
 async function getProjects(nextRequest, allProjects = []) {
@@ -12,7 +12,13 @@ async function getProjects(nextRequest, allProjects = []) {
 }
 
 export async function getProject(projectId) {
-  const response = await fetch(`${ENDPOINT}/prep-projects/${projectId}/`);
+  const response = await fetch(`${COMMUNITY_API}/prep-projects/${projectId}/`);
   if (response.status !== 200) throw new Error(`Project ${projectId} not found`);
   return response.json();
+}
+
+export async function getFilters() {
+  const response = await fetch(`${COMMUNITY_API}/prep-projects/filters/`);
+  const { categories, status: statuses } = await response.json();
+  return { categories, statuses };
 }
