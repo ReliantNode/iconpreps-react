@@ -39,6 +39,12 @@ const FiltersButton = styled.button`
   }
 `;
 
+const FilterIcon = styled.img`
+  flex-shrink: 0;
+  width: 1.4rem;
+  margin-right: 1rem;
+`;
+
 const Ordering = styled.div`
   display: none;
 
@@ -136,7 +142,7 @@ function SearchHeader({
       <Title>
         <H1>{title}</H1>
         <FiltersButton type="button" onClick={onShowFilters}>
-          <img src={settingsIcon} alt="Filters" style={{ width: '1.4rem', marginRight: '1rem' }} />
+          <FilterIcon src={settingsIcon} alt="Filters" />
           Filters
         </FiltersButton>
         <Ordering>
