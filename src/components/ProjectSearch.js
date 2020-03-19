@@ -8,10 +8,14 @@ import RadioGroup from 'components/RadioGroup';
 import Stars from 'components/Stars';
 import { H3, Text } from 'components/Typography';
 import { FILTER_ACTIONS } from 'utils/filters';
-import { palette } from 'utils/designTokens';
+import { breakpoints, palette } from 'utils/designTokens';
 
 const Container = styled.div`
-  padding: 3rem 2rem;
+  padding: 2rem;
+
+  @media screen and (min-width: ${breakpoints.min.lg}) {
+    padding: 3rem 2rem;
+  }
 `;
 
 const SearchInput = styled.input`

@@ -16,6 +16,7 @@ const Container = styled.div`
 `;
 
 const Content = styled.main`
+  position: relative;
   flex: 1;
   margin: 0 2rem;
   padding: 5rem 0;

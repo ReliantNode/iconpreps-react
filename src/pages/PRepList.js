@@ -3,6 +3,7 @@ import { take } from 'lodash-es';
 import Badge from 'components/Badge';
 import { Card, CardList } from 'components/Cards';
 import Category from 'components/Category';
+import FiltersHeader from 'components/FiltersHeader';
 import Layout from 'components/Layout';
 import { Logo, LogoWrapper } from 'components/Logo';
 import { usePReps } from 'components/PReps';
@@ -19,6 +20,7 @@ function PRepListPage() {
   const [filteredPReps, setFilteredPReps] = useState([]);
   const [filters, filtersDispatch] = useReducer(pRepFilterReducer, PREP_FILTERS);
   const [tags, setTags] = useState([]);
+  const [isShowingFilters, setIsShowingFilters] = useState(false);
 
   useEffect(() => {
     if (hasPReps) setPReps(getPReps());
@@ -83,9 +85,15 @@ function PRepListPage() {
   return (
     <Layout>
       <S.Container>
-        <S.PRepSearchContainer>
+        <S.Filters showing={isShowingFilters}>
+          <FiltersHeader
+            order={filters.order.value}
+            orderings={Object.values(PREP_ORDERINGS)}
+            onChangeOrdering={handleChangeOrdering}
+            onCloseFilters={() => setIsShowingFilters(false)}
+          />
           <PRepSearch filters={filters} dispatch={filtersDispatch} />
-        </S.PRepSearchContainer>
+        </S.Filters>
 
         <S.Listing>
           <SearchHeader
@@ -94,6 +102,7 @@ function PRepListPage() {
             order={filters.order.value}
             orderings={Object.values(PREP_ORDERINGS)}
             onChangeOrdering={handleChangeOrdering}
+            onShowFilters={() => setIsShowingFilters(true)}
           />
 
           {hasPReps && (

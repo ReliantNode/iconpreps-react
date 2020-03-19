@@ -11,8 +11,9 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import closeIcon from 'assets/icons/close.svg';
 import downArrowIcon from 'assets/icons/down-arrow-black.svg';
+import settingsIcon from 'assets/icons/settings.svg';
 import { H1, Text } from 'components/Typography';
-import { palette } from 'utils/designTokens';
+import { breakpoints, palette } from 'utils/designTokens';
 
 const Title = styled.div`
   display: flex;
@@ -20,9 +21,31 @@ const Title = styled.div`
   justify-content: space-between;
 `;
 
-const Ordering = styled.div`
+const FiltersButton = styled.button`
   display: flex;
   align-items: center;
+  font-weight: 600;
+  font-size: 1.3rem;
+  line-height: 1.8rem;
+  color: ${palette.black};
+  background: none;
+  border: 1px solid ${palette.black};
+  border-radius: 0.3rem;
+  padding: 1rem 1.5rem;
+  cursor: pointer;
+
+  @media screen and (min-width: ${breakpoints.min.lg}) {
+    display: none;
+  }
+`;
+
+const Ordering = styled.div`
+  display: none;
+
+  @media screen and (min-width: ${breakpoints.min.lg}) {
+    display: flex;
+    align-items: center;
+  }
 `;
 
 const DropdownInput = styled(ListboxInput)`
@@ -103,11 +126,22 @@ function DownArrow() {
   return <img src={downArrowIcon} alt="Down arrow" style={{ width: '0.9rem' }} />;
 }
 
-function SearchHeader({ title, tags = [], order, orderings = [], onChangeOrdering }) {
+function SearchHeader({
+  title,
+  tags = [],
+  order,
+  orderings = [],
+  onChangeOrdering,
+  onShowFilters,
+}) {
   return (
     <>
       <Title>
         <H1>{title}</H1>
+        <FiltersButton type="button" onClick={onShowFilters}>
+          <img src={settingsIcon} alt="Filters" style={{ width: '1.4rem', marginRight: '1rem' }} />
+          Filters
+        </FiltersButton>
         <Ordering>
           <Text small id="order-label">
             Sort&nbsp;by:
@@ -146,6 +180,7 @@ function SearchHeader({ title, tags = [], order, orderings = [], onChangeOrderin
 
 SearchHeader.propTypes = {
   onChangeOrdering: PropTypes.func.isRequired,
+  onShowFilters: PropTypes.func.isRequired,
   order: PropTypes.string.isRequired,
   orderings: PropTypes.arrayOf(
     PropTypes.shape({

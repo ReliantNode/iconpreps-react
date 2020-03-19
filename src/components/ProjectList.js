@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import { Card, CardList } from 'components/Cards';
 import Category from 'components/Category';
 import Completion from 'components/Completion';
+import FiltersHeader from 'components/FiltersHeader';
 import { Logo, LogoWrapper } from 'components/Logo';
 import { usePReps } from 'components/PReps';
 import ProjectSearch from 'components/ProjectSearch';
@@ -40,6 +41,7 @@ function ProjectList({ title, filtersToUse, additionalFilter }) {
   const [filteredProjects, setFilteredProjects] = useState([]);
   const [filters, filtersDispatch] = useReducer(projectFilterReducer, PROJECT_FILTERS);
   const [tags, setTags] = useState([]);
+  const [isShowingFilters, setIsShowingFilters] = useState(false);
 
   useEffect(() => {
     if (hasPReps && hasProjects) setProjects(getProjects());
@@ -129,9 +131,15 @@ function ProjectList({ title, filtersToUse, additionalFilter }) {
 
   return (
     <S.Container>
-      <S.ProjectSearchContainer>
+      <S.Filters showing={isShowingFilters}>
+        <FiltersHeader
+          order={filters.order.value}
+          orderings={Object.values(PROJECT_ORDERINGS)}
+          onChangeOrdering={handleChangeOrdering}
+          onCloseFilters={() => setIsShowingFilters(false)}
+        />
         <ProjectSearch filters={filters} dispatch={filtersDispatch} filtersToUse={filtersToUse} />
-      </S.ProjectSearchContainer>
+      </S.Filters>
 
       <S.Listing>
         <SearchHeader
@@ -140,6 +148,7 @@ function ProjectList({ title, filtersToUse, additionalFilter }) {
           order={filters.order.value}
           orderings={Object.values(PROJECT_ORDERINGS)}
           onChangeOrdering={handleChangeOrdering}
+          onShowFilters={() => setIsShowingFilters(true)}
         />
 
         {hasProjects && (

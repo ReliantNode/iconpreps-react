@@ -14,8 +14,16 @@ export const Listing = styled.div`
   }
 `;
 
-export const PRepSearchContainer = styled.div`
-  display: none;
+export const Filters = styled.div`
+  @media screen and (max-width: ${breakpoints.max.md}) {
+    display: ${({ showing }) => (showing ? 'block' : 'none')};
+    position: absolute;
+    top: 0;
+    left: -2rem;
+    right: -2rem;
+    min-height: 100%;
+    background: ${palette.white};
+  }
 
   @media screen and (min-width: ${breakpoints.min.lg}) {
     display: block;
