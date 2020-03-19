@@ -6,7 +6,7 @@ import { palette } from 'utils/designTokens';
 
 const Container = styled.div`
   flex-shrink: 0;
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: space-between;
   padding: 0.8rem 1.5rem;

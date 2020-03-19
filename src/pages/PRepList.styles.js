@@ -68,18 +68,16 @@ export const PRepDetails = styled.div`
 `;
 
 export const PRepCategories = styled.div`
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-
   @media screen and (max-width: ${breakpoints.max.sm}) {
     border-top: 1px solid ${palette.gray.border};
-    padding-top: 2rem;
+    padding-top: 1rem;
     margin-top: 2rem;
   }
 
   @media screen and (min-width: ${breakpoints.min.md}) {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
     border-left: 1px solid ${palette.gray.border};
     padding: 0 3rem;
   }
