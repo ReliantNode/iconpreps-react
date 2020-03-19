@@ -35,19 +35,19 @@ const GlobalStyle = createGlobalStyle`
   .sm-show,
   .md-show,
   .lg-show {
-    display: none;
+    display: none !important;
   }
   @media screen and (min-width: ${breakpoints.min.sm}) {
-    .sm-show { display: inherit; }
-    .sm-hide { display: none; }
+    .sm-show { display: inherit !important; }
+    .sm-hide { display: none !important; }
   }
   @media screen and (min-width: ${breakpoints.min.md}) {
-    .md-show { display: inherit; }
-    .md-hide { display: none; }
+    .md-show { display: inherit !important; }
+    .md-hide { display: none !important; }
   }
   @media screen and (min-width: ${breakpoints.min.lg}) {
-    .lg-show { display: inherit; }
-    .lg-hide { display: none; }
+    .lg-show { display: inherit !important; }
+    .lg-hide { display: none !important; }
   }
 `;
 

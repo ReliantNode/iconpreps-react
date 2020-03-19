@@ -1,29 +1,69 @@
 import styled from 'styled-components';
-import { palette } from 'utils/designTokens';
+import { Text } from 'components/Typography';
+import { breakpoints, palette } from 'utils/designTokens';
 
 export const Header = styled.div`
-  display: flex;
-  justify-content: space-between;
+  position: relative;
   background: ${palette.white};
   border: 1px solid ${palette.gray.border};
   border-radius: 0.6rem;
   box-shadow: 0 2px 5px 0 rgba(206, 210, 219, 0.5);
-  padding: 3rem 2.5rem;
+
+  @media screen and (max-width: ${breakpoints.max.md}) {
+    padding: 2rem;
+  }
+
+  @media screen and (min-width: ${breakpoints.min.lg}) {
+    display: flex;
+    justify-content: space-between;
+    padding: 3rem 2.5rem;
+  }
+`;
+
+export const LogoAndDetails = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-top: 3rem;
 `;
 
 export const PRepDetails = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  min-width: 20rem;
-  padding: 0 3rem 0 1.5rem;
+
+  @media screen and (max-width: ${breakpoints.max.sm}) {
+    padding-left: 1.2rem;
+
+    ${Text} {
+      margin-top: 0.2rem;
+    }
+  }
+
+  @media screen and (min-width: ${breakpoints.min.md}) {
+    min-width: 20rem;
+    padding: 0 3rem 0 1.5rem;
+
+    ${Text} {
+      margin-top: 0.8rem;
+    }
+  }
 `;
 
 export const PRepStats = styled.div`
   display: flex;
   align-items: center;
-  border-left: 1px solid ${palette.gray.border};
-  padding: 1.5rem 2rem;
+
+  @media screen and (max-width: ${breakpoints.max.md}) {
+    border-top: 1px solid ${palette.gray.border};
+    padding-top: 2rem;
+    margin-top: 2rem;
+  }
+
+  @media screen and (min-width: ${breakpoints.min.lg}) {
+    border-left: 1px solid ${palette.gray.border};
+    padding: 1.5rem 2rem;
+  }
 `;
 
 export const PRepStat = styled.div`
@@ -32,21 +72,43 @@ export const PRepStat = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  padding: 0 3rem;
   border-left: 1px solid ${palette.gray.border};
 
   &:first-child {
     border: none;
   }
+
+  @media screen and (max-width: ${breakpoints.max.md}) {
+    padding: 0 2rem;
+    &:first-child {
+      padding-left: 0;
+    }
+    &:last-child {
+      padding-right: 0;
+    }
+  }
+
+  @media screen and (min-width: ${breakpoints.min.lg}) {
+    padding: 0 3rem;
+  }
 `;
 
 export const PRepLinks = styled.div`
-  flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-left: 1px solid ${palette.gray.border};
-  padding: 0 2.5rem;
+
+  @media screen and (max-width: ${breakpoints.max.md}) {
+    border-top: 1px solid ${palette.gray.border};
+    padding-top: 2rem;
+    margin-top: 2rem;
+  }
+
+  @media screen and (min-width: ${breakpoints.min.lg}) {
+    flex: 1;
+    border-left: 1px solid ${palette.gray.border};
+    padding: 0 2.5rem;
+  }
 `;
 
 export const PRepLink = styled.a`

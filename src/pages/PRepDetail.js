@@ -36,16 +36,26 @@ function PRepDetailPage() {
       {pRep && (
         <>
           <S.Header>
-            <LogoWrapper>
-              {pRep.logo && <Logo src={pRep.logo} alt={`${pRep.name} logo`} />}
-            </LogoWrapper>
+            <div style={{ display: 'flex' }} className="lg-hide">
+              <RankBanner
+                rank={pRep.rank}
+                style={{ position: 'absolute', top: '-8px', right: '2rem' }}
+              />
+              <Badge>{pRep.rank <= 22 ? 'Main' : 'Sub'} P-Rep</Badge>
+            </div>
 
-            <S.PRepDetails>
-              <H2>{pRep.name}</H2>
-              <Text muted style={{ marginTop: '0.8rem' }}>
-                {pRep.city}, {pRep.country}
-              </Text>
-            </S.PRepDetails>
+            <S.LogoAndDetails>
+              <LogoWrapper>
+                {pRep.logo && <Logo src={pRep.logo} alt={`${pRep.name} logo`} />}
+              </LogoWrapper>
+
+              <S.PRepDetails>
+                <H2>{pRep.name}</H2>
+                <Text muted>
+                  {pRep.city}, {pRep.country}
+                </Text>
+              </S.PRepDetails>
+            </S.LogoAndDetails>
 
             <S.PRepStats>
               <S.PRepStat>
@@ -86,7 +96,7 @@ function PRepDetailPage() {
               )}
             </S.PRepLinks>
 
-            <S.PRepRank>
+            <S.PRepRank className="lg-show">
               <RankBanner rank={pRep.rank} style={{ marginTop: '-38px', marginLeft: '-10px' }} />
               <Badge>{pRep.rank <= 22 ? 'Main' : 'Sub'} P-Rep</Badge>
             </S.PRepRank>
