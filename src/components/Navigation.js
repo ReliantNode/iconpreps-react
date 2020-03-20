@@ -9,6 +9,7 @@ import closeIcon from 'assets/icons/close.svg';
 import downArrowIcon from 'assets/icons/down-arrow-white.svg';
 import hamburgerIcon from 'assets/icons/hamburger.svg';
 import { useAuth } from 'components/Auth';
+import FAQModal from 'components/FAQModal';
 import { Text } from 'components/Typography';
 import { palette } from 'utils/designTokens';
 import { formatAddress } from 'utils/formatAddress';
@@ -28,6 +29,7 @@ function NavLink(props) {
 function Navigation() {
   const { authUser, isAuthenticated, logout, showLoginModal } = useAuth();
   const [isShowingMenu, setIsShowingMenu] = useState(false);
+  const [isShowingFAQ, setIsShowingFAQ] = useState(false);
 
   const AnimatedDialogOverlay = animated(S.DialogOverlay);
   const AnimatedDialogContent = animated(S.DialogContent);
@@ -41,9 +43,9 @@ function Navigation() {
     setIsShowingMenu(false);
   }
 
-  function handleShowHelp() {
-    console.log('Help and FAQs!');
+  function handleShowFAQ() {
     onClose();
+    setIsShowingFAQ(true);
   }
 
   function handleLogin() {
@@ -85,7 +87,7 @@ function Navigation() {
                     <S.NavMenuLink to="/preps" onClick={onClose}>
                       P-Reps
                     </S.NavMenuLink>
-                    <S.NavMenuButton type="button" onClick={handleShowHelp}>
+                    <S.NavMenuButton type="button" onClick={handleShowFAQ}>
                       Help & FAQs
                     </S.NavMenuButton>
                     <S.NavMenuButton type="button" onClick={handleLogin} branded>
@@ -103,7 +105,7 @@ function Navigation() {
         <S.Separator />
         <NavLink to="/preps">P-Reps</NavLink>
         <S.Separator />
-        <S.ButtonLink type="button" onClick={handleShowHelp}>
+        <S.ButtonLink type="button" onClick={handleShowFAQ}>
           Help & FAQs
         </S.ButtonLink>
         <S.Separator />
@@ -128,6 +130,8 @@ function Navigation() {
           </S.LoginButton>
         )}
       </S.NavContainer>
+
+      <FAQModal isOpen={isShowingFAQ} onClose={() => setIsShowingFAQ(false)} />
     </>
   );
 }
