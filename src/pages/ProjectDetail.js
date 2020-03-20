@@ -175,7 +175,7 @@ function PRepTeamCard({ pRep, ...props }) {
           </Text>
         </div>
       </S.PRepDetail>
-      <S.PRepLink to={`/preps/${pRep.address}`}>View more of their projects</S.PRepLink>
+      <S.PRepLink to={`/preps/${pRep.slug}`}>View more of their projects</S.PRepLink>
     </S.Card>
   );
 }

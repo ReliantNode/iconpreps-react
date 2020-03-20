@@ -15,21 +15,21 @@ import { formatLargeNumber } from 'utils/formatNumber';
 import * as S from './PRepDetail.styles';
 
 function PRepDetailPage() {
-  const { pRepAddress } = useParams();
+  const { pRepSlug } = useParams();
   const { getPReps, hasPReps } = usePReps();
   const [pRep, setPRep] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     if (hasPReps) {
-      const pRep = getPReps().find(pRep => pRep.address === pRepAddress);
+      const pRep = getPReps().find(pRep => pRep.slug === pRepSlug);
       setPRep(pRep);
       setIsLoading(false);
     }
-  }, [hasPReps, pRepAddress]); // eslint-disable-line
+  }, [hasPReps, pRepSlug]); // eslint-disable-line
 
   function filterByPRep(project) {
-    return project.prep_address === pRepAddress;
+    return project.prep_address === pRep.address;
   }
 
   return (
@@ -120,7 +120,7 @@ function PRepDetailPage() {
       {!(isLoading || pRep) && (
         <>
           <H1>P-Rep not found</H1>
-          <Text style={{ marginTop: '2rem' }}>The P-Rep '{pRepAddress}' doesn't exist.</Text>
+          <Text style={{ marginTop: '2rem' }}>The P-Rep '{pRepSlug}' doesn't exist.</Text>
         </>
       )}
     </Layout>

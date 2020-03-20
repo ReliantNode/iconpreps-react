@@ -20,7 +20,7 @@ function Router() {
         <ProjectList path="/projects" />
         <ProjectDetail path="/projects/:projectId" />
         <PRepList path="/preps" />
-        <PRepDetail path="/preps/:pRepAddress" />
+        <PRepDetail path="/preps/:pRepSlug" />
         <NotFound default />
       </ScrollToTop>
     </ReachRouter>

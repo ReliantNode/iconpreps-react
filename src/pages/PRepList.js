@@ -117,7 +117,7 @@ function PRepListPage() {
 
                     <S.PRepDetails>
                       <S.PRepName>
-                        <UnstyledLink to={pRep.address}>{pRep.name}</UnstyledLink>
+                        <UnstyledLink to={pRep.slug}>{pRep.name}</UnstyledLink>
                       </S.PRepName>
                       <Text muted>
                         {pRep.city}, {pRep.country}
