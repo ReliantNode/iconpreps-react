@@ -42,8 +42,8 @@ const Header = styled.div`
 `;
 
 const Title = styled(H1)`
-  font-size: 2.2rem;
-  line-height: 3rem;
+  font-size: 2.2rem !important;
+  line-height: 3rem !important;
 `;
 
 const CloseButton = styled.button`
@@ -197,7 +197,7 @@ function LoginModal({ isOpen, onClose, ...props }) {
             {...props}
           >
             <Header>
-              <Title>Login with ICON</Title>
+              <Title>Log in with ICON</Title>
               <CloseButton type="button" onClick={onClose}>
                 <img src={closeIcon} alt="Close" style={{ width: '1.7rem' }} />
               </CloseButton>
@@ -220,7 +220,7 @@ function LoginModal({ isOpen, onClose, ...props }) {
                   alt="ICON logo"
                   style={{ width: '3rem', marginRight: '1rem' }}
                 />
-                <span>{isWorking ? 'Logging in' : 'Login'} with ICON</span>
+                <span>Log{isWorking ? 'ging' : ''} in with ICON</span>
                 <Text heavy style={{ fontSize: '1.6rem', color: palette.white }}></Text>
               </LoginButton>
               <Text
