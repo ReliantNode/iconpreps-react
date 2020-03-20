@@ -1,5 +1,6 @@
 import React, { useEffect, useReducer, useState } from 'react';
 import { take } from 'lodash-es';
+import noLogo from 'assets/no-logo.svg';
 import Badge from 'components/Badge';
 import { Card, CardList } from 'components/Cards';
 import Category from 'components/Category';
@@ -111,7 +112,10 @@ function PRepListPage() {
                 <Card key={pRep.address}>
                   <S.LogoAndDetails>
                     <LogoWrapper>
-                      {pRep.logo && <Logo src={pRep.logo} alt={`${pRep.name} logo`} />}
+                      <Logo
+                        src={pRep.logo ? `https://images.weserv.nl/?url=${pRep.logo}` : noLogo}
+                        alt={`${pRep.name} logo`}
+                      />
                     </LogoWrapper>
 
                     <S.PRepDetails>

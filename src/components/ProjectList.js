@@ -2,6 +2,7 @@ import React, { useEffect, useReducer, useState } from 'react';
 import { format, isAfter, parseISO, subDays } from 'date-fns';
 import { take } from 'lodash-es';
 import PropTypes from 'prop-types';
+import noLogo from 'assets/no-logo.svg';
 import { CardList } from 'components/Cards';
 import Category from 'components/Category';
 import Completion from 'components/Completion';
@@ -157,9 +158,14 @@ function ProjectList({ title, filtersToUse, additionalFilter }) {
               <S.Card key={project.id}>
                 <S.LogoAndHeader>
                   <LogoWrapper>
-                    {project.pRep && project.pRep.logo && (
-                      <Logo src={project.pRep.logo} alt={`${project.pRep.name} logo`} />
-                    )}
+                    <Logo
+                      src={
+                        project.pRep && project.pRep.logo
+                          ? `https://images.weserv.nl/?url=${project.pRep.logo}`
+                          : noLogo
+                      }
+                      alt={`${project.pRep.name} logo`}
+                    />
                   </LogoWrapper>
 
                   <S.ProjectHeader>

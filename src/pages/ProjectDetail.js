@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from '@reach/router';
 import { format } from 'date-fns';
 import { pick, shuffle, take } from 'lodash-es';
+import noLogo from 'assets/no-logo.svg';
 import Category from 'components/Category';
 import Completion from 'components/Completion';
 import EmbeddedContent from 'components/EmbeddedContent';
@@ -161,7 +162,12 @@ function PRepTeamCard({ pRep, ...props }) {
       <H2>P-Rep team</H2>
       <RankBanner rank={pRep.rank} style={{ position: 'absolute', top: '-8px', right: '3rem' }} />
       <S.PRepDetail>
-        <LogoWrapper>{pRep.logo && <Logo src={pRep.logo} alt={`${pRep.name} logo`} />}</LogoWrapper>
+        <LogoWrapper>
+          <Logo
+            src={pRep.logo ? `https://images.weserv.nl/?url=${pRep.logo}` : noLogo}
+            alt={`${pRep.name} logo`}
+          />
+        </LogoWrapper>
         <div style={{ marginLeft: '1.5rem' }}>
           <H4>{pRep.name}</H4>
           <Text muted>

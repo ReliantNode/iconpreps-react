@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from '@reach/router';
+import noLogo from 'assets/no-logo.svg';
 import githubIcon from 'assets/icons/github.svg';
 import twitterIcon from 'assets/icons/twitter.svg';
 import webIcon from 'assets/icons/web.svg';
@@ -46,7 +47,10 @@ function PRepDetailPage() {
 
             <S.LogoAndDetails>
               <LogoWrapper>
-                {pRep.logo && <Logo src={pRep.logo} alt={`${pRep.name} logo`} />}
+                <Logo
+                  src={pRep.logo ? `https://images.weserv.nl/?url=${pRep.logo}` : noLogo}
+                  alt={`${pRep.name} logo`}
+                />
               </LogoWrapper>
 
               <S.PRepDetails>

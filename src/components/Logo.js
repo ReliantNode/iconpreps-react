@@ -8,7 +8,7 @@ export const LogoWrapper = styled.div`
   justify-content: center;
   width: 5rem;
   height: 5rem;
-  background: ${({ children }) => (!children ? palette.brand.primary : 'none')};
+  background: none;
   border: 1px solid ${palette.gray.border};
   border-radius: 100%;
   overflow: hidden;
