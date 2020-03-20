@@ -166,6 +166,11 @@ export const FeedbackHeader = styled.div`
   }
 `;
 
+export const FeedbackTitle = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
 export const CommentInput = styled.textarea`
   width: 100%;
   height: 10rem;

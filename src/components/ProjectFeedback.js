@@ -94,12 +94,12 @@ function ProjectFeedback({ project, ...props }) {
               <S.LogoAndHeader>
                 <S.UserIcon userLevel={authUser.level} />
                 <S.FeedbackHeader>
-                  <div style={{ display: 'flex' }}>
+                  <S.FeedbackTitle>
                     <Text heavy>{authUser.level}</Text>
-                    <Text small muted style={{ textDecoration: 'underline', marginLeft: '0.5rem' }}>
+                    <Text small muted style={{ marginLeft: '0.5rem' }}>
                       ({formatAddress(authUser.username)})
                     </Text>
-                  </div>
+                  </S.FeedbackTitle>
                   <Text small muted className="feedback-date">
                     <span className="md-show">on </span>
                     {format(new Date(), DATE_FORMAT)}
@@ -147,12 +147,12 @@ function ProjectFeedback({ project, ...props }) {
               <S.LogoAndHeader>
                 <S.UserIcon userLevel={feedback.level} />
                 <S.FeedbackHeader>
-                  <div style={{ display: 'flex' }}>
+                  <S.FeedbackTitle>
                     <Text heavy>{feedback.level}</Text>
-                    <Text small muted style={{ textDecoration: 'underline', marginLeft: '0.5rem' }}>
+                    <Text small muted style={{ marginLeft: '0.5rem' }}>
                       ({formatAddress(feedback.username)})
                     </Text>
-                  </div>
+                  </S.FeedbackTitle>
                   <Text small muted className="feedback-date">
                     <span className="md-show">on </span>
                     {format(new Date(feedback.updated_date), DATE_FORMAT)}
