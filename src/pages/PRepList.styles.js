@@ -92,6 +92,13 @@ export const PRepCategories = styled.div`
     border-top: 1px solid ${palette.gray.border};
     padding-top: 1rem;
     margin-top: 2rem;
+
+    .category {
+      margin-top: 1rem;
+    }
+    .main-category {
+      margin-right: 1.5rem;
+    }
   }
 
   @media screen and (min-width: ${breakpoints.min.md}) {
@@ -100,6 +107,10 @@ export const PRepCategories = styled.div`
     justify-content: flex-start;
     border-left: 1px solid ${palette.gray.border};
     padding: 0 3rem;
+
+    .sub-category {
+      margin-left: 1.5rem;
+    }
   }
 `;
 

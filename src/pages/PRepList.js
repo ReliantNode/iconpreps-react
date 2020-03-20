@@ -126,12 +126,9 @@ function PRepListPage() {
 
                   {pRep.main_category ? (
                     <S.PRepCategories>
-                      <Category
-                        category={pRep.main_category}
-                        style={{ marginTop: '1rem', marginRight: '1.5rem' }}
-                      />
+                      <Category category={pRep.main_category} className="category main-category" />
                       {pRep.sub_category && (
-                        <Category category={pRep.sub_category} style={{ marginTop: '1rem' }} />
+                        <Category category={pRep.sub_category} className="category sub-category" />
                       )}
                     </S.PRepCategories>
                   ) : (
