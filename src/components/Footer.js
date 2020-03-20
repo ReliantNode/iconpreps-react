@@ -66,6 +66,11 @@ const PRepDetails = styled.div`
   margin-left: 2rem;
 `;
 
+const ArrowIcon = styled.img`
+  width: 1.4rem;
+  margin-left: 0.8rem;
+`;
+
 const Slogan = styled(Text)`
   @media screen and (min-width: ${breakpoints.min.md}) {
     order: 2;
@@ -109,7 +114,8 @@ function Header() {
             <Text>A ReliantNode P-Rep project.</Text>
             <Text style={{ marginTop: '1rem' }}>
               <A href="https://www.reliantnode.com/" target="_blank" rel="noopener noreferrer">
-                Learn more <img src={rightArrowIcon} alt="Right arrow" style={{ height: '1rem' }} />
+                Learn more
+                <ArrowIcon src={rightArrowIcon} alt="Right arrow" />
               </A>
             </Text>
           </PRepDetails>
