@@ -4,6 +4,7 @@ import '@reach/dialog/styles.css';
 import PropTypes from 'prop-types';
 import { animated, useTransition } from 'react-spring';
 import styled from 'styled-components';
+import userLevelsImage from 'assets/user-levels.png';
 import closeIcon from 'assets/icons/close.svg';
 import { A, H1, H2 as RawH2, Text } from 'components/Typography';
 import { breakpoints } from 'utils/designTokens';
@@ -123,32 +124,7 @@ function LoginModal({ isOpen, onClose, ...props }) {
                   will benefit and grow the ICON eco-system.{' '}
                 </Text>
 
-                <H2>2. Why are my votes important?</H2>
-                <Text style={{ marginTop: '1.6rem' }}>
-                  When you stake your ICX to earn rewards, you’ll vote for a P-Rep (or multiple
-                  P-Reps). They also earn rewards, which helps to fund their work. In short, a vote
-                  for a P-Rep, is a vote of support for the projects they are working on.
-                </Text>
-                <Text style={{ marginTop: '2rem' }}>
-                  It’s important to note that you, as the voter, earn the same amount of rewards no
-                  matter what P-Rep you vote for.
-                </Text>
-
-                <H2>3. How do I leave a rating and feedback on a project?</H2>
-                <Text style={{ marginTop: '1.6rem' }}>
-                  Firstly, you’ll need to sign in using your ICON wallet. You can then leave a
-                  rating and feedback, if you have at least 10 ICX staked to ICON.
-                </Text>
-              </Column>
-              <Column>
-                <H2>4. Will my rating and feedback be anonymous?</H2>
-                <Text style={{ marginTop: '1.6rem' }}>
-                  When you leave your rating and feedback, you’ll notice an image and name next to
-                  your wallet address. This represents how much ICX you have staked — e.g. “whale”.
-                  Your name is not revealed.
-                </Text>
-
-                <H2>5. As a P-Rep, where do I upload my projects?</H2>
+                <H2>2. As a P-Rep, where do I upload my projects?</H2>
                 <Text style={{ marginTop: '1.6rem' }}>
                   You will continue to create and update your projects over on{' '}
                   <A
@@ -161,6 +137,36 @@ function LoginModal({ isOpen, onClose, ...props }) {
                   . We’ve written an API to achieve this, which means there’s no duplication of
                   work.
                 </Text>
+
+                <H2>3. Why are my votes important?</H2>
+                <Text style={{ marginTop: '1.6rem' }}>
+                  When you stake your ICX to earn rewards, you’ll vote for a P-Rep (or multiple
+                  P-Reps). They also earn rewards, which helps to fund their work. In short, a vote
+                  for a P-Rep, is a vote of support for the projects they are working on.
+                </Text>
+                <Text style={{ marginTop: '2rem' }}>
+                  It’s important to note that you, as the voter, earn the same amount of rewards no
+                  matter what P-Rep you vote for.
+                </Text>
+
+                <H2>4. How do I leave a rating and feedback on a project?</H2>
+                <Text style={{ marginTop: '1.6rem' }}>
+                  Firstly, you’ll need to sign in using your ICON wallet. You can then leave a
+                  rating and feedback, if you have at least 10 ICX staked to ICON.
+                </Text>
+              </Column>
+              <Column>
+                <H2>5. Will my rating and feedback be anonymous?</H2>
+                <Text style={{ marginTop: '1.6rem' }}>
+                  When you leave your rating and feedback, you’ll notice an image and name next to
+                  your wallet address. This represents how much ICX you have staked — e.g. “whale”.
+                  Your name is not revealed.
+                </Text>
+                <img
+                  src={userLevelsImage}
+                  alt="User levels explainer"
+                  style={{ marginTop: '1rem' }}
+                />
 
                 <H2>6. Who runs this site?</H2>
                 <Text style={{ marginTop: '1.6rem' }}>
