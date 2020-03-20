@@ -44,10 +44,7 @@ function PRepListPage() {
 
       if (
         filters.categories.length &&
-        !(
-          filters.categories.includes(pRep.main_category) ||
-          filters.categories.includes(pRep.sub_category)
-        )
+        !filters.categories.find(category => pRep.categories.includes(category))
       )
         return false;
 
@@ -129,17 +126,15 @@ function PRepListPage() {
                   </S.LogoAndDetails>
 
                   <S.PRepCategories>
-                    {pRep.main_category || pRep.sub_category ? (
+                    {pRep.categories.length ? (
                       <>
-                        {pRep.main_category && (
+                        <Category
+                          category={pRep.categories[0]}
+                          className="category main-category"
+                        />
+                        {pRep.categories.length > 1 && (
                           <Category
-                            category={pRep.main_category}
-                            className="category main-category"
-                          />
-                        )}
-                        {pRep.sub_category && (
-                          <Category
-                            category={pRep.sub_category}
+                            category={pRep.categories[1]}
                             className="category sub-category"
                           />
                         )}
