@@ -151,9 +151,9 @@ function PRepListPage() {
             </CardList>
           )}
 
-          {!hasPReps && isLoading && <Text style={{ marginTop: '2rem' }}>Loading...</Text>}
+          {!hasPReps && isLoading && <S.MessageText>Loading...</S.MessageText>}
           {hasPReps && !filteredPReps.length && (
-            <Text style={{ marginTop: '2rem' }}>No P-Reps found matching the search criteria.</Text>
+            <S.MessageText>No P-Reps found matching the search criteria.</S.MessageText>
           )}
         </S.Listing>
       </S.Container>

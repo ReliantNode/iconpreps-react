@@ -41,6 +41,11 @@ export const Filters = styled.div`
   }
 `;
 
+export const MessageText = styled(Text)`
+  margin-top: 8rem;
+  text-align: center;
+`;
+
 export const Card = styled(CommonCard)`
   @media screen and (min-width: ${breakpoints.min.md}) {
     display: block;

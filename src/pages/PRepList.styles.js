@@ -40,6 +40,11 @@ export const Filters = styled.div`
   }
 `;
 
+export const MessageText = styled(Text)`
+  margin-top: 8rem;
+  text-align: center;
+`;
+
 export const LogoAndDetails = styled.div`
   display: flex;
   align-items: center;
