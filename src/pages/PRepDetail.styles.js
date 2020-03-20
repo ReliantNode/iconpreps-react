@@ -101,15 +101,16 @@ export const StatSeparator = styled.div`
 export const PRepLinks = styled.div`
   display: flex;
   align-items: center;
-  justify-content: center;
 
   @media screen and (max-width: ${breakpoints.max.md}) {
+    justify-content: flex-start;
     border-top: 1px solid ${palette.gray.border};
     padding-top: 2rem;
     margin-top: 2rem;
   }
 
   @media screen and (min-width: ${breakpoints.min.lg}) {
+    justify-content: center;
     border-left: 1px solid ${palette.gray.border};
     padding: 0 5rem;
   }
