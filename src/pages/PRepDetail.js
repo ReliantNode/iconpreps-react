@@ -64,12 +64,14 @@ function PRepDetailPage() {
                   Votes
                 </Text>
               </S.PRepStat>
+              <S.StatSeparator />
               <S.PRepStat>
                 <Text heavy>{formatLargeNumber(pRep.voters)}</Text>
                 <Text muted small>
                   Voters
                 </Text>
               </S.PRepStat>
+              <S.StatSeparator />
               <S.PRepStat>
                 <Text heavy>{pRep.projects}</Text>
                 <Text muted small>

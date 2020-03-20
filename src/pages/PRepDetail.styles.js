@@ -68,6 +68,7 @@ export const PRepStats = styled.div`
   align-items: center;
 
   @media screen and (max-width: ${breakpoints.max.md}) {
+    justify-content: flex-start;
     border-top: 1px solid ${palette.gray.border};
     padding-top: 2rem;
     margin-top: 2rem;
@@ -75,35 +76,26 @@ export const PRepStats = styled.div`
 
   @media screen and (min-width: ${breakpoints.min.lg}) {
     border-left: 1px solid ${palette.gray.border};
-    padding: 1.5rem 2rem;
+    padding: 1.5rem 5rem;
   }
 `;
 
 export const PRepStat = styled.div`
-  flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  border-left: 1px solid ${palette.gray.border};
-
-  &:first-child {
-    border: none;
-  }
-
-  @media screen and (max-width: ${breakpoints.max.md}) {
-    padding: 0 2rem;
-    &:first-child {
-      padding-left: 0;
-    }
-    &:last-child {
-      padding-right: 0;
-    }
-  }
 
   @media screen and (min-width: ${breakpoints.min.lg}) {
-    padding: 0 3rem;
+    flex: 1;
   }
+`;
+
+export const StatSeparator = styled.div`
+  width: 1px;
+  height: 1.5rem;
+  background: ${palette.gray.border};
+  margin: 0 3rem;
 `;
 
 export const PRepLinks = styled.div`
