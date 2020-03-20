@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from '@reach/router';
 import styled from 'styled-components';
 import logoReliantNode from 'assets/logo-reliant-node.png';
 import githubIcon from 'assets/icons/github.svg';
@@ -113,7 +114,7 @@ function Header() {
           <PRepDetails>
             <Text>A ReliantNode P-Rep project.</Text>
             <Text style={{ marginTop: '1rem' }}>
-              <A href="https://www.reliantnode.com/" target="_blank" rel="noopener noreferrer">
+              <A as={Link} to="/preps/reliant-node-86f917">
                 Learn more
                 <ArrowIcon src={rightArrowIcon} alt="Right arrow" />
               </A>
