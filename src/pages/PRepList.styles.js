@@ -46,6 +46,7 @@ export const MessageText = styled(Text)`
 `;
 
 export const LogoAndDetails = styled.div`
+  flex: 1;
   display: flex;
   align-items: center;
   justify-content: flex-start;
@@ -66,12 +67,17 @@ export const PRepDetails = styled.div`
   }
 
   @media screen and (min-width: ${breakpoints.min.md}) {
-    min-width: 20rem;
+    flex: 1;
+    width: 20rem;
     padding: 0 3rem 0 1.5rem;
 
     ${Text} {
       margin-top: 0.8rem;
     }
+  }
+
+  @media screen and (min-width: ${breakpoints.min.xl}) {
+    width: 30rem;
   }
 `;
 
