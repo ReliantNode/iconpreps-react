@@ -13,7 +13,7 @@ import { useProjects } from 'components/Projects';
 import RankBanner from 'components/RankBanner';
 import Rating from 'components/Rating';
 import { H1, H2, H4, H5, H6, Text, UnstyledLink } from 'components/Typography';
-import { DATE_FORMAT } from 'utils/constants';
+import { DATE_FORMAT, DATE_FORMAT_SHORTER } from 'utils/constants';
 import { getProject } from 'utils/projectsApi';
 import * as S from './ProjectDetail.styles';
 
@@ -129,20 +129,25 @@ function ProjectOverviewCard({ project, ...props }) {
           <H6>Status</H6>
           <ProjectStatus status={project.status} />
         </S.ProjectOverviewItem>
+        <S.OverviewSeparator />
         <S.ProjectOverviewItem>
           <H6>Completed</H6>
           <Completion completed={project.progress} />
         </S.ProjectOverviewItem>
-        <S.ProjectOverviewItem style={{ flex: 1 }}>
-          <H6>Project timeline</H6>
-          <Text small>
-            {format(new Date(project.start_date), DATE_FORMAT)}&nbsp;-&nbsp;
-            {format(new Date(project.end_date), DATE_FORMAT)}
+        <S.OverviewSeparator />
+        <S.ProjectOverviewItem>
+          <H6 className="no-wrap">Project timeline</H6>
+          <Text small className="no-wrap">
+            {format(new Date(project.start_date), DATE_FORMAT_SHORTER)}&nbsp;-&nbsp;
+            {format(new Date(project.end_date), DATE_FORMAT_SHORTER)}
           </Text>
         </S.ProjectOverviewItem>
+        <S.OverviewSeparator />
         <S.ProjectOverviewItem>
-          <H6>Last updated</H6>
-          <Text small>{format(new Date(project.updated_date), DATE_FORMAT)}</Text>
+          <H6 className="no-wrap">Last updated</H6>
+          <Text small className="no-wrap">
+            {format(new Date(project.updated_date), DATE_FORMAT)}
+          </Text>
         </S.ProjectOverviewItem>
       </S.ProjectOverview>
     </S.Card>

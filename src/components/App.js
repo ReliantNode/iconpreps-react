@@ -47,6 +47,12 @@ const GlobalStyle = createGlobalStyle`
   @media screen and (min-width: ${breakpoints.min.lg}) {
     .lg-hide { display: none !important; }
   }
+
+  .no-wrap {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 `;
 
 function App() {

@@ -70,7 +70,7 @@ export const ProjectOverview = styled.div`
   @media screen and (min-width: ${breakpoints.min.md}) {
     display: flex;
     align-items: stretch;
-    justify-content: space-between;
+    justify-content: flex-start;
     min-height: 5.5rem;
     margin-top: 2.5rem;
   }
@@ -80,15 +80,14 @@ export const ProjectOverviewItem = styled.div`
   display: flex;
   flex-direction: column;
 
-  &:first-child {
-    border: none;
-  }
-
   @media screen and (max-width: ${breakpoints.max.sm}) {
     align-items: flex-start;
     border-top: 1px solid ${palette.gray.border};
     padding: 2rem 0;
 
+    &:first-child {
+      border: none;
+    }
     &:last-child {
       padding-bottom: 0;
     }
@@ -100,9 +99,14 @@ export const ProjectOverviewItem = styled.div`
 
   @media screen and (min-width: ${breakpoints.min.md}) {
     justify-content: space-between;
-    border-left: 1px solid ${palette.gray.border};
-    padding: 0 3rem;
   }
+`;
+
+export const OverviewSeparator = styled.div`
+  align-self: stretch;
+  width: 1px;
+  background: ${palette.gray.border};
+  margin: 0 3rem;
 `;
 
 export const PRepDetail = styled.div`
