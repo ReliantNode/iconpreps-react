@@ -19,11 +19,17 @@ const Title = styled.div`
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
+
+  @media screen and (max-width: ${breakpoints.max.md}) {
+    float: left;
+    margin-top: 0.6rem;
+  }
 `;
 
 const FiltersButton = styled.button`
   display: flex;
   align-items: center;
+  float: right;
   font-weight: 600;
   font-size: 1.3rem;
   line-height: 1.8rem;
@@ -32,6 +38,7 @@ const FiltersButton = styled.button`
   border: 1px solid ${palette.black};
   border-radius: 0.3rem;
   padding: 1rem 1.5rem;
+  margin-left: 1.5rem;
   cursor: pointer;
 
   @media screen and (min-width: ${breakpoints.min.lg}) {
@@ -107,6 +114,7 @@ const DropdownOption = styled(ListboxOption)`
 const Tags = styled.div`
   min-height: 1px;
   margin-top: 1rem;
+  clear: both;
 `;
 
 const Tag = styled.div`
@@ -157,10 +165,6 @@ function SearchHeader({
     <>
       <Title>
         <H1>{title}</H1>
-        <FiltersButton type="button" onClick={onShowFilters}>
-          <FilterIcon src={settingsIcon} alt="Filters" />
-          Filters
-        </FiltersButton>
         <Ordering>
           <Text small id="order-label">
             Sort&nbsp;by:
@@ -179,6 +183,10 @@ function SearchHeader({
           </DropdownInput>
         </Ordering>
       </Title>
+      <FiltersButton type="button" onClick={onShowFilters}>
+        <FilterIcon src={settingsIcon} alt="Filters" />
+        Filters
+      </FiltersButton>
       <Tags>
         {tags.map(({ label, rm }, index) => (
           <Tag
