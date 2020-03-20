@@ -235,7 +235,7 @@ function LoginModal({ isOpen, onClose, ...props }) {
                   <>
                     You need to be using an ICON-supported browser
                     <br />
-                    (eg. <b>Chrome</b> with <b>ICONex extension</b> or the <b>MyIconWallet</b> app)
+                    (eg. <b>Chrome</b> with <b>ICONex extension</b>)
                   </>
                 ) : !hasAccount ? (
                   <>You need to add an ICON account to your ICON-supported browser</>
