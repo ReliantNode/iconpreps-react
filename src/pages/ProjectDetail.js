@@ -4,6 +4,7 @@ import { format } from 'date-fns';
 import { pick, shuffle, take } from 'lodash-es';
 import Category from 'components/Category';
 import Completion from 'components/Completion';
+import EmbeddedContent from 'components/EmbeddedContent';
 import Layout from 'components/Layout';
 import { Logo, LogoWrapper } from 'components/Logo';
 import { usePReps } from 'components/PReps';
@@ -177,7 +178,7 @@ function ProjectDescriptionCard({ project, ...props }) {
   return (
     <S.Card {...props}>
       <H2 style={{ marginBottom: '2rem' }}>Description</H2>
-      <S.EmbeddedHTML dangerouslySetInnerHTML={{ __html: project.details }} />
+      <EmbeddedContent content={project.details} />
     </S.Card>
   );
 }
@@ -189,13 +190,13 @@ function ProjectUpdatesCard({ project, ...props }) {
       {project.updates && (
         <S.ProjectUpdate>
           <H4>Update</H4>
-          <S.EmbeddedHTML dangerouslySetInnerHTML={{ __html: project.updates }} />
+          <EmbeddedContent content={project.updates} />
         </S.ProjectUpdate>
       )}
       {project.final_update && (
         <S.ProjectUpdate>
           <H4>Final update</H4>
-          <S.EmbeddedHTML dangerouslySetInnerHTML={{ __html: project.final_update }} />
+          <EmbeddedContent content={project.final_update} />
         </S.ProjectUpdate>
       )}
     </S.Card>

@@ -3,6 +3,7 @@ import { format } from 'date-fns';
 import { orderBy } from 'lodash-es';
 import PropTypes from 'prop-types';
 import { useAuth } from 'components/Auth';
+import EmbeddedContent from 'components/EmbeddedContent';
 import Rating from 'components/Rating';
 import SetRating from 'components/SetRating';
 import { H2, Text } from 'components/Typography';
@@ -49,8 +50,7 @@ function ProjectFeedback({ project, ...props }) {
     }
 
     try {
-      const result = await addFeedback(project.id, rating, comment);
-      console.log({ result });
+      await addFeedback(project.id, rating, comment);
       setRating(0);
       setComment('');
       loadFeedback(project.id);
@@ -160,7 +160,7 @@ function ProjectFeedback({ project, ...props }) {
                 </S.FeedbackHeader>
               </S.LogoAndHeader>
               <Rating overall={feedback.rating} style={{ marginTop: '1.4rem' }} />
-              <S.Comment>{feedback.comment}</S.Comment>
+              <EmbeddedContent content={feedback.comment} style={{ marginTop: '2rem' }} />
             </S.Feedback>
           </S.FeedbackItem>
         ))}

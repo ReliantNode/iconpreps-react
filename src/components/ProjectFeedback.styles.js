@@ -166,11 +166,6 @@ export const FeedbackHeader = styled.div`
   }
 `;
 
-export const Comment = styled.div`
-  margin-top: 2rem;
-  /* TODO: handle styling HTML elements? */
-`;
-
 export const CommentInput = styled.textarea`
   width: 100%;
   height: 10rem;
