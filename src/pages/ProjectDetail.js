@@ -21,51 +21,58 @@ import { getProject } from 'utils/projectsApi';
 import * as S from './ProjectDetail.styles';
 
 function ProjectDetailPage() {
-  const { projectId } = useParams();
+  const { projectSlug } = useParams();
   const { getPReps, hasPReps } = usePReps();
   const { getProjects, hasProjects } = useProjects();
-  const [rawProject, setRawProject] = useState(null);
   const [project, setProject] = useState(null);
   const [relatedProjects, setRelatedProjects] = useState([]);
   const [pRep, setPRep] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    setIsLoading(true);
-
-    getProject(projectId)
-      .then(project => setRawProject(project))
-      .catch(() => setRawProject(null));
-  }, [projectId]); // eslint-disable-line
-
-  useEffect(() => {
-    if (hasPReps && hasProjects && rawProject) {
-      const pRep = getPReps().find(pRep => pRep.address === rawProject.prep_address);
-      setPRep(pRep);
-
-      const listProject = getProjects().find(project => String(project.id) === projectId);
-      setProject({
-        ...rawProject,
-        ...pick(listProject, ['category', 'progress', 'status', 'rating', 'rating_count']),
-      });
-
-      const relatedProjects = take(
-        shuffle(
-          getProjects().filter(
-            project => project.category === listProject.category && project.id !== listProject.id
-          )
-        ),
-        3
-      );
-      setRelatedProjects(relatedProjects);
-
-      setIsLoading(false);
+    if (hasPReps && hasProjects) {
+      setIsLoading(true);
+      loadProject();
     }
-  }, [hasPReps, hasProjects, rawProject]); // eslint-disable-line
+  }, [hasPReps, hasProjects, projectSlug]); // eslint-disable-line
+
+  async function loadProject() {
+    let rawProject;
+    const listProject = getProjects().find(project => project.slug === projectSlug);
+    if (!listProject) return setIsLoading(false);
+
+    try {
+      rawProject = await getProject(listProject.id);
+    } catch (error) {
+      console.error(`Failed loading project ${projectSlug}.`, error.message);
+      return setIsLoading(false);
+    }
+    setProject({
+      ...rawProject,
+      ...pick(listProject, ['category', 'progress', 'status', 'rating', 'rating_count']),
+    });
+
+    const pRep = getPReps().find(pRep => pRep.address === rawProject.prep_address);
+    setPRep(pRep);
+
+    const relatedProjects = take(
+      shuffle(
+        getProjects().filter(
+          project => project.category === listProject.category && project.id !== listProject.id
+        )
+      ),
+      3
+    );
+    setRelatedProjects(relatedProjects);
+
+    setIsLoading(false);
+  }
 
   return (
     <Layout>
-      {project && (
+      {isLoading ? (
+        <Loading style={{ marginTop: '8rem' }} />
+      ) : project ? (
         <>
           <S.Header>
             <H1>{project.name}</H1>
@@ -111,13 +118,10 @@ function ProjectDetailPage() {
             </S.Sidebar>
           </S.Container>
         </>
-      )}
-
-      {!project && isLoading && <Loading style={{ marginTop: '8rem' }} />}
-      {!(isLoading || rawProject) && (
+      ) : (
         <>
           <H1>Project not found</H1>
-          <Text style={{ marginTop: '2rem' }}>The project '{projectId}' doesn't exist.</Text>
+          <Text style={{ marginTop: '2rem' }}>The project '{projectSlug}' doesn't exist.</Text>
         </>
       )}
     </Layout>
@@ -218,7 +222,7 @@ function RelatedProjectsCard({ project, relatedProjects, ...props }) {
       {relatedProjects.map(project => (
         <S.RelatedProject key={project.id}>
           <H5 style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-            <UnstyledLink to={`/projects/${project.id}`}>{project.name}</UnstyledLink>
+            <UnstyledLink to={`/projects/${project.slug}`}>{project.name}</UnstyledLink>
           </H5>
           <Rating
             overall={project.rating}

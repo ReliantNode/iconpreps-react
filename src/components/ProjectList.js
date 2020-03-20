@@ -167,9 +167,7 @@ function ProjectList({ title, filtersToUse, additionalFilter }) {
                   <S.ProjectHeader>
                     <div style={{ minWidth: 0 }}>
                       <S.ProjectName>
-                        <UnstyledLink to={`/projects/${String(project.id)}`}>
-                          {project.name}
-                        </UnstyledLink>
+                        <UnstyledLink to={`/projects/${project.slug}`}>{project.name}</UnstyledLink>
                       </S.ProjectName>
                       <Rating
                         overall={project.rating}

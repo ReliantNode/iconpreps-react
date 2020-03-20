@@ -18,7 +18,7 @@ function Router() {
       <ScrollToTop path="/">
         <Redirect exact from="/" to="/projects" />
         <ProjectList path="/projects" />
-        <ProjectDetail path="/projects/:projectId" />
+        <ProjectDetail path="/projects/:projectSlug" />
         <PRepList path="/preps" />
         <PRepDetail path="/preps/:pRepSlug" />
         <NotFound default />
