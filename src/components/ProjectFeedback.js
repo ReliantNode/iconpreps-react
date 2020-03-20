@@ -8,7 +8,7 @@ import Rating from 'components/Rating';
 import SetRating from 'components/SetRating';
 import { H2, Text } from 'components/Typography';
 import { DATE_FORMAT, USER_LEVELS } from 'utils/constants';
-import { addFeedback, getFeedback } from 'utils/feedbackApi';
+import * as feedbackApi from 'utils/feedbackApi';
 import { formatAddress } from 'utils/formatAddress';
 import * as S from './ProjectFeedback.styles';
 
@@ -19,6 +19,7 @@ function ProjectFeedback({ project, ...props }) {
   const [comment, setComment] = useState('');
   const [error, setError] = useState('');
   const [isWorking, setIsWorking] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(null);
 
   useEffect(() => {
     loadFeedback(project.id);
@@ -28,7 +29,7 @@ function ProjectFeedback({ project, ...props }) {
   }, [project.id]);
 
   async function loadFeedback(projectId) {
-    const feedback = await getFeedback(projectId);
+    const feedback = await feedbackApi.getFeedback(projectId);
     setFeedback(orderBy(feedback, ['updated_date'], ['desc']));
   }
 
@@ -50,7 +51,7 @@ function ProjectFeedback({ project, ...props }) {
     }
 
     try {
-      await addFeedback(project.id, rating, comment);
+      await feedbackApi.addFeedback(project.id, rating, comment);
       setRating(0);
       setComment('');
       loadFeedback(project.id);
@@ -74,6 +75,13 @@ function ProjectFeedback({ project, ...props }) {
     }
 
     return false;
+  }
+
+  async function handleDeleteFeedback(feedbackId) {
+    setIsDeleting(feedbackId);
+    await feedbackApi.deleteFeedback(feedbackId);
+    await loadFeedback(project.id);
+    setIsDeleting(null);
   }
 
   return (
@@ -120,9 +128,9 @@ function ProjectFeedback({ project, ...props }) {
                 <Text small error className="error-message">
                   {error}
                 </Text>
-                <S.FeedbackButton type="button" onClick={handleLeaveFeedback} disabled={isWorking}>
+                <S.PrimaryButton type="button" onClick={handleLeaveFeedback} disabled={isWorking}>
                   Leav{isWorking ? 'ing' : 'e'} feedback
-                </S.FeedbackButton>
+                </S.PrimaryButton>
               </S.FeedbackActions>
             </S.Feedback>
           </S.FeedbackItem>
@@ -141,29 +149,45 @@ function ProjectFeedback({ project, ...props }) {
       </S.AverageRating>
 
       <S.FeedbackList>
-        {feedback.map(feedback => (
-          <S.FeedbackItem key={feedback.id}>
-            <S.Feedback>
-              <S.LogoAndHeader>
-                <S.UserIcon userLevel={feedback.level} />
-                <S.FeedbackHeader>
-                  <S.FeedbackTitle>
-                    <Text heavy>{feedback.level}</Text>
-                    <Text small muted style={{ marginLeft: '0.5rem' }}>
-                      ({formatAddress(feedback.username)})
+        {feedback.map(feedback => {
+          const isMyFeedback = isAuthenticated && feedback.username === authUser.username;
+          return (
+            <S.FeedbackItem key={feedback.id}>
+              <S.Feedback>
+                <S.LogoAndHeader>
+                  <S.UserIcon userLevel={feedback.level} />
+                  <S.FeedbackHeader>
+                    <S.FeedbackTitle>
+                      <Text heavy>{feedback.level}</Text>
+                      <Text small muted style={{ marginLeft: '0.5rem' }}>
+                        ({formatAddress(feedback.username)})
+                      </Text>
+                    </S.FeedbackTitle>
+                    <Text small muted className="feedback-date">
+                      <span className="md-show">on </span>
+                      {format(new Date(feedback.updated_date), DATE_FORMAT)}
                     </Text>
-                  </S.FeedbackTitle>
-                  <Text small muted className="feedback-date">
-                    <span className="md-show">on </span>
-                    {format(new Date(feedback.updated_date), DATE_FORMAT)}
-                  </Text>
-                </S.FeedbackHeader>
-              </S.LogoAndHeader>
-              <Rating overall={feedback.rating} style={{ marginTop: '1.4rem' }} />
-              <EmbeddedContent content={feedback.comment} style={{ marginTop: '2rem' }} />
-            </S.Feedback>
-          </S.FeedbackItem>
-        ))}
+                  </S.FeedbackHeader>
+                </S.LogoAndHeader>
+                <S.RatingAndActions>
+                  <Rating overall={feedback.rating} />
+                  {isMyFeedback && (
+                    <S.EditActions>
+                      <S.SecondaryButton
+                        type="button"
+                        onClick={() => handleDeleteFeedback(feedback.id)}
+                        disabled={isDeleting !== null}
+                      >
+                        Delet{isDeleting === feedback.id ? 'ing' : 'e'}
+                      </S.SecondaryButton>
+                    </S.EditActions>
+                  )}
+                </S.RatingAndActions>
+                <EmbeddedContent content={feedback.comment} style={{ marginTop: '2rem' }} />
+              </S.Feedback>
+            </S.FeedbackItem>
+          );
+        })}
       </S.FeedbackList>
     </>
   );

@@ -192,6 +192,32 @@ export const CommentInput = styled.textarea`
   }
 `;
 
+export const RatingAndActions = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  @media screen and (max-width: ${breakpoints.max.sm}) {
+    margin-top: 3rem;
+  }
+
+  @media screen and (min-width: ${breakpoints.min.md}) {
+    margin-top: 1.4rem;
+  }
+`;
+
+export const EditActions = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+  @media screen and (min-width: ${breakpoints.min.md}) {
+    position: absolute;
+    top: 3rem;
+    right: 3rem;
+  }
+`;
+
 export const FeedbackActions = styled.div`
   margin-top: 2rem;
 
@@ -202,7 +228,7 @@ export const FeedbackActions = styled.div`
   }
 `;
 
-export const FeedbackButton = styled.button`
+export const PrimaryButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -234,5 +260,25 @@ export const FeedbackButton = styled.button`
   @media screen and (min-width: ${breakpoints.min.md}) {
     width: 23rem;
     margin-left: 2rem;
+  }
+`;
+
+export const SecondaryButton = styled.button`
+  font-weight: 500;
+  font-size: 1.3rem;
+  line-height: 1.8rem;
+  color: ${palette.black};
+  background: none;
+  border: none;
+  border-bottom: 1px solid ${palette.black};
+  padding: 0;
+
+  &[disabled] {
+    color: ${palette.gray.dark};
+  }
+
+  &:focus {
+    outline: none;
+    border-color: ${palette.brand.primary};
   }
 `;

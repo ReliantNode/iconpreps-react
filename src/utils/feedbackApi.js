@@ -27,3 +27,12 @@ export async function addFeedback(projectId, rating, comment) {
   if (response.status !== 201) throw new Error('Failed sending request.');
   return response.json();
 }
+
+export async function deleteFeedback(feedbackId) {
+  const response = await fetch(`${ENDPOINT}/feedback/${feedbackId}`, {
+    method: 'DELETE',
+    credentials: 'include',
+  });
+  if (response.status !== 204) throw new Error('Failed sending request.');
+  return true;
+}
