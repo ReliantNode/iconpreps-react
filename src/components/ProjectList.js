@@ -16,7 +16,7 @@ import { useProjects } from 'components/Projects';
 import Rating from 'components/Rating';
 import SearchHeader from 'components/SearchHeader';
 import { Text, UnstyledLink } from 'components/Typography';
-import { DATE_FORMAT, LOGO_FALLBACK } from 'utils/constants';
+import { DATE_FORMAT } from 'utils/constants';
 import { palette } from 'utils/designTokens';
 import {
   FILTER_ACTIONS,
@@ -24,6 +24,7 @@ import {
   PROJECT_ORDERINGS,
   projectFilterReducer,
 } from 'utils/filters';
+import { getLogoProxy } from 'utils/getLogoProxy';
 import * as S from './ProjectList.styles';
 
 const RECENT_ACTIVITY_TYPES = {
@@ -161,9 +162,7 @@ function ProjectList({ title, filtersToUse, additionalFilter, showFilterCounts =
                   <LogoWrapper>
                     <Logo
                       src={
-                        project.pRep && project.pRep.logo
-                          ? `https://images.weserv.nl/?url=${project.pRep.logo}&default=${LOGO_FALLBACK}`
-                          : noLogo
+                        project.pRep && project.pRep.logo ? getLogoProxy(project.pRep.logo) : noLogo
                       }
                       alt={`${project.pRep.name} logo`}
                     />

@@ -11,8 +11,8 @@ import { Logo, LogoWrapper } from 'components/Logo';
 import { usePReps } from 'components/PReps';
 import SearchHeader from 'components/SearchHeader';
 import { H5, H6, Text, UnstyledLink } from 'components/Typography';
-import { LOGO_FALLBACK } from 'utils/constants';
 import { FILTER_ACTIONS, PREP_FILTERS, PREP_ORDERINGS, pRepFilterReducer } from 'utils/filters';
+import { getLogoProxy } from 'utils/getLogoProxy';
 import * as S from './PRepList.styles';
 import PRepSearch from 'components/PRepSearch';
 
@@ -111,11 +111,7 @@ function PRepListPage() {
                   <S.LogoAndDetails>
                     <LogoWrapper>
                       <Logo
-                        src={
-                          pRep.logo
-                            ? `https://images.weserv.nl/?url=${pRep.logo}&default=${LOGO_FALLBACK}`
-                            : noLogo
-                        }
+                        src={pRep.logo ? getLogoProxy(pRep.logo) : noLogo}
                         alt={`${pRep.name} logo`}
                       />
                     </LogoWrapper>

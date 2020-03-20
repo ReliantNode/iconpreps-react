@@ -15,7 +15,8 @@ import ProjectStatus from 'components/ProjectStatus';
 import { useProjects } from 'components/Projects';
 import Rating from 'components/Rating';
 import { H1, H2, H4, H5, H6, Text, UnstyledLink } from 'components/Typography';
-import { DATE_FORMAT, DATE_FORMAT_SHORTER, LOGO_FALLBACK } from 'utils/constants';
+import { DATE_FORMAT, DATE_FORMAT_SHORTER } from 'utils/constants';
+import { getLogoProxy } from 'utils/getLogoProxy';
 import { getProject } from 'utils/projectsApi';
 import * as S from './ProjectDetail.styles';
 
@@ -168,14 +169,7 @@ function PRepTeamCard({ pRep, ...props }) {
       <S.RankBanner rank={pRep.rank} />
       <S.PRepDetail>
         <LogoWrapper>
-          <Logo
-            src={
-              pRep.logo
-                ? `https://images.weserv.nl/?url=${pRep.logo}&default=${LOGO_FALLBACK}`
-                : noLogo
-            }
-            alt={`${pRep.name} logo`}
-          />
+          <Logo src={pRep.logo ? getLogoProxy(pRep.logo) : noLogo} alt={`${pRep.name} logo`} />
         </LogoWrapper>
         <div style={{ marginLeft: '1.5rem' }}>
           <H4>{pRep.name}</H4>
