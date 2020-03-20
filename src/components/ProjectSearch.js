@@ -69,6 +69,7 @@ const useAllFilters = {
 
 const defaultProjectFilters = {
   categories: [],
+  recentActivity: [],
   statuses: [],
 };
 
@@ -200,26 +201,17 @@ function ProjectSearch({ filters, dispatch, filtersToUse = useAllFilters }) {
         <>
           <H3>Recent activity</H3>
           <RadioGroup
-            options={[
-              {
-                value: 'Updated',
-                children: (
-                  <>
-                    <OptionLabel>Updated in last 7 days</OptionLabel>
-                    <Text small muted></Text>
-                  </>
-                ),
-              },
-              {
-                value: 'Created',
-                children: (
-                  <>
-                    <OptionLabel>Created in last 7 days</OptionLabel>
-                    <Text small muted></Text>
-                  </>
-                ),
-              },
-            ]}
+            options={projectFilters.recentActivity.map(recentActivity => ({
+              value: recentActivity.name.split(' ')[0],
+              children: (
+                <>
+                  <OptionLabel>{recentActivity.name}</OptionLabel>
+                  <Text small muted>
+                    {recentActivity.count}
+                  </Text>
+                </>
+              ),
+            }))}
             value={filters.recent}
             onChange={handleRecentChange}
             name="recent"

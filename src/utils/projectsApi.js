@@ -19,6 +19,6 @@ export async function getProject(projectId) {
 
 export async function getFilters() {
   const response = await fetch(`${COMMUNITY_API}/prep-projects/filters/`);
-  const { categories, status: statuses } = await response.json();
-  return { categories, statuses };
+  const { categories, recent_activity: recentActivity, status: statuses } = await response.json();
+  return { categories, recentActivity, statuses };
 }
