@@ -48,6 +48,10 @@ const FilterIcon = styled.img`
 const Ordering = styled.div`
   display: none;
 
+  #order-label {
+    font-weight: 500;
+  }
+
   @media screen and (min-width: ${breakpoints.min.lg}) {
     display: flex;
     align-items: center;
@@ -64,6 +68,7 @@ const DropdownButton = styled(ListboxButton)`
   background: ${palette.white};
   border: 1px solid ${palette.gray.border};
   border-radius: 0.4rem;
+  padding: 0 2rem;
 `;
 
 const DropdownPopover = styled(ListboxPopover)`
