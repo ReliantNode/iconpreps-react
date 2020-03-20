@@ -42,6 +42,7 @@ export const HamburgerButton = styled.button`
 export const DialogOverlay = styled(ReachDialogOverlay)`
   background: 'rgba(16, 15, 16, 0.6)';
   backdrop-filter: blur(6px);
+  z-index: 30;
 `;
 
 export const DialogContent = styled(ReachDialogContent)`

@@ -17,6 +17,7 @@ const StyledDialogOverlay = styled(DialogOverlay)`
   background: 'rgba(16, 15, 16, 0.6)';
   backdrop-filter: blur(6px);
   padding: 0 2rem;
+  z-index: 40;
 `;
 
 const StyledDialogContent = styled(DialogContent)`
