@@ -3,7 +3,7 @@ import { DialogContent, DialogOverlay } from '@reach/dialog';
 import '@reach/dialog/styles.css';
 import PropTypes from 'prop-types';
 import { animated, useTransition } from 'react-spring';
-import styled from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
 import iconLogo from 'assets/logo-icon.svg';
 import closeIcon from 'assets/icons/close.svg';
 import { useAuth } from 'components/Auth';
@@ -12,6 +12,11 @@ import { getAuthToken } from 'utils/authApi';
 import { ICONEX_RELAY } from 'utils/constants';
 import { palette } from 'utils/designTokens';
 import { wait } from 'utils/wait';
+
+const rotate = keyframes`
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+`;
 
 const StyledDialogOverlay = styled(DialogOverlay)`
   background: 'rgba(16, 15, 16, 0.6)';
@@ -87,6 +92,17 @@ const LoginButton = styled.button`
   padding: 0;
   margin-top: 3rem;
   cursor: pointer;
+`;
+
+const IconLogo = styled.img`
+  width: 2.5rem;
+  margin-right: 1rem;
+  animation: ${({ spin }) =>
+    spin
+      ? css`
+          ${rotate} 2s linear infinite
+        `
+      : 'none'};
 `;
 
 function LoginModal({ isOpen, onClose, ...props }) {
@@ -215,11 +231,7 @@ function LoginModal({ isOpen, onClose, ...props }) {
                 disabled={isWorking || isChecking || !hasExtension || !hasAccount}
                 working={isWorking}
               >
-                <img
-                  src={iconLogo}
-                  alt="ICON logo"
-                  style={{ width: '3rem', marginRight: '1rem' }}
-                />
+                <IconLogo src={iconLogo} alt="ICON logo" spin={isWorking} />
                 <span>Log{isWorking ? 'ging' : ''} in with ICON</span>
                 <Text heavy style={{ fontSize: '1.6rem', color: palette.white }}></Text>
               </LoginButton>
