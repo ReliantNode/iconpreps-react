@@ -7,7 +7,7 @@ import EmbeddedContent from 'components/EmbeddedContent';
 import Rating from 'components/Rating';
 import SetRating from 'components/SetRating';
 import { H2, Text } from 'components/Typography';
-import { DATE_FORMAT, USER_LEVELS } from 'utils/constants';
+import { DATE_FORMAT } from 'utils/constants';
 import * as feedbackApi from 'utils/feedbackApi';
 import { formatAddress } from 'utils/formatAddress';
 import * as S from './ProjectFeedback.styles';
