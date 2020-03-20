@@ -16,8 +16,17 @@ const CheckboxContainer = styled(CustomCheckboxContainer)`
   width: 2.2rem;
   height: 2.2rem;
   background: ${palette.white};
-  border: 1px solid ${palette.gray.dark};
+  outline: none !important;
+`;
+
+const CheckBorder = styled.div`
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border: 1px solid ${({ focused }) => (focused ? palette.brand.primary : palette.gray.dark)};
   border-radius: 0.3rem;
+  outline: none !important;
+  overflow: hidden;
 `;
 
 const Check = styled.div`
@@ -29,14 +38,19 @@ const Check = styled.div`
   background: no-repeat 0.4rem /1.2rem url(${checkIcon}) rgba(16, 15, 16, 0.8);
   transition: transform 0.2s;
   transform: ${({ checked }) => (checked ? 'scale(1)' : 'scale(0)')};
+  outline: none !important;
 `;
 
 function Checkbox({ checked, children, onChange, style = {}, ...props }) {
   return (
     <Label style={style}>
       <CheckboxContainer checked={checked} onChange={onChange}>
-        <CustomCheckboxInput checked={checked} {...props} />
-        <Check checked={checked} aria-hidden />
+        {({ focused }) => (
+          <CheckBorder focused={focused} aria-hidden>
+            <CustomCheckboxInput checked={checked} {...props} />
+            <Check checked={checked} aria-hidden />
+          </CheckBorder>
+        )}
       </CheckboxContainer>
       {children}
     </Label>

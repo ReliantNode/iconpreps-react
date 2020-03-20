@@ -85,7 +85,7 @@ export const MenuCloseButton = styled.button`
   cursor: pointer;
 
   &:focus {
-    outline: none; /* bad! */
+    outline: none; /* naughty! */
   }
 `;
 
@@ -133,6 +133,10 @@ export const Link = styled(ReachLink)`
   color: ${palette.white};
   text-decoration: none;
 
+  &:focus {
+    outline: none; /* naughty! */
+  }
+
   &[data-active='true'] {
     font-weight: 700;
 
@@ -158,6 +162,10 @@ export const ButtonLink = styled.button`
   border: none;
   padding: 0;
   cursor: pointer;
+
+  &:focus {
+    outline: none; /* naughty! */
+  }
 `;
 
 export const LoginButton = styled.button`
@@ -179,7 +187,10 @@ export const DropdownButton = styled(MenuButton)`
   border: none;
   padding: 0;
   cursor: pointer;
-  outline: none; /* TODO: bad! */
+
+  &:focus {
+    outline: none; /* naughty! */
+  }
 `;
 
 export const DropdownList = styled(MenuItems)`

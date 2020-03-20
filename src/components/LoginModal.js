@@ -57,7 +57,7 @@ const CloseButton = styled.button`
   cursor: pointer;
 
   &:focus {
-    outline: none; /* bad! */
+    outline: none; /* naughty! */
   }
 `;
 

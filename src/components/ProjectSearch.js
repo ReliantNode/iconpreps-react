@@ -31,6 +31,11 @@ const SearchInput = styled.input`
   margin-top: 2rem;
   background: no-repeat 1rem/2rem url(${searchIcon});
 
+  &:focus {
+    outline: none;
+    border-color: ${palette.brand.primary};
+  }
+
   &::placeholder {
     opacity: 0.25;
   }
