@@ -185,13 +185,15 @@ export const CommentInput = styled.textarea`
   resize: vertical;
   padding: 1rem;
   margin-top: 2rem;
+
+  &:focus {
+    outline: none;
+    border-color: ${palette.brand.primary};
+  }
 `;
 
 export const FeedbackActions = styled.div`
   margin-top: 2rem;
-
-  @media screen and (max-width: ${breakpoints.max.sm}) {
-  }
 
   @media screen and (min-width: ${breakpoints.min.md}) {
     display: flex;
@@ -217,6 +219,11 @@ export const FeedbackButton = styled.button`
 
   &[disabled] {
     background: ${palette.brand.dark};
+  }
+
+  &:focus {
+    outline: none;
+    border: 2px solid ${palette.gray.border};
   }
 
   @media screen and (max-width: ${breakpoints.max.sm}) {

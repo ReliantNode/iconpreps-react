@@ -24,6 +24,11 @@ const StarContainer = styled.button`
   &:last-child {
     padding: 0;
   }
+
+  &:focus {
+    outline: none;
+    opacity: 0.6;
+  }
 `;
 
 const Star = styled.img`

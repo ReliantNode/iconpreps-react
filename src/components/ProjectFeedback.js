@@ -63,7 +63,7 @@ function ProjectFeedback({ project, ...props }) {
   }
 
   function getValidationError() {
-    if (authUser.level === USER_LEVELS.NON_ICONIST) {
+    if (!authUser.can_submit_feedback) {
       return 'You must delegate more ICX to leave feedback.';
     }
     if (!rating) {
