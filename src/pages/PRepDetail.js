@@ -42,7 +42,7 @@ function PRepDetailPage() {
             <div style={{ display: 'flex' }} className="lg-hide">
               <RankBanner
                 rank={pRep.rank}
-                style={{ position: 'absolute', top: '-8px', right: '2rem' }}
+                style={{ position: 'absolute', top: '-8px', right: '1.9rem' }}
               />
               <Badge>{pRep.rank <= 22 ? 'Main' : 'Sub'} P-Rep</Badge>
             </div>

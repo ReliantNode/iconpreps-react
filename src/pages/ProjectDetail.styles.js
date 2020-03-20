@@ -1,5 +1,6 @@
 import { Link } from '@reach/router';
 import styled from 'styled-components';
+import RawRankBanner from 'components/RankBanner';
 import { H6, Text } from 'components/Typography';
 import { breakpoints, palette } from 'utils/designTokens';
 
@@ -107,6 +108,19 @@ export const OverviewSeparator = styled.div`
   width: 1px;
   background: ${palette.gray.border};
   margin: 0 3rem;
+`;
+
+export const RankBanner = styled(RawRankBanner)`
+  position: absolute;
+  top: -8px;
+
+  @media screen and (max-width: ${breakpoints.max.sm}) {
+    right: 1.9rem;
+  }
+
+  @media screen and (min-width: ${breakpoints.min.md}) {
+    right: 2.9rem;
+  }
 `;
 
 export const PRepDetail = styled.div`

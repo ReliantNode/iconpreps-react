@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import Badge from 'components/Badge';
+import RawRankBanner from 'components/RankBanner';
 import { H2, H5, Text } from 'components/Typography';
 import { breakpoints, palette } from 'utils/designTokens';
 
@@ -126,10 +127,6 @@ export const PRepRank = styled.div`
     ${Badge} {
       margin-left: 2rem;
     }
-
-    .rank-banner {
-      display: none;
-    }
   }
 
   @media screen and (min-width: ${breakpoints.min.md}) {
@@ -138,12 +135,12 @@ export const PRepRank = styled.div`
     justify-content: space-between;
     padding-left: 2.5rem;
     border-left: 1px solid ${palette.gray.border};
-
-    .rank-banner {
-      margin-top: -33px;
-      margin-left: -10px;
-    }
   }
+`;
+
+export const RankBanner = styled(RawRankBanner)`
+  margin-top: -33px;
+  margin-left: -10px;
 `;
 
 export const PRepRankText = styled.div`

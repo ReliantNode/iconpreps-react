@@ -9,7 +9,6 @@ import Layout from 'components/Layout';
 import Loading from 'components/Loading';
 import { Logo, LogoWrapper } from 'components/Logo';
 import { usePReps } from 'components/PReps';
-import RankBanner from 'components/RankBanner';
 import SearchHeader from 'components/SearchHeader';
 import { H5, H6, Text, UnstyledLink } from 'components/Typography';
 import { LOGO_FALLBACK } from 'utils/constants';
@@ -157,7 +156,7 @@ function PRepListPage() {
                       <H6>Rank</H6>
                       <H5>#{pRep.rank}</H5>
                     </S.PRepRankText>
-                    <RankBanner rank={pRep.rank} className="rank-banner" />
+                    <S.RankBanner rank={pRep.rank} className="md-show" />
                     <Badge>{pRep.rank <= 22 ? 'Main' : 'Sub'} P-Rep</Badge>
                   </S.PRepRank>
                 </Card>

@@ -13,7 +13,6 @@ import { usePReps } from 'components/PReps';
 import ProjectFeedback from 'components/ProjectFeedback';
 import ProjectStatus from 'components/ProjectStatus';
 import { useProjects } from 'components/Projects';
-import RankBanner from 'components/RankBanner';
 import Rating from 'components/Rating';
 import { H1, H2, H4, H5, H6, Text, UnstyledLink } from 'components/Typography';
 import { DATE_FORMAT, DATE_FORMAT_SHORTER, LOGO_FALLBACK } from 'utils/constants';
@@ -166,7 +165,7 @@ function PRepTeamCard({ pRep, ...props }) {
   return (
     <S.Card {...props}>
       <H2>P-Rep team</H2>
-      <RankBanner rank={pRep.rank} style={{ position: 'absolute', top: '-8px', right: '3rem' }} />
+      <S.RankBanner rank={pRep.rank} />
       <S.PRepDetail>
         <LogoWrapper>
           <Logo
