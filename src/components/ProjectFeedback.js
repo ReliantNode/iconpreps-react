@@ -10,6 +10,7 @@ import { H2, Text } from 'components/Typography';
 import { DATE_FORMAT } from 'utils/constants';
 import * as feedbackApi from 'utils/feedbackApi';
 import { formatAddress } from 'utils/formatAddress';
+import { sanitizeInput } from 'utils/sanitizeInput';
 import * as S from './ProjectFeedback.styles';
 
 function ProjectFeedback({ project, ...props }) {
@@ -51,7 +52,7 @@ function ProjectFeedback({ project, ...props }) {
     }
 
     try {
-      await feedbackApi.addFeedback(project.id, rating, comment);
+      await feedbackApi.addFeedback(project.id, rating, sanitizeInput(comment));
       setRating(0);
       setComment('');
       loadFeedback(project.id);
