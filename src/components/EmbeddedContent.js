@@ -7,6 +7,7 @@ const Container = styled.div`
   font-weight: 400;
   font-size: 1.5rem;
   line-height: 2.2rem;
+  word-break: break-word;
 
   * {
     color: ${palette.black} !important;
