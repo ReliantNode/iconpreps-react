@@ -23,6 +23,7 @@ function PRepListPage() {
   const [filters, filtersDispatch] = useReducer(pRepFilterReducer, PREP_FILTERS);
   const [tags, setTags] = useState([]);
   const [isShowingFilters, setIsShowingFilters] = useState(false);
+  const [hasMorePReps, setHasMorePReps] = useState(false);
 
   useEffect(() => {
     if (hasPReps) setPReps(getPReps());
@@ -54,7 +55,10 @@ function PRepListPage() {
 
     const ordered = filters.order.fn(filtered);
 
-    setFilteredPReps(take(ordered, filters.limit));
+    const limited = take(ordered, filters.limit);
+    setHasMorePReps(limited < ordered);
+
+    setFilteredPReps(limited);
   }, [filters, pReps]);
 
   useEffect(() => {
@@ -79,6 +83,10 @@ function PRepListPage() {
   function handleChangeOrdering(orderValue) {
     const order = Object.values(PREP_ORDERINGS).find(({ value }) => value === orderValue);
     filtersDispatch({ type: FILTER_ACTIONS.SET_ORDER, payload: order });
+  }
+
+  function handleLoadMore() {
+    filtersDispatch({ type: FILTER_ACTIONS.SET_LIMIT, payload: 999 });
   }
 
   return (
@@ -158,6 +166,12 @@ function PRepListPage() {
                 </Card>
               ))}
             </CardList>
+          )}
+
+          {hasMorePReps && (
+            <S.LoadMoreButton type="button" onClick={handleLoadMore}>
+              Load more P-Reps…
+            </S.LoadMoreButton>
           )}
 
           {!hasPReps && isLoading && <Loading style={{ marginTop: '8rem' }} />}

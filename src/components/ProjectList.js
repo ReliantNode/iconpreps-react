@@ -44,6 +44,7 @@ function ProjectList({ title, filtersToUse, additionalFilter, showFilterCounts =
   const [filters, filtersDispatch] = useReducer(projectFilterReducer, PROJECT_FILTERS);
   const [tags, setTags] = useState([]);
   const [isShowingFilters, setIsShowingFilters] = useState(false);
+  const [hasMoreProjects, setHasMoreProjects] = useState(false);
 
   useEffect(() => {
     if (hasPReps && hasProjects) setProjects(getProjects());
@@ -82,7 +83,10 @@ function ProjectList({ title, filtersToUse, additionalFilter, showFilterCounts =
 
     const ordered = filters.order.fn(filtered);
 
-    setFilteredProjects(take(ordered, filters.limit));
+    const limited = take(ordered, filters.limit);
+    setHasMoreProjects(limited < ordered);
+
+    setFilteredProjects(limited);
   }, [filters, projects]); // eslint-disable-line
 
   useEffect(() => {
@@ -125,6 +129,10 @@ function ProjectList({ title, filtersToUse, additionalFilter, showFilterCounts =
   function handleChangeOrdering(orderValue) {
     const order = Object.values(PROJECT_ORDERINGS).find(({ value }) => value === orderValue);
     filtersDispatch({ type: FILTER_ACTIONS.SET_ORDER, payload: order });
+  }
+
+  function handleLoadMore() {
+    filtersDispatch({ type: FILTER_ACTIONS.SET_LIMIT, payload: 999 });
   }
 
   return (
@@ -233,6 +241,12 @@ function ProjectList({ title, filtersToUse, additionalFilter, showFilterCounts =
               </S.Card>
             ))}
           </CardList>
+        )}
+
+        {hasMoreProjects && (
+          <S.LoadMoreButton type="button" onClick={handleLoadMore}>
+            Load more projects…
+          </S.LoadMoreButton>
         )}
 
         {!hasProjects && isLoading && <Loading style={{ marginTop: '8rem' }} />}

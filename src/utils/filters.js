@@ -1,6 +1,7 @@
 import { shuffle, orderBy } from 'lodash-es';
 
 export const FILTER_ACTIONS = {
+  SET_LIMIT: 'set_limit',
   SET_ORDER: 'set_order',
   SET_QUERY: 'set_query',
   SET_CATEGORIES: 'set_categories',
@@ -58,21 +59,23 @@ export const PREP_FILTERS = {
 export function projectFilterReducer(state, action) {
   const { type, payload = null } = action;
   switch (type) {
+    case FILTER_ACTIONS.SET_LIMIT:
+      return { ...state, limit: payload };
     case FILTER_ACTIONS.SET_ORDER:
-      return { ...state, order: payload };
+      return { ...state, order: payload, limit: 20 };
     case FILTER_ACTIONS.SET_QUERY:
-      return { ...state, query: payload };
+      return { ...state, query: payload, limit: 20 };
     case FILTER_ACTIONS.SET_CATEGORIES:
-      return { ...state, categories: payload };
+      return { ...state, categories: payload, limit: 20 };
     case FILTER_ACTIONS.REMOVE_CATEGORY:
       const categories = state.categories.filter(category => category !== payload);
-      return { ...state, categories };
+      return { ...state, categories, limit: 20 };
     case FILTER_ACTIONS.SET_RATING:
-      return { ...state, rating: payload };
+      return { ...state, rating: payload, limit: 20 };
     case FILTER_ACTIONS.SET_RECENT:
-      return { ...state, recent: payload };
+      return { ...state, recent: payload, limit: 20 };
     case FILTER_ACTIONS.SET_STATUS:
-      return { ...state, status: payload };
+      return { ...state, status: payload, limit: 20 };
     default:
       throw new Error(`Unknown action ${type}`);
   }
@@ -81,15 +84,17 @@ export function projectFilterReducer(state, action) {
 export function pRepFilterReducer(state, action) {
   const { type, payload = null } = action;
   switch (type) {
+    case FILTER_ACTIONS.SET_LIMIT:
+      return { ...state, limit: payload };
     case FILTER_ACTIONS.SET_ORDER:
-      return { ...state, order: payload };
+      return { ...state, order: payload, limit: 20 };
     case FILTER_ACTIONS.SET_QUERY:
-      return { ...state, query: payload };
+      return { ...state, query: payload, limit: 20 };
     case FILTER_ACTIONS.SET_CATEGORIES:
-      return { ...state, categories: payload };
+      return { ...state, categories: payload, limit: 20 };
     case FILTER_ACTIONS.REMOVE_CATEGORY:
       const categories = state.categories.filter(category => category !== payload);
-      return { ...state, categories };
+      return { ...state, categories, limit: 20 };
     default:
       throw new Error(`Unknown action ${type}`);
   }

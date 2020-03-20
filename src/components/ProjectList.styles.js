@@ -167,3 +167,26 @@ export const Dot = styled.div`
   border-radius: 0.8rem;
   margin-right: 1rem;
 `;
+
+export const LoadMoreButton = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30rem;
+  max-width: 100%;
+  height: 5rem;
+  font-weight: 600;
+  font-size: 1.6rem;
+  line-height: 2.2rem;
+  color: ${palette.white};
+  background: ${palette.brand.primary};
+  border: none;
+  border-radius: 0.4rem;
+  margin: 3rem auto 0;
+  cursor: pointer;
+
+  &:focus {
+    outline: none;
+    border: 2px solid ${palette.gray.border};
+  }
+`;

@@ -23,11 +23,11 @@ const Content = styled.main`
   margin: 0 auto;
 
   @media screen and (max-width: ${breakpoints.max.sm}) {
-    padding: 3rem 2rem;
+    padding: 3rem 2rem 10rem;
   }
 
   @media screen and (min-width: ${breakpoints.min.md}) {
-    padding: 5rem 2rem;
+    padding: 5rem 2rem 20rem;
   }
 `;
 
