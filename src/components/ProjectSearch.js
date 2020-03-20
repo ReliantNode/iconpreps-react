@@ -69,6 +69,7 @@ const useAllFilters = {
 
 const defaultProjectFilters = {
   categories: [],
+  ratings: [],
   recentActivity: [],
   statuses: [],
 };
@@ -159,35 +160,17 @@ function ProjectSearch({ filters, dispatch, filtersToUse = useAllFilters }) {
         <>
           <H3>Rating</H3>
           <RadioGroup
-            options={[
-              {
-                value: '4',
-                children: (
-                  <>
-                    <StarsLabel amount={4}>& up</StarsLabel>
-                    <Text small muted></Text>
-                  </>
-                ),
-              },
-              {
-                value: '3',
-                children: (
-                  <>
-                    <StarsLabel amount={3}>& up</StarsLabel>
-                    <Text small muted></Text>
-                  </>
-                ),
-              },
-              {
-                value: '2',
-                children: (
-                  <>
-                    <StarsLabel amount={2}>& up</StarsLabel>
-                    <Text small muted></Text>
-                  </>
-                ),
-              },
-            ]}
+            options={projectFilters.ratings.map(rating => ({
+              value: rating.name,
+              children: (
+                <>
+                  <StarsLabel amount={parseInt(rating.name)}>& up</StarsLabel>
+                  <Text small muted>
+                    {rating.count}
+                  </Text>
+                </>
+              ),
+            }))}
             value={filters.rating}
             onChange={handleRatingChange}
             name="rating"
