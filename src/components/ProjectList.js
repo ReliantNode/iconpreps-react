@@ -35,7 +35,7 @@ function isRecentProject(project, recentActivityType) {
   return isAfter(parseISO(project[recentActivityType.property]), subDays(new Date(), 7));
 }
 
-function ProjectList({ title, filtersToUse, additionalFilter }) {
+function ProjectList({ title, filtersToUse, additionalFilter, showFilterCounts = true }) {
   const { hasPReps } = usePReps();
   const { getProjects, hasProjects, isLoading } = useProjects();
   const [projects, setProjects] = useState([]);
@@ -135,7 +135,12 @@ function ProjectList({ title, filtersToUse, additionalFilter }) {
           onChangeOrdering={handleChangeOrdering}
           onCloseFilters={() => setIsShowingFilters(false)}
         />
-        <ProjectSearch filters={filters} dispatch={filtersDispatch} filtersToUse={filtersToUse} />
+        <ProjectSearch
+          filters={filters}
+          dispatch={filtersDispatch}
+          filtersToUse={filtersToUse}
+          showFilterCounts={showFilterCounts}
+        />
       </S.Filters>
 
       <S.Listing>
@@ -241,6 +246,7 @@ function ProjectList({ title, filtersToUse, additionalFilter }) {
 }
 
 ProjectList.propTypes = {
+  additionalFilter: PropTypes.func,
   title: PropTypes.string.isRequired,
   filtersToUse: PropTypes.shape({
     query: PropTypes.bool,
@@ -249,7 +255,7 @@ ProjectList.propTypes = {
     recent: PropTypes.bool,
     status: PropTypes.bool,
   }),
-  additionalFilter: PropTypes.func,
+  showFilterCounts: PropTypes.bool,
 };
 
 export default ProjectList;

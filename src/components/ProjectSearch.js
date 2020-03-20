@@ -74,7 +74,12 @@ const defaultProjectFilters = {
   statuses: [],
 };
 
-function ProjectSearch({ filters, dispatch, filtersToUse = useAllFilters }) {
+function ProjectSearch({
+  filters,
+  dispatch,
+  filtersToUse = useAllFilters,
+  showFilterCounts = true,
+}) {
   const { getFilters, hasFilters } = useProjects();
   const [projectFilters, setProjectFilters] = useState(defaultProjectFilters);
   const [query, setQuery] = useState('');
@@ -141,9 +146,11 @@ function ProjectSearch({ filters, dispatch, filtersToUse = useAllFilters }) {
               children: (
                 <>
                   <OptionLabel>{category.name}</OptionLabel>
-                  <Text small muted>
-                    {category.count}
-                  </Text>
+                  {showFilterCounts && (
+                    <Text small muted>
+                      {category.count}
+                    </Text>
+                  )}
                 </>
               ),
             }))}
@@ -165,9 +172,11 @@ function ProjectSearch({ filters, dispatch, filtersToUse = useAllFilters }) {
               children: (
                 <>
                   <StarsLabel amount={parseInt(rating.name)}>& up</StarsLabel>
-                  <Text small muted>
-                    {rating.count}
-                  </Text>
+                  {showFilterCounts && (
+                    <Text small muted>
+                      {rating.count}
+                    </Text>
+                  )}
                 </>
               ),
             }))}
@@ -189,9 +198,11 @@ function ProjectSearch({ filters, dispatch, filtersToUse = useAllFilters }) {
               children: (
                 <>
                   <OptionLabel>{recentActivity.name}</OptionLabel>
-                  <Text small muted>
-                    {recentActivity.count}
-                  </Text>
+                  {showFilterCounts && (
+                    <Text small muted>
+                      {recentActivity.count}
+                    </Text>
+                  )}
                 </>
               ),
             }))}
@@ -213,9 +224,11 @@ function ProjectSearch({ filters, dispatch, filtersToUse = useAllFilters }) {
               children: (
                 <>
                   <OptionLabel>{status.name}</OptionLabel>
-                  <Text small muted>
-                    {status.count}
-                  </Text>
+                  {showFilterCounts && (
+                    <Text small muted>
+                      {status.count}
+                    </Text>
+                  )}
                 </>
               ),
             }))}
@@ -240,6 +253,7 @@ ProjectSearch.propTypes = {
     recent: PropTypes.bool,
     status: PropTypes.bool,
   }),
+  showFilterCounts: PropTypes.bool,
 };
 
 export default ProjectSearch;

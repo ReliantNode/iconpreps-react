@@ -114,6 +114,7 @@ function PRepDetailPage() {
             title={`Projects by ${pRep.name}`}
             filtersToUse={{ query: true, category: true, status: true }}
             additionalFilter={filterByPRep}
+            showFilterCounts={false}
           />
         </>
       )}
