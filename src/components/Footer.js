@@ -32,7 +32,7 @@ const Inner = styled.div`
 const FooterFirst = styled.div`
   display: flex;
   justify-content: center;
-  padding: 3rem 2rem;
+  padding: 3rem 0;
 
   @media screen and (min-width: ${breakpoints.min.md}) {
     justify-content: flex-start;
@@ -45,7 +45,7 @@ const FooterSecond = styled.div`
   flex-direction: column;
   align-items: center;
   border-top: 1px solid ${palette.gray.border};
-  padding: 3rem 2rem;
+  padding: 3rem 0;
 
   @media screen and (min-width: ${breakpoints.min.md}) {
     align-items: flex-end;
