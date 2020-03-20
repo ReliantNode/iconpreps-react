@@ -1,4 +1,4 @@
-import React, { useLayoutEffect } from 'react';
+import React from 'react';
 import { DialogContent, DialogOverlay } from '@reach/dialog';
 import '@reach/dialog/styles.css';
 import PropTypes from 'prop-types';
@@ -81,10 +81,6 @@ const H2 = styled(RawH2)`
 `;
 
 function LoginModal({ isOpen, onClose, ...props }) {
-  useLayoutEffect(() => {
-    if (isOpen) window.scrollTo(0, 0);
-  }, [isOpen]);
-
   const AnimatedDialogOverlay = animated(StyledDialogOverlay);
   const AnimatedDialogContent = animated(StyledDialogContent);
   const transitions = useTransition(isOpen, null, {
@@ -97,6 +93,9 @@ function LoginModal({ isOpen, onClose, ...props }) {
     ({ item, key, props: styles }) =>
       item && (
         <AnimatedDialogOverlay onDismiss={onClose} key={key} style={{ opacity: styles.opacity }}>
+          <CloseButton type="button" onClick={onClose}>
+            <img src={closeIcon} alt="Close" style={{ width: '1.7rem' }} />
+          </CloseButton>
           <AnimatedDialogContent
             style={{
               transform: styles.y.interpolate(value => `translate3d(0px, ${value}px, 0px)`),
@@ -178,9 +177,6 @@ function LoginModal({ isOpen, onClose, ...props }) {
               </Column>
             </Columns>
           </AnimatedDialogContent>
-          <CloseButton type="button" onClick={onClose}>
-            <img src={closeIcon} alt="Close" style={{ width: '1.7rem' }} />
-          </CloseButton>
         </AnimatedDialogOverlay>
       )
   );
