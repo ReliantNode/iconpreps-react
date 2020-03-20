@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Text } from 'components/Typography';
+import { H2, Text } from 'components/Typography';
 import { breakpoints, palette } from 'utils/designTokens';
 
 export const Header = styled.div`
@@ -21,9 +21,11 @@ export const Header = styled.div`
 `;
 
 export const LogoAndDetails = styled.div`
+  flex: 1;
   display: flex;
   align-items: center;
   justify-content: flex-start;
+  min-width: 0;
 
   @media screen and (max-width: ${breakpoints.max.md}) {
     margin-top: 3rem;
@@ -31,9 +33,11 @@ export const LogoAndDetails = styled.div`
 `;
 
 export const PRepDetails = styled.div`
+  flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  min-width: 0;
 
   @media screen and (max-width: ${breakpoints.max.sm}) {
     padding-left: 1.2rem;
@@ -51,6 +55,12 @@ export const PRepDetails = styled.div`
       margin-top: 0.8rem;
     }
   }
+`;
+
+export const PRepName = styled(H2)`
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 export const PRepStats = styled.div`
@@ -108,9 +118,8 @@ export const PRepLinks = styled.div`
   }
 
   @media screen and (min-width: ${breakpoints.min.lg}) {
-    flex: 1;
     border-left: 1px solid ${palette.gray.border};
-    padding: 0 2.5rem;
+    padding: 0 5rem;
   }
 `;
 
@@ -124,6 +133,10 @@ export const PRepLink = styled.a`
   border-radius: 0.4rem;
   overflow: hidden;
   margin-left: 1rem;
+
+  &:first-child {
+    margin-left: 0;
+  }
 `;
 
 export const LinkIcon = styled.img`

@@ -9,7 +9,7 @@ import { Logo, LogoWrapper } from 'components/Logo';
 import { usePReps } from 'components/PReps';
 import ProjectList from 'components/ProjectList';
 import RankBanner from 'components/RankBanner';
-import { H1, H2, Text } from 'components/Typography';
+import { H1, Text } from 'components/Typography';
 import { formatLargeNumber } from 'utils/formatNumber';
 import * as S from './PRepDetail.styles';
 
@@ -50,7 +50,7 @@ function PRepDetailPage() {
               </LogoWrapper>
 
               <S.PRepDetails>
-                <H2>{pRep.name}</H2>
+                <S.PRepName>{pRep.name}</S.PRepName>
                 <Text muted>
                   {pRep.city}, {pRep.country}
                 </Text>
