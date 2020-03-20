@@ -102,11 +102,7 @@ function ProjectList({ title, filtersToUse, additionalFilter }) {
     }
     if (filters.rating) {
       tags.push({
-        label: (
-          <Stars amount={parseInt(filters.rating)} style={{ display: 'flex' }}>
-            & up
-          </Stars>
-        ),
+        label: `${filters.rating} stars & up`,
         rm: () => filtersDispatch({ type: FILTER_ACTIONS.SET_RATING }),
       });
     }
