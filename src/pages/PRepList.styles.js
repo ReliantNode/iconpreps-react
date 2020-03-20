@@ -46,7 +46,6 @@ export const MessageText = styled(Text)`
 `;
 
 export const LogoAndDetails = styled.div`
-  flex: 1;
   display: flex;
   align-items: center;
   justify-content: flex-start;
@@ -67,7 +66,6 @@ export const PRepDetails = styled.div`
   }
 
   @media screen and (min-width: ${breakpoints.min.md}) {
-    flex: 1;
     width: 20rem;
     padding: 0 3rem 0 1.5rem;
 
@@ -93,7 +91,8 @@ export const PRepCategories = styled.div`
     padding-top: 1rem;
     margin-top: 2rem;
 
-    .category {
+    .category,
+    .no-category {
       margin-top: 1rem;
     }
     .main-category {
@@ -102,6 +101,7 @@ export const PRepCategories = styled.div`
   }
 
   @media screen and (min-width: ${breakpoints.min.md}) {
+    flex: 1;
     display: flex;
     align-items: center;
     justify-content: flex-start;

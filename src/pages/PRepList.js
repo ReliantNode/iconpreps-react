@@ -124,16 +124,28 @@ function PRepListPage() {
                     </S.PRepDetails>
                   </S.LogoAndDetails>
 
-                  {pRep.main_category ? (
-                    <S.PRepCategories>
-                      <Category category={pRep.main_category} className="category main-category" />
-                      {pRep.sub_category && (
-                        <Category category={pRep.sub_category} className="category sub-category" />
-                      )}
-                    </S.PRepCategories>
-                  ) : (
-                    <div style={{ flex: 1 }} />
-                  )}
+                  <S.PRepCategories>
+                    {pRep.main_category || pRep.sub_category ? (
+                      <>
+                        {pRep.main_category && (
+                          <Category
+                            category={pRep.main_category}
+                            className="category main-category"
+                          />
+                        )}
+                        {pRep.sub_category && (
+                          <Category
+                            category={pRep.sub_category}
+                            className="category sub-category"
+                          />
+                        )}
+                      </>
+                    ) : (
+                      <Text small muted className="no-category">
+                        No projects added
+                      </Text>
+                    )}
+                  </S.PRepCategories>
 
                   <S.PRepRank>
                     <S.PRepRankText>
