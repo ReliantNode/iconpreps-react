@@ -100,7 +100,7 @@ const DropdownOption = styled(ListboxOption)`
 `;
 
 const Tags = styled.div`
-  min-height: 4rem;
+  min-height: 1px;
   margin-top: 1rem;
 `;
 
