@@ -134,7 +134,14 @@ export const ProjectMetaSeparator = styled.div`
   align-self: stretch;
   width: 1px;
   background: ${palette.gray.border};
-  margin: 0 2.5rem;
+
+  @media screen and (max-width: ${breakpoints.max.sm}) {
+    margin: 0 2.5rem;
+  }
+
+  @media screen and (min-width: ${breakpoints.min.md}) {
+    margin: 0 3rem;
+  }
 `;
 
 export const ProjectRecent = styled.div`
