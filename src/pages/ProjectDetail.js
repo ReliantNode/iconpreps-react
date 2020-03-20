@@ -104,7 +104,10 @@ function ProjectDetailPage() {
                 <ProjectUpdatesCard project={project} />
               )}
 
+              <S.Separator className="md-hide" />
               <ProjectFeedback project={project} className="project-feedback" />
+              <S.Separator className="md-hide" />
+
               <RelatedProjectsCard
                 project={project}
                 relatedProjects={relatedProjects}

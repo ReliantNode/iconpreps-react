@@ -57,6 +57,17 @@ export const Card = styled.div`
   }
 `;
 
+export const Separator = styled.hr`
+  width: 100%;
+  height: 1px;
+  background: ${palette.gray.border};
+  border: none;
+
+  @media screen and (max-width: ${breakpoints.max.sm}) {
+    margin: 3rem 0;
+  }
+`;
+
 export const Description = styled(Text)`
   @media screen and (max-width: ${breakpoints.max.sm}) {
     margin-top: 1.5rem;

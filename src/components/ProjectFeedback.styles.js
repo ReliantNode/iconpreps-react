@@ -45,7 +45,7 @@ export const AverageRating = styled.div`
 
 export const FeedbackList = styled.div`
   @media screen and (max-width: ${breakpoints.max.sm}) {
-    margin-top: 3rem;
+    margin: 3rem 0;
   }
 
   @media screen and (min-width: ${breakpoints.min.md}) {
