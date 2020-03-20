@@ -6,6 +6,7 @@ import twitterIcon from 'assets/icons/twitter.svg';
 import webIcon from 'assets/icons/web.svg';
 import Badge from 'components/Badge';
 import Layout from 'components/Layout';
+import Loading from 'components/Loading';
 import { Logo, LogoWrapper } from 'components/Logo';
 import { usePReps } from 'components/PReps';
 import ProjectList from 'components/ProjectList';
@@ -117,6 +118,7 @@ function PRepDetailPage() {
         </>
       )}
 
+      {!pRep && isLoading && <Loading style={{ marginTop: '8rem' }} />}
       {!(isLoading || pRep) && (
         <>
           <H1>P-Rep not found</H1>

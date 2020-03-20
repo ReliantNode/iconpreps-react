@@ -7,6 +7,7 @@ import Category from 'components/Category';
 import Completion from 'components/Completion';
 import EmbeddedContent from 'components/EmbeddedContent';
 import Layout from 'components/Layout';
+import Loading from 'components/Loading';
 import { Logo, LogoWrapper } from 'components/Logo';
 import { usePReps } from 'components/PReps';
 import ProjectFeedback from 'components/ProjectFeedback';
@@ -112,6 +113,7 @@ function ProjectDetailPage() {
         </>
       )}
 
+      {!project && isLoading && <Loading style={{ marginTop: '8rem' }} />}
       {!(isLoading || rawProject) && (
         <>
           <H1>Project not found</H1>

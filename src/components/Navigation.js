@@ -4,7 +4,7 @@ import { Menu, MenuPopover } from '@reach/menu-button';
 import '@reach/menu-button/styles.css';
 import { positionMatchWidth } from '@reach/popover';
 import { animated, useTransition } from 'react-spring';
-import iconLogo from 'assets/logo-icon.svg';
+import iconLogo from 'assets/logo-icon-white.svg';
 import closeIcon from 'assets/icons/close.svg';
 import downArrowIcon from 'assets/icons/down-arrow-white.svg';
 import hamburgerIcon from 'assets/icons/hamburger.svg';

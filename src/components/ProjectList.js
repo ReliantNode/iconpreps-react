@@ -7,6 +7,7 @@ import { CardList } from 'components/Cards';
 import Category from 'components/Category';
 import Completion from 'components/Completion';
 import FiltersHeader from 'components/FiltersHeader';
+import Loading from 'components/Loading';
 import { Logo, LogoWrapper } from 'components/Logo';
 import { usePReps } from 'components/PReps';
 import ProjectSearch from 'components/ProjectSearch';
@@ -14,7 +15,6 @@ import ProjectStatus from 'components/ProjectStatus';
 import { useProjects } from 'components/Projects';
 import Rating from 'components/Rating';
 import SearchHeader from 'components/SearchHeader';
-import Stars from 'components/Stars';
 import { Text, UnstyledLink } from 'components/Typography';
 import { DATE_FORMAT } from 'utils/constants';
 import { palette } from 'utils/designTokens';
@@ -233,7 +233,7 @@ function ProjectList({ title, filtersToUse, additionalFilter }) {
           </CardList>
         )}
 
-        {!hasProjects && isLoading && <S.MessageText>Loading...</S.MessageText>}
+        {!hasProjects && isLoading && <Loading style={{ marginTop: '8rem' }} />}
         {hasProjects && !filteredProjects.length && (
           <S.MessageText>No projects found matching the search criteria.</S.MessageText>
         )}

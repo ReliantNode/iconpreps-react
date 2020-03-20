@@ -6,6 +6,7 @@ import { Card, CardList } from 'components/Cards';
 import Category from 'components/Category';
 import FiltersHeader from 'components/FiltersHeader';
 import Layout from 'components/Layout';
+import Loading from 'components/Loading';
 import { Logo, LogoWrapper } from 'components/Logo';
 import { usePReps } from 'components/PReps';
 import RankBanner from 'components/RankBanner';
@@ -159,7 +160,7 @@ function PRepListPage() {
             </CardList>
           )}
 
-          {!hasPReps && isLoading && <S.MessageText>Loading...</S.MessageText>}
+          {!hasPReps && isLoading && <Loading style={{ marginTop: '8rem' }} />}
           {hasPReps && !filteredPReps.length && (
             <S.MessageText>No P-Reps found matching the search criteria.</S.MessageText>
           )}

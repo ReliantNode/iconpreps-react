@@ -4,7 +4,7 @@ import '@reach/dialog/styles.css';
 import PropTypes from 'prop-types';
 import { animated, useTransition } from 'react-spring';
 import styled, { css, keyframes } from 'styled-components';
-import iconLogo from 'assets/logo-icon.svg';
+import iconLogo from 'assets/logo-icon-white.svg';
 import closeIcon from 'assets/icons/close.svg';
 import { useAuth } from 'components/Auth';
 import { H1, H2, Text } from 'components/Typography';
