@@ -33,7 +33,6 @@ const StyledDialogContent = styled(DialogContent)`
 const CloseButton = styled.button`
   position: absolute;
   top: 4.5rem;
-  right: 4.5rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -46,6 +45,14 @@ const CloseButton = styled.button`
 
   &:focus {
     outline: none; /* naughty! */
+  }
+
+  @media screen and (max-width: ${breakpoints.max.sm}) {
+    right: 2.5rem;
+  }
+
+  @media screen and (min-width: ${breakpoints.min.md}) {
+    right: 4.5rem;
   }
 `;
 
