@@ -16,7 +16,7 @@ import { useProjects } from 'components/Projects';
 import RankBanner from 'components/RankBanner';
 import Rating from 'components/Rating';
 import { H1, H2, H4, H5, H6, Text, UnstyledLink } from 'components/Typography';
-import { DATE_FORMAT, DATE_FORMAT_SHORTER } from 'utils/constants';
+import { DATE_FORMAT, DATE_FORMAT_SHORTER, LOGO_FALLBACK } from 'utils/constants';
 import { getProject } from 'utils/projectsApi';
 import * as S from './ProjectDetail.styles';
 
@@ -170,7 +170,11 @@ function PRepTeamCard({ pRep, ...props }) {
       <S.PRepDetail>
         <LogoWrapper>
           <Logo
-            src={pRep.logo ? `https://images.weserv.nl/?url=${pRep.logo}` : noLogo}
+            src={
+              pRep.logo
+                ? `https://images.weserv.nl/?url=${pRep.logo}&default=${LOGO_FALLBACK}`
+                : noLogo
+            }
             alt={`${pRep.name} logo`}
           />
         </LogoWrapper>

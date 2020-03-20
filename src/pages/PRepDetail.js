@@ -12,6 +12,7 @@ import { usePReps } from 'components/PReps';
 import ProjectList from 'components/ProjectList';
 import RankBanner from 'components/RankBanner';
 import { H1, Text } from 'components/Typography';
+import { LOGO_FALLBACK } from 'utils/constants';
 import { formatLargeNumber } from 'utils/formatNumber';
 import * as S from './PRepDetail.styles';
 
@@ -49,7 +50,11 @@ function PRepDetailPage() {
             <S.LogoAndDetails>
               <LogoWrapper>
                 <Logo
-                  src={pRep.logo ? `https://images.weserv.nl/?url=${pRep.logo}` : noLogo}
+                  src={
+                    pRep.logo
+                      ? `https://images.weserv.nl/?url=${pRep.logo}&default=${LOGO_FALLBACK}`
+                      : noLogo
+                  }
                   alt={`${pRep.name} logo`}
                 />
               </LogoWrapper>

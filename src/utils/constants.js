@@ -6,6 +6,8 @@ export const ICONEX_RELAY = {
   RESPONSE: 'ICONEX_RELAY_RESPONSE',
 };
 
+export const LOGO_FALLBACK = 'https://icon-preps.netlify.com/images/no-logo.svg';
+
 export const USER_LEVELS = {
   NON_ICONIST: 'Non-Iconist',
   GOLDFISH: 'Goldfish',
