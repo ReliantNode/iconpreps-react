@@ -4,9 +4,10 @@ import { orderBy } from 'lodash-es';
 import PropTypes from 'prop-types';
 import { useAuth } from 'components/Auth';
 import EmbeddedContent from 'components/EmbeddedContent';
+import { useFAQModal } from 'components/FAQModal';
 import Rating from 'components/Rating';
 import SetRating from 'components/SetRating';
-import { H2, Text } from 'components/Typography';
+import { A, H2, Text } from 'components/Typography';
 import { DATE_FORMAT } from 'utils/constants';
 import * as feedbackApi from 'utils/feedbackApi';
 import { formatAddress } from 'utils/formatAddress';
@@ -15,6 +16,7 @@ import * as S from './ProjectFeedback.styles';
 
 function ProjectFeedback({ project, ...props }) {
   const { authUser, isAuthenticated, showLoginModal } = useAuth();
+  const { showFAQModal } = useFAQModal();
   const [feedback, setFeedback] = useState([]);
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState('');
@@ -66,7 +68,14 @@ function ProjectFeedback({ project, ...props }) {
 
   function getValidationError() {
     if (!authUser.can_submit_feedback) {
-      return 'You must delegate more ICX to leave feedback.';
+      return (
+        <>
+          You must delegate more ICX to leave feedback.{' '}
+          <A as="button" type="button" onClick={showFAQModal}>
+            Learn more.
+          </A>
+        </>
+      );
     }
     if (!rating) {
       return 'You must choose a rating.';
