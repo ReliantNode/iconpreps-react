@@ -16,7 +16,7 @@ function Router() {
   return (
     <ReachRouter primary={false}>
       <ScrollToTop path="/">
-        <Redirect exact from="/" to="/projects" />
+        <Redirect exact from="/" to="/projects" noThrow />
         <ProjectList path="/projects" />
         <ProjectDetail path="/projects/:projectSlug" />
         <PRepList path="/preps" />
