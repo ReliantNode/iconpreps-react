@@ -87,7 +87,7 @@ function ProjectList({ title, filtersToUse, additionalFilter, showFilterCounts =
     setHasMoreProjects(limited < ordered);
 
     setFilteredProjects(limited);
-  }, [filters, projects]); // eslint-disable-line
+  }, [additionalFilter, filters, projects]);
 
   useEffect(() => {
     const tags = [];
