@@ -11,12 +11,18 @@ export const Text = styled.p`
 `;
 
 export const A = styled.a`
+  display: inline;
   font-weight: 500;
   color: unset;
   text-decoration: none;
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
 
   &:hover,
   &:focus {
+    outline: none;
     text-decoration: underline;
   }
 `;

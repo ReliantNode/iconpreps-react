@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import goldStarIcon from 'assets/icons/star-gold.svg';
 import grayStarIcon from 'assets/icons/star-gray.svg';
+import { palette } from 'utils/designTokens';
 
 const TOTAL_STARS = 5;
 
@@ -14,20 +15,20 @@ const Container = styled.div`
 
 const StarContainer = styled.button`
   position: relative;
-  width: 2.5rem;
+  width: 2.1rem;
   height: 2.1rem;
   background: none;
   border: none;
-  padding: 0 0.4rem 0 0;
+  padding: 0;
+  margin-right: 0.4rem;
   cursor: pointer;
 
   &:last-child {
-    padding: 0;
+    margin: 0;
   }
 
   &:focus {
-    outline: none;
-    opacity: 0.6;
+    outline: 1px dotted ${palette.gray.dark};
   }
 `;
 

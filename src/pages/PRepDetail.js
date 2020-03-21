@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useParams } from '@reach/router';
 import noLogo from 'assets/no-logo.svg';
 import githubIcon from 'assets/icons/github.svg';
@@ -24,15 +24,14 @@ function PRepDetailPage() {
 
   useEffect(() => {
     if (hasPReps) {
+      setIsLoading(true);
       const pRep = getPReps().find(pRep => pRep.slug === pRepSlug);
       setPRep(pRep);
       setIsLoading(false);
     }
   }, [hasPReps, pRepSlug]); // eslint-disable-line
 
-  function filterByPRep(project) {
-    return project.prep_address === pRep.address;
-  }
+  const filterByPRep = useCallback(project => project.prep_address === pRep.address, [pRep]);
 
   return (
     <Layout>

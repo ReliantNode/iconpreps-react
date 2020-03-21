@@ -15,7 +15,6 @@ const Container = styled.div`
 
 const Star = styled.img`
   width: 2.1rem;
-  height: 2.1rem;
   margin-right: 0.4rem;
 `;
 
@@ -35,7 +34,7 @@ function Rating({ overall, total, terse = false, ...props }) {
       })}
       {total != null && (
         <Text small muted style={{ marginLeft: '0.6rem' }}>
-          {terse ? `(${total})` : `${total} ratings`}
+          {terse ? `(${total})` : `${total} rating${total !== 1 ? 's' : ''}`}
         </Text>
       )}
     </Container>
