@@ -15,7 +15,6 @@ const Container = styled.div`
 
 const Star = styled.img`
   width: 2.1rem;
-  height: 2.1rem;
   margin-right: 0.4rem;
 `;
 
