@@ -34,7 +34,7 @@ function Rating({ overall, total, terse = false, ...props }) {
       })}
       {total != null && (
         <Text small muted style={{ marginLeft: '0.6rem' }}>
-          {terse ? `(${total})` : `${total} ratings`}
+          {terse ? `(${total})` : `${total} rating${total !== 1 ? 's' : ''}`}
         </Text>
       )}
     </Container>
