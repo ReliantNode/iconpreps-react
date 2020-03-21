@@ -1,6 +1,7 @@
 import React from 'react';
 import { createGlobalStyle } from 'styled-components';
 import Auth from 'components/Auth';
+import FAQModal from 'components/FAQModal';
 import PReps from 'components/PReps';
 import Projects from 'components/Projects';
 import Router from 'components/Router';
@@ -60,8 +61,10 @@ function App() {
     <PReps>
       <Projects>
         <Auth>
-          <GlobalStyle />
-          <Router />
+          <FAQModal>
+            <GlobalStyle />
+            <Router />
+          </FAQModal>
         </Auth>
       </Projects>
     </PReps>

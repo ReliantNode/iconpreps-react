@@ -9,7 +9,7 @@ import closeIcon from 'assets/icons/close.svg';
 import downArrowIcon from 'assets/icons/down-arrow-white.svg';
 import hamburgerIcon from 'assets/icons/hamburger.svg';
 import { useAuth } from 'components/Auth';
-import FAQModal from 'components/FAQModal';
+import { useFAQModal } from 'components/FAQModal';
 import { Text } from 'components/Typography';
 import { palette } from 'utils/designTokens';
 import { formatAddress } from 'utils/formatAddress';
@@ -28,8 +28,8 @@ function NavLink(props) {
 
 function Navigation() {
   const { authUser, isAuthenticated, logout, showLoginModal } = useAuth();
+  const { showFAQModal } = useFAQModal();
   const [isShowingMenu, setIsShowingMenu] = useState(false);
-  const [isShowingFAQ, setIsShowingFAQ] = useState(false);
 
   const AnimatedDialogOverlay = animated(S.DialogOverlay);
   const AnimatedDialogContent = animated(S.DialogContent);
@@ -45,7 +45,7 @@ function Navigation() {
 
   function handleShowFAQ() {
     onClose();
-    setIsShowingFAQ(true);
+    showFAQModal();
   }
 
   function handleLogin() {
@@ -130,8 +130,6 @@ function Navigation() {
           </S.LoginButton>
         )}
       </S.NavContainer>
-
-      <FAQModal isOpen={isShowingFAQ} onClose={() => setIsShowingFAQ(false)} />
     </>
   );
 }
