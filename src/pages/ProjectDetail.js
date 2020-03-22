@@ -105,7 +105,11 @@ function ProjectDetailPage() {
               )}
 
               <S.Separator className="md-hide" />
-              <ProjectFeedback project={project} className="project-feedback" />
+              <ProjectFeedback
+                project={project}
+                onLoadProject={loadProject}
+                className="project-feedback"
+              />
               <S.Separator className="md-hide" />
 
               <RelatedProjectsCard
