@@ -3,10 +3,10 @@ import { Link } from '@reach/router';
 import styled from 'styled-components';
 import logoIconPReps from 'assets/logo-icon-preps.svg';
 import Navigation from 'components/Navigation';
-import { breakpoints, palette } from 'utils/designTokens';
+import { breakpoints, palette, sizes } from 'utils/designTokens';
 
 const Container = styled.header`
-  height: 7rem;
+  height: ${sizes.header}rem;
   background: ${palette.brand.primary};
   color: ${palette.white};
 `;
@@ -15,7 +15,7 @@ const Inner = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 7rem;
+  height: ${sizes.header}rem;
   width: 100%;
   max-width: ${breakpoints.min.xl};
   padding: 0 2rem;

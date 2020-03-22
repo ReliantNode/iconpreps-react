@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useReducer, useRef, useState } from 'react';
 import { take } from 'lodash-es';
 import noLogo from 'assets/no-logo.svg';
 import Badge from 'components/Badge';
@@ -11,6 +11,7 @@ import { Logo, LogoWrapper } from 'components/Logo';
 import { usePReps } from 'components/PReps';
 import SearchHeader from 'components/SearchHeader';
 import { H5, H6, Text, UnstyledLink } from 'components/Typography';
+import { sizes } from 'utils/designTokens';
 import { FILTER_ACTIONS, PREP_FILTERS, PREP_ORDERINGS, pRepFilterReducer } from 'utils/filters';
 import { getLogoProxy } from 'utils/getLogoProxy';
 import * as S from './PRepList.styles';
@@ -24,6 +25,7 @@ function PRepListPage() {
   const [tags, setTags] = useState([]);
   const [isShowingFilters, setIsShowingFilters] = useState(false);
   const [hasMorePReps, setHasMorePReps] = useState(false);
+  const filtersEl = useRef();
 
   useEffect(() => {
     if (hasPReps) setPReps(getPReps());
@@ -80,6 +82,17 @@ function PRepListPage() {
     setTags(tags);
   }, [filters]);
 
+  useLayoutEffect(() => {
+    if (isShowingFilters) {
+      const scrollTop = Math.abs(document.body.getBoundingClientRect().top) / 10;
+      const headerOffset = Math.max(sizes.header - scrollTop, 0);
+      filtersEl.current.style.top = `${headerOffset}rem`;
+      filtersEl.current.style.paddingBottom = `${headerOffset}rem`;
+    }
+
+    document.body.style.overflow = isShowingFilters ? 'hidden' : '';
+  }, [isShowingFilters]);
+
   function handleChangeOrdering(orderValue) {
     const order = Object.values(PREP_ORDERINGS).find(({ value }) => value === orderValue);
     filtersDispatch({ type: FILTER_ACTIONS.SET_ORDER, payload: order });
@@ -92,7 +105,7 @@ function PRepListPage() {
   return (
     <Layout>
       <S.Container>
-        <S.Filters showing={isShowingFilters}>
+        <S.Filters showing={isShowingFilters} ref={filtersEl}>
           <FiltersHeader
             order={filters.order.value}
             orderings={Object.values(PREP_ORDERINGS)}

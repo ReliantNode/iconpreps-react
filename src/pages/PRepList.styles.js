@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import Badge from 'components/Badge';
 import RawRankBanner from 'components/RankBanner';
 import { H2, H5, Text } from 'components/Typography';
-import { breakpoints, palette } from 'utils/designTokens';
+import { breakpoints, palette, sizes } from 'utils/designTokens';
 
 export const Container = styled.div`
   display: flex;
@@ -21,13 +21,15 @@ export const Listing = styled.div`
 export const Filters = styled.div`
   @media screen and (max-width: ${breakpoints.max.md}) {
     display: ${({ showing }) => (showing ? 'block' : 'none')};
-    position: absolute;
-    top: 0;
+    position: fixed;
+    top: ${sizes.header}rem;
+    bottom: 0;
     left: 0;
     right: 0;
-    min-height: 100%;
     background: ${palette.white};
+    padding-bottom: ${sizes.header}rem;
     z-index: 10;
+    overflow: auto;
   }
 
   @media screen and (min-width: ${breakpoints.min.lg}) {
