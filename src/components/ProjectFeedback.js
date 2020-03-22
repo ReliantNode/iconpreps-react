@@ -193,7 +193,11 @@ function ProjectFeedback({ project, ...props }) {
                     </S.EditActions>
                   )}
                 </S.RatingAndActions>
-                <EmbeddedContent content={feedback.comment} style={{ marginTop: '2rem' }} />
+                <EmbeddedContent
+                  content={feedback.comment}
+                  collapsedLines={3}
+                  style={{ marginTop: '2rem' }}
+                />
               </S.Feedback>
             </S.FeedbackItem>
           );

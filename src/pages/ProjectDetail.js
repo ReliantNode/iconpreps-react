@@ -190,7 +190,7 @@ function ProjectDescriptionCard({ project, ...props }) {
   return (
     <S.Card {...props}>
       <H2 style={{ marginBottom: '2rem' }}>Description</H2>
-      <EmbeddedContent content={project.details} />
+      <EmbeddedContent content={project.details} collapsedLines={4} />
     </S.Card>
   );
 }
@@ -202,13 +202,13 @@ function ProjectUpdatesCard({ project, ...props }) {
       {project.updates && (
         <S.ProjectUpdate>
           <H4>Update</H4>
-          <EmbeddedContent content={project.updates} />
+          <EmbeddedContent content={project.updates} collapsedLines={3} />
         </S.ProjectUpdate>
       )}
       {project.final_update && (
         <S.ProjectUpdate>
           <H4>Final update</H4>
-          <EmbeddedContent content={project.final_update} />
+          <EmbeddedContent content={project.final_update} collapsedLines={3} />
         </S.ProjectUpdate>
       )}
     </S.Card>
