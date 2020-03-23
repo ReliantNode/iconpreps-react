@@ -42,3 +42,7 @@ export const breakpoints = {
     lg: '1139px',
   },
 };
+
+export const sizes = {
+  header: 7,
+};

@@ -6,6 +6,7 @@ import grayStarIcon from 'assets/icons/star-gray.svg';
 import { Text } from 'components/Typography';
 
 const TOTAL_STARS = 5;
+const STAR_WIDTH = 2.1;
 
 const Container = styled.div`
   display: flex;
@@ -13,23 +14,48 @@ const Container = styled.div`
   justify-content: flex-start;
 `;
 
-const Star = styled.img`
-  width: 2.1rem;
+const StarContainer = styled.div`
+  position: relative;
+  width: ${STAR_WIDTH}rem;
+  height: ${STAR_WIDTH}rem;
   margin-right: 0.4rem;
 `;
 
+const Star = styled.img`
+  width: ${STAR_WIDTH}rem;
+`;
+
+const PartialStarCrop = styled.div`
+  position: absolute;
+  left: 0;
+  top: 0;
+  overflow: hidden;
+
+  ${Star} {
+    max-width: none;
+  }
+`;
+
 function Rating({ overall, total, terse = false, ...props }) {
-  const stars = Math.round(overall);
+  const stars = Math.floor(overall);
+  const lastStarFraction = overall % 1;
   return (
     <Container {...props}>
       {new Array(TOTAL_STARS).fill().map((_, index) => {
         const isGoldStar = index < stars;
+        const isPartialStar = index === stars && lastStarFraction;
         return (
-          <Star
-            src={isGoldStar ? goldStarIcon : grayStarIcon}
-            alt={isGoldStar ? 'Gold star' : 'Gray star'}
-            key={index}
-          />
+          <StarContainer key={index}>
+            <Star
+              src={isGoldStar ? goldStarIcon : grayStarIcon}
+              alt={isGoldStar ? 'Gold star' : 'Gray star'}
+            />
+            {isPartialStar ? (
+              <PartialStarCrop style={{ width: `${STAR_WIDTH * lastStarFraction}rem` }}>
+                <Star src={goldStarIcon} alt="Partial gold star" />
+              </PartialStarCrop>
+            ) : null}
+          </StarContainer>
         );
       })}
       {total != null && (

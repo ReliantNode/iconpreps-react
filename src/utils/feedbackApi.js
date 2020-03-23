@@ -5,6 +5,12 @@ export async function getAllRatings() {
   return response.json();
 }
 
+export async function getRating(projectId) {
+  const response = await fetch(`${ENDPOINT}/ratings/?ids=${projectId}`);
+  const [rating] = await response.json();
+  return rating || { rating: 0, rating_count: 0 };
+}
+
 export async function getFeedback(projectId) {
   const response = await fetch(`${ENDPOINT}/feedback/?project_id=${projectId}`);
   return response.json();

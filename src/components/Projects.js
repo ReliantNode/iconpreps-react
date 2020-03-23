@@ -6,6 +6,8 @@ import * as feedbackApi from 'utils/feedbackApi';
 import * as projectsApi from 'utils/projectsApi';
 
 const INITIAL_STATE = {
+  addFeedback: null,
+  deleteFeedback: null,
   getFilters: null,
   getProjects: null,
   hasFilters: false,
@@ -62,6 +64,25 @@ function Projects({ children }) {
     setHasFilters(true);
   }
 
+  async function updateProjectRating(projectId) {
+    const { rating, rating_count } = await feedbackApi.getRating(projectId);
+    const index = projects.findIndex(project => project.id === projectId);
+    const project = projects[index];
+    project.rating = rating;
+    project.rating_count = rating_count;
+    setProjects([...projects.slice(0, index), project, ...projects.slice(index + 1)]);
+  }
+
+  async function addFeedback(projectId, rating, comment) {
+    await feedbackApi.addFeedback(projectId, rating, comment);
+    return updateProjectRating(projectId);
+  }
+
+  async function deleteFeedback(projectId, feedbackId) {
+    await feedbackApi.deleteFeedback(feedbackId);
+    return updateProjectRating(projectId);
+  }
+
   function getProjects() {
     return projects;
   }
@@ -72,7 +93,15 @@ function Projects({ children }) {
 
   return (
     <ProjectsContext.Provider
-      value={{ getFilters, getProjects, hasFilters, hasProjects, isLoading }}
+      value={{
+        addFeedback,
+        deleteFeedback,
+        getFilters,
+        getProjects,
+        hasFilters,
+        hasProjects,
+        isLoading,
+      }}
     >
       {children}
     </ProjectsContext.Provider>

@@ -272,6 +272,7 @@ export const SecondaryButton = styled.button`
   border: none;
   border-bottom: 1px solid ${palette.black};
   padding: 0;
+  cursor: pointer;
 
   &[disabled] {
     color: ${palette.gray.dark};

@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useReducer, useRef, useState } from 'react';
 import { format, isAfter, parseISO, subDays } from 'date-fns';
 import { take } from 'lodash-es';
 import PropTypes from 'prop-types';
@@ -17,7 +17,7 @@ import Rating from 'components/Rating';
 import SearchHeader from 'components/SearchHeader';
 import { Text, UnstyledLink } from 'components/Typography';
 import { DATE_FORMAT } from 'utils/constants';
-import { palette } from 'utils/designTokens';
+import { palette, sizes } from 'utils/designTokens';
 import {
   FILTER_ACTIONS,
   PROJECT_FILTERS,
@@ -45,6 +45,7 @@ function ProjectList({ title, filtersToUse, additionalFilter, showFilterCounts =
   const [tags, setTags] = useState([]);
   const [isShowingFilters, setIsShowingFilters] = useState(false);
   const [hasMoreProjects, setHasMoreProjects] = useState(false);
+  const filtersEl = useRef();
 
   useEffect(() => {
     if (hasPReps && hasProjects) setProjects(getProjects());
@@ -126,6 +127,17 @@ function ProjectList({ title, filtersToUse, additionalFilter, showFilterCounts =
     setTags(tags);
   }, [filters]);
 
+  useLayoutEffect(() => {
+    if (isShowingFilters) {
+      const scrollTop = Math.abs(document.body.getBoundingClientRect().top) / 10;
+      const headerOffset = Math.max(sizes.header - scrollTop, 0);
+      filtersEl.current.style.top = `${headerOffset}rem`;
+      filtersEl.current.style.paddingBottom = `${headerOffset}rem`;
+    }
+
+    document.body.style.overflow = isShowingFilters ? 'hidden' : '';
+  }, [isShowingFilters]);
+
   function handleChangeOrdering(orderValue) {
     const order = Object.values(PROJECT_ORDERINGS).find(({ value }) => value === orderValue);
     filtersDispatch({ type: FILTER_ACTIONS.SET_ORDER, payload: order });
@@ -137,7 +149,7 @@ function ProjectList({ title, filtersToUse, additionalFilter, showFilterCounts =
 
   return (
     <S.Container>
-      <S.Filters showing={isShowingFilters}>
+      <S.Filters showing={isShowingFilters} ref={filtersEl}>
         <FiltersHeader
           order={filters.order.value}
           orderings={Object.values(PROJECT_ORDERINGS)}

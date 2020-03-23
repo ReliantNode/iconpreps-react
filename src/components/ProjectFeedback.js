@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import { useAuth } from 'components/Auth';
 import EmbeddedContent from 'components/EmbeddedContent';
 import { useFAQModal } from 'components/FAQModal';
+import { useProjects } from 'components/Projects';
 import Rating from 'components/Rating';
 import SetRating from 'components/SetRating';
 import { A, H2, Text } from 'components/Typography';
@@ -14,8 +15,9 @@ import { formatAddress } from 'utils/formatAddress';
 import { sanitizeInput } from 'utils/sanitizeInput';
 import * as S from './ProjectFeedback.styles';
 
-function ProjectFeedback({ project, ...props }) {
+function ProjectFeedback({ onLoadProject, project, ...props }) {
   const { authUser, isAuthenticated, showLoginModal } = useAuth();
+  const { addFeedback, deleteFeedback } = useProjects();
   const { showFAQModal } = useFAQModal();
   const [feedback, setFeedback] = useState([]);
   const [rating, setRating] = useState(0);
@@ -54,10 +56,11 @@ function ProjectFeedback({ project, ...props }) {
     }
 
     try {
-      await feedbackApi.addFeedback(project.id, rating, sanitizeInput(comment));
+      await addFeedback(project.id, rating, sanitizeInput(comment));
       setRating(0);
       setComment('');
       loadFeedback(project.id);
+      onLoadProject();
     } catch (error) {
       console.error(`Failed adding feedback. ${error.message}`);
       setError('Failed adding feedback.');
@@ -89,8 +92,15 @@ function ProjectFeedback({ project, ...props }) {
 
   async function handleDeleteFeedback(feedbackId) {
     setIsDeleting(feedbackId);
-    await feedbackApi.deleteFeedback(feedbackId);
-    await loadFeedback(project.id);
+
+    try {
+      await deleteFeedback(project.id, feedbackId);
+      await loadFeedback(project.id);
+      onLoadProject();
+    } catch (error) {
+      console.error(`Failed deleting feedback. ${error.message}`);
+    }
+
     setIsDeleting(null);
   }
 
@@ -193,7 +203,11 @@ function ProjectFeedback({ project, ...props }) {
                     </S.EditActions>
                   )}
                 </S.RatingAndActions>
-                <EmbeddedContent content={feedback.comment} style={{ marginTop: '2rem' }} />
+                <EmbeddedContent
+                  content={feedback.comment}
+                  collapsedLines={3}
+                  style={{ marginTop: '2rem' }}
+                />
               </S.Feedback>
             </S.FeedbackItem>
           );
@@ -204,6 +218,7 @@ function ProjectFeedback({ project, ...props }) {
 }
 
 ProjectFeedback.propTypes = {
+  onLoadProject: PropTypes.func.isRequired,
   project: PropTypes.shape({
     id: PropTypes.number.isRequired,
     rating: PropTypes.number.isRequired,
