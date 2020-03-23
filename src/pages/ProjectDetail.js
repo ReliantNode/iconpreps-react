@@ -205,13 +205,13 @@ function ProjectUpdatesCard({ project, ...props }) {
       <H2 style={{ marginBottom: '2rem' }}>Updates</H2>
       {project.updates && (
         <S.ProjectUpdate>
-          <H4>Update</H4>
+          <H4 style={{ marginBottom: '1rem' }}>Update</H4>
           <EmbeddedContent content={project.updates} collapsedLines={3} />
         </S.ProjectUpdate>
       )}
       {project.final_update && (
         <S.ProjectUpdate>
-          <H4>Final update</H4>
+          <H4 style={{ marginBottom: '1rem' }}>Final update</H4>
           <EmbeddedContent content={project.final_update} collapsedLines={3} />
         </S.ProjectUpdate>
       )}

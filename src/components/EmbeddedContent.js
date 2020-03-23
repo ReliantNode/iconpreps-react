@@ -158,8 +158,13 @@ function EmbeddedContent({ content, collapsedLines = 4, ...props }) {
 
   return (
     <>
-      <Container isExpanded={isExpanded} collapsedHeight={collapsedHeight} fullHeight={fullHeight}>
-        <Content dangerouslySetInnerHTML={{ __html: content }} ref={el} {...props} />
+      <Container
+        isExpanded={isExpanded}
+        collapsedHeight={collapsedHeight}
+        fullHeight={fullHeight}
+        {...props}
+      >
+        <Content dangerouslySetInnerHTML={{ __html: content }} ref={el} />
         {hasReadMore && <LastLineOverlay isExpanded={isExpanded} />}
       </Container>
       {hasReadMore && (
