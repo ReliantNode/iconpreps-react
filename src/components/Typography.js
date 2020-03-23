@@ -1,5 +1,5 @@
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { Link } from '@reach/router';
 import { breakpoints, palette } from 'utils/designTokens';
 
 export const Text = styled.p`

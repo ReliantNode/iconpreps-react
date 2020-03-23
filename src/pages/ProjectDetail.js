@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from '@reach/router';
 import { format } from 'date-fns';
 import { pick, shuffle, take } from 'lodash-es';
+import { useParams } from 'react-router-dom';
 import noLogo from 'assets/no-logo.svg';
 import Category from 'components/Category';
 import Completion from 'components/Completion';

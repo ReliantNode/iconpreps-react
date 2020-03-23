@@ -1,10 +1,10 @@
-import styled, { css } from 'styled-components';
 import {
   DialogContent as ReachDialogContent,
   DialogOverlay as ReachDialogOverlay,
 } from '@reach/dialog';
 import { MenuButton, MenuItem, MenuItems } from '@reach/menu-button';
-import { Link as ReachLink } from '@reach/router';
+import { Link as RouterLink } from 'react-router-dom';
+import styled, { css } from 'styled-components';
 import rightArrowBlackIcon from 'assets/icons/right-arrow-black.svg';
 import rightArrowBrandIcon from 'assets/icons/right-arrow-brand.svg';
 import { H1 } from 'components/Typography';
@@ -122,11 +122,11 @@ const navMenuItems = css`
 export const NavMenuButton = styled.button`
   ${navMenuItems}
 `;
-export const NavMenuLink = styled(ReachLink)`
+export const NavMenuLink = styled(RouterLink)`
   ${navMenuItems}
 `;
 
-export const Link = styled(ReachLink)`
+export const Link = styled(RouterLink)`
   position: relative;
   font-weight: 600;
   font-size: 1.5rem;

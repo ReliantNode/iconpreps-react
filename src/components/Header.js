@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from '@reach/router';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import logoIconPReps from 'assets/logo-icon-preps.svg';
 import Navigation from 'components/Navigation';

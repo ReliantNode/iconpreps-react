@@ -1,4 +1,4 @@
-import { Link } from '@reach/router';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import RawRankBanner from 'components/RankBanner';
 import { H6, Text } from 'components/Typography';

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from '@reach/router';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import logoReliantNode from 'assets/logo-reliant-node.png';
 import githubIcon from 'assets/icons/github.svg';

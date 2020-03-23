@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { useParams } from '@reach/router';
+import { useParams } from 'react-router-dom';
 import noLogo from 'assets/no-logo.svg';
 import githubIcon from 'assets/icons/github.svg';
 import twitterIcon from 'assets/icons/twitter.svg';
