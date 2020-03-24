@@ -178,6 +178,25 @@ export const RelatedProject = styled.div`
   margin-top: 2rem;
 `;
 
+export const RelatedProjectsLinkWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 3rem;
+`;
+
+export const RelatedProjectsLink = styled(Link)`
+  font-weight: 500;
+  color: ${palette.black};
+  border-bottom: 1px solid ${palette.black};
+  text-decoration: none;
+
+  &:hover,
+  &:focus {
+    outline: none;
+    border-color: ${palette.brand.primary};
+  }
+`;
+
 export const ProjectUpdate = styled.div`
   position: relative;
   padding-left: 3rem;

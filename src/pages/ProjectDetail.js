@@ -238,6 +238,11 @@ function RelatedProjectsCard({ project, relatedProjects, ...props }) {
           </Text>
         </S.RelatedProject>
       ))}
+      <S.RelatedProjectsLinkWrapper>
+        <S.RelatedProjectsLink to={`/projects?categories=${project.category}`}>
+          View all {project.category.toLowerCase()} projects
+        </S.RelatedProjectsLink>
+      </S.RelatedProjectsLinkWrapper>
     </S.Card>
   );
 }
