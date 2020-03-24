@@ -112,6 +112,8 @@ const DropdownOption = styled(ListboxOption)`
 `;
 
 const Tags = styled.div`
+  display: flex;
+  flex-wrap: wrap;
   min-height: 1px;
   margin-top: 1rem;
   clear: both;

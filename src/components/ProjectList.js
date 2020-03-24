@@ -15,6 +15,7 @@ import ProjectSearch from 'components/ProjectSearch';
 import ProjectStatus from 'components/ProjectStatus';
 import { useProjects } from 'components/Projects';
 import Rating from 'components/Rating';
+import Stars from 'components/Stars';
 import SearchHeader from 'components/SearchHeader';
 import { Text, UnstyledLink } from 'components/Typography';
 import { DATE_FORMAT } from 'utils/constants';
@@ -113,7 +114,7 @@ function ProjectList({ title, filtersToUse, additionalFilter, showFilterCounts =
     }
     if (filters.rating) {
       tags.push({
-        label: `${filters.rating} stars & up`,
+        label: <Stars amount={filters.rating}>& up</Stars>,
         rm: () => onFiltersChange({ rating: null, limit: 20 }),
       });
     }
