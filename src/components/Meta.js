@@ -18,8 +18,12 @@ function Meta({ description, logo, title, twitterUrl }) {
 
   let twitterCreator = '@ReliantNode';
   if (twitterUrl !== undefined) {
-    const parts = twitterUrl.split('/');
-    twitterCreator = `@${parts[parts.length - 1]}`;
+    try {
+      const parts = twitterUrl.split('/');
+      twitterCreator = `@${parts[parts.length - 1]}`;
+    } catch (error) {
+      twitterCreator = null;
+    }
   }
 
   const meta = [
@@ -63,11 +67,13 @@ function Meta({ description, logo, title, twitterUrl }) {
       name: 'twitter:image',
       content: metaLogo,
     },
-    {
+  ];
+  if (twitterCreator) {
+    meta.push({
       name: 'twitter:creator',
       content: twitterCreator,
-    },
-  ];
+    });
+  }
 
   return (
     <Helmet
