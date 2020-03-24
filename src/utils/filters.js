@@ -27,7 +27,7 @@ export const PROJECT_ORDERINGS = {
 
 export const PROJECT_FILTERS = {
   limit: 20,
-  order: PROJECT_ORDERINGS.RANDOM,
+  order: PROJECT_ORDERINGS.RATINGS,
   query: '',
   categories: [],
   rating: null,
