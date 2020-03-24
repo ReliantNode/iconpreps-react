@@ -78,8 +78,8 @@ function ProjectDetailPage() {
           <Meta
             title={project.name}
             description={project.description}
-            logo={project.pRep && project.pRep.logo ? getLogoProxy(project.pRep.logo) : null}
-            twitterUrl={project.pRep && project.pRep.twitter ? project.pRep.twitter : null}
+            logo={pRep.logo ? getLogoProxy(pRep.logo) : null}
+            twitterUrl={pRep.twitter ? pRep.twitter : null}
           />
 
           <S.Header>
