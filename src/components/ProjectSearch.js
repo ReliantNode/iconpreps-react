@@ -8,7 +8,6 @@ import { useProjects } from 'components/Projects';
 import RadioGroup from 'components/RadioGroup';
 import Stars from 'components/Stars';
 import { H3, Text } from 'components/Typography';
-import { FILTER_ACTIONS } from 'utils/filters';
 import { breakpoints, palette } from 'utils/designTokens';
 
 const Container = styled.div`
@@ -76,14 +75,15 @@ const defaultProjectFilters = {
 
 function ProjectSearch({
   filters,
-  dispatch,
+  onChange,
   filtersToUse = useAllFilters,
   showFilterCounts = true,
 }) {
   const { getFilters, hasFilters } = useProjects();
   const [projectFilters, setProjectFilters] = useState(defaultProjectFilters);
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useState(filters.query);
   const [debouncedQuery] = useDebounce(query, 400);
+  const [ignoredFirstQuery, setIgnoredFirstQuery] = useState(false);
 
   useEffect(() => {
     if (hasFilters) {
@@ -92,7 +92,10 @@ function ProjectSearch({
   }, [hasFilters]); // eslint-disable-line
 
   useEffect(() => {
-    dispatch({ type: FILTER_ACTIONS.SET_QUERY, payload: debouncedQuery });
+    // Ignore the first debounced query change (on component mount), it messes up the query params
+    if (!ignoredFirstQuery) return setIgnoredFirstQuery(true);
+
+    onChange({ query: debouncedQuery, limit: 20 });
   }, [debouncedQuery]); // eslint-disable-line
 
   useEffect(() => {
@@ -107,19 +110,19 @@ function ProjectSearch({
   }
 
   function handleCategoriesChange(categories) {
-    dispatch({ type: FILTER_ACTIONS.SET_CATEGORIES, payload: categories });
+    onChange({ categories, limit: 20 });
   }
 
   function handleRatingChange(ratingValue) {
-    dispatch({ type: FILTER_ACTIONS.SET_RATING, payload: ratingValue });
+    onChange({ rating: ratingValue, limit: 20 });
   }
 
   function handleRecentChange(recentTypeValue) {
-    dispatch({ type: FILTER_ACTIONS.SET_RECENT, payload: recentTypeValue });
+    onChange({ recent: recentTypeValue, limit: 20 });
   }
 
   function handleStatusChange(status) {
-    dispatch({ type: FILTER_ACTIONS.SET_STATUS, payload: status });
+    onChange({ status, limit: 20 });
   }
 
   return (
@@ -168,7 +171,7 @@ function ProjectSearch({
           <H3>Rating</H3>
           <RadioGroup
             options={projectFilters.ratings.map(rating => ({
-              value: rating.name,
+              value: parseInt(rating.name),
               children: (
                 <>
                   <StarsLabel amount={parseInt(rating.name)}>& up</StarsLabel>
@@ -245,7 +248,7 @@ function ProjectSearch({
 
 ProjectSearch.propTypes = {
   filters: PropTypes.object.isRequired,
-  dispatch: PropTypes.func.isRequired,
+  onChange: PropTypes.func.isRequired,
   filtersToUse: PropTypes.shape({
     query: PropTypes.bool,
     category: PropTypes.bool,

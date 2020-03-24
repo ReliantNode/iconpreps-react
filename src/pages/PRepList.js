@@ -94,7 +94,7 @@ function PRepListPage() {
       );
     }
     setTags(tags);
-  }, [filters]);
+  }, [filters]); // eslint-disable-line
 
   useLayoutEffect(() => {
     if (isShowingFilters) {
@@ -115,7 +115,8 @@ function PRepListPage() {
   }
 
   function handleChangeOrdering(orderValue) {
-    onFiltersChange({ order: orderValue, limit: 20 });
+    const order = Object.values(PREP_ORDERINGS).find(({ value }) => value === orderValue);
+    onFiltersChange({ order, limit: 20 });
   }
 
   function handleRemoveCategory(category) {

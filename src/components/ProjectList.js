@@ -1,7 +1,8 @@
-import React, { useEffect, useLayoutEffect, useReducer, useRef, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { format, isAfter, parseISO, subDays } from 'date-fns';
 import { take } from 'lodash-es';
 import PropTypes from 'prop-types';
+import { useHistory, useLocation } from 'react-router-dom';
 import noLogo from 'assets/no-logo.svg';
 import { CardList } from 'components/Cards';
 import Category from 'components/Category';
@@ -19,29 +20,29 @@ import { Text, UnstyledLink } from 'components/Typography';
 import { DATE_FORMAT } from 'utils/constants';
 import { palette, sizes } from 'utils/designTokens';
 import {
-  FILTER_ACTIONS,
+  buildProjectFilterQuery,
+  mergeProjectFiltersWithQuery,
   PROJECT_FILTERS,
   PROJECT_ORDERINGS,
-  projectFilterReducer,
+  RECENT_ACTIVITY_TYPES,
 } from 'utils/filters';
 import { getLogoProxy } from 'utils/getLogoProxy';
 import * as S from './ProjectList.styles';
 
-const RECENT_ACTIVITY_TYPES = {
-  UPDATED: { value: 'Updated', label: 'Updated in last 7 days', property: 'updated_date' },
-  CREATED: { value: 'Created', label: 'Created in last 7 days', property: 'created_date' },
-};
+const INITIAL_FILTERS = mergeProjectFiltersWithQuery(PROJECT_FILTERS, window.location.search);
 
 function isRecentProject(project, recentActivityType) {
   return isAfter(parseISO(project[recentActivityType.property]), subDays(new Date(), 7));
 }
 
 function ProjectList({ title, filtersToUse, additionalFilter, showFilterCounts = true }) {
+  const history = useHistory();
+  const location = useLocation();
   const { hasPReps } = usePReps();
   const { getProjects, hasProjects, isLoading } = useProjects();
   const [projects, setProjects] = useState([]);
   const [filteredProjects, setFilteredProjects] = useState([]);
-  const [filters, filtersDispatch] = useReducer(projectFilterReducer, PROJECT_FILTERS);
+  const [filters, setFilters] = useState(INITIAL_FILTERS);
   const [tags, setTags] = useState([]);
   const [isShowingFilters, setIsShowingFilters] = useState(false);
   const [hasMoreProjects, setHasMoreProjects] = useState(false);
@@ -50,6 +51,10 @@ function ProjectList({ title, filtersToUse, additionalFilter, showFilterCounts =
   useEffect(() => {
     if (hasPReps && hasProjects) setProjects(getProjects());
   }, [hasPReps, hasProjects]); // eslint-disable-line
+
+  useEffect(() => {
+    setFilters(mergeProjectFiltersWithQuery(PROJECT_FILTERS, location.search));
+  }, [location.search]);
 
   useEffect(() => {
     let filtered = additionalFilter ? projects.filter(additionalFilter) : projects;
@@ -95,37 +100,37 @@ function ProjectList({ title, filtersToUse, additionalFilter, showFilterCounts =
     if (filters.query) {
       tags.push({
         label: `Search for: ${filters.query}`,
-        rm: () => filtersDispatch({ type: FILTER_ACTIONS.SET_QUERY, payload: '' }),
+        rm: () => onFiltersChange({ query: '', limit: 20 }),
       });
     }
     if (filters.categories) {
       tags.push(
         ...filters.categories.map(category => ({
           label: category,
-          rm: () => filtersDispatch({ type: FILTER_ACTIONS.REMOVE_CATEGORY, payload: category }),
+          rm: () => handleRemoveCategory(category),
         }))
       );
     }
     if (filters.rating) {
       tags.push({
         label: `${filters.rating} stars & up`,
-        rm: () => filtersDispatch({ type: FILTER_ACTIONS.SET_RATING }),
+        rm: () => onFiltersChange({ rating: null, limit: 20 }),
       });
     }
     if (filters.recent) {
       tags.push({
         label: `${filters.recent} recently`,
-        rm: () => filtersDispatch({ type: FILTER_ACTIONS.SET_RECENT }),
+        rm: () => onFiltersChange({ recent: null, limit: 20 }),
       });
     }
     if (filters.status) {
       tags.push({
         label: filters.status,
-        rm: () => filtersDispatch({ type: FILTER_ACTIONS.SET_STATUS }),
+        rm: () => onFiltersChange({ status: null, limit: 20 }),
       });
     }
     setTags(tags);
-  }, [filters]);
+  }, [filters]); // eslint-disable-line
 
   useLayoutEffect(() => {
     if (isShowingFilters) {
@@ -138,13 +143,24 @@ function ProjectList({ title, filtersToUse, additionalFilter, showFilterCounts =
     document.body.style.overflow = isShowingFilters ? 'hidden' : '';
   }, [isShowingFilters]);
 
+  function onFiltersChange(changedFilters) {
+    const filterQuery = buildProjectFilterQuery({ ...filters, ...changedFilters });
+    if (filterQuery !== location.search) {
+      history.push(location.pathname + (filterQuery ? `?${filterQuery}` : ''));
+    }
+  }
+
   function handleChangeOrdering(orderValue) {
     const order = Object.values(PROJECT_ORDERINGS).find(({ value }) => value === orderValue);
-    filtersDispatch({ type: FILTER_ACTIONS.SET_ORDER, payload: order });
+    onFiltersChange({ order, limit: 20 });
+  }
+
+  function handleRemoveCategory(category) {
+    onFiltersChange({ categories: filters.categories.filter(c => c !== category), limit: 20 });
   }
 
   function handleLoadMore() {
-    filtersDispatch({ type: FILTER_ACTIONS.SET_LIMIT, payload: 999 });
+    onFiltersChange({ limit: 999 });
   }
 
   return (
@@ -158,7 +174,7 @@ function ProjectList({ title, filtersToUse, additionalFilter, showFilterCounts =
         />
         <ProjectSearch
           filters={filters}
-          dispatch={filtersDispatch}
+          onChange={onFiltersChange}
           filtersToUse={filtersToUse}
           showFilterCounts={showFilterCounts}
         />
