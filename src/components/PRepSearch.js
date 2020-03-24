@@ -54,8 +54,9 @@ const defaultPRepFilters = {
 function PRepSearch({ filters, onChange }) {
   const { getFilters, hasFilters } = usePReps();
   const [pRepFilters, setPRepFilters] = useState(defaultPRepFilters);
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useState(filters.query);
   const [debouncedQuery] = useDebounce(query, 400);
+  const [ignoredFirstQuery, setIgnoredFirstQuery] = useState(false);
 
   useEffect(() => {
     if (hasFilters) {
@@ -64,6 +65,9 @@ function PRepSearch({ filters, onChange }) {
   }, [hasFilters]); // eslint-disable-line
 
   useEffect(() => {
+    // Ignore the first debounced query change (on component mount), it messes up the query params
+    if (!ignoredFirstQuery) return setIgnoredFirstQuery(true);
+
     onChange({ query: debouncedQuery, limit: 20 });
   }, [debouncedQuery]); // eslint-disable-line
 
