@@ -9,6 +9,7 @@ import EmbeddedContent from 'components/EmbeddedContent';
 import Layout from 'components/Layout';
 import Loading from 'components/Loading';
 import { Logo, LogoWrapper } from 'components/Logo';
+import Meta from 'components/Meta';
 import { usePReps } from 'components/PReps';
 import ProjectFeedback from 'components/ProjectFeedback';
 import ProjectStatus from 'components/ProjectStatus';
@@ -74,6 +75,13 @@ function ProjectDetailPage() {
         <Loading style={{ marginTop: '8rem' }} />
       ) : project ? (
         <>
+          <Meta
+            title={project.name}
+            description={project.description}
+            logo={project.pRep && project.pRep.logo ? getLogoProxy(project.pRep.logo) : null}
+            twitterUrl={project.pRep && project.pRep.twitter ? project.pRep.twitter : null}
+          />
+
           <S.Header>
             <H1>{project.name}</H1>
             <Category

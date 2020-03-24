@@ -6,6 +6,7 @@ import Badge from 'components/Badge';
 import { Card, CardList } from 'components/Cards';
 import Category from 'components/Category';
 import FiltersHeader from 'components/FiltersHeader';
+import Meta from 'components/Meta';
 import Layout from 'components/Layout';
 import Loading from 'components/Loading';
 import { Logo, LogoWrapper } from 'components/Logo';
@@ -129,6 +130,8 @@ function PRepListPage() {
 
   return (
     <Layout>
+      <Meta description="Search for ICON P-Reps." />
+
       <S.Container>
         <S.Filters showing={isShowingFilters} ref={filtersEl}>
           <FiltersHeader
