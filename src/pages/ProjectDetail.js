@@ -50,7 +50,14 @@ function ProjectDetailPage() {
     }
     setProject({
       ...rawProject,
-      ...pick(listProject, ['category', 'progress', 'status', 'rating', 'rating_count']),
+      ...pick(listProject, [
+        'category',
+        'progress',
+        'status',
+        'rating',
+        'rating_count',
+        'total_ratings',
+      ]),
     });
 
     const pRep = getPReps().find(pRep => pRep.address === rawProject.prep_address);
