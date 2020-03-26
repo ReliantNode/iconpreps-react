@@ -45,8 +45,8 @@ function Projects({ children }) {
     setProjects(
       projects.map(project => {
         let rating = ratings.find(rating => rating.project_id === project.id);
-        if (rating) rating = pick(rating, ['rating', 'rating_count']);
-        else rating = { rating: 0, rating_count: 0 };
+        if (rating) rating = pick(rating, ['rating', 'rating_count', 'total_ratings']);
+        else rating = { rating: 0, rating_count: 0, total_ratings: 0 };
 
         const pRep = pReps.find(pRep => pRep.address === project.prep_address) || null;
 
@@ -65,11 +65,12 @@ function Projects({ children }) {
   }
 
   async function updateProjectRating(projectId) {
-    const { rating, rating_count } = await feedbackApi.getRating(projectId);
+    const { rating, rating_count, total_ratings } = await feedbackApi.getRating(projectId);
     const index = projects.findIndex(project => project.id === projectId);
     const project = projects[index];
     project.rating = rating;
     project.rating_count = rating_count;
+    project.total_ratings = total_ratings;
     setProjects([...projects.slice(0, index), project, ...projects.slice(index + 1)]);
   }
 

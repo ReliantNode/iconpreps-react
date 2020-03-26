@@ -75,10 +75,10 @@ RadioGroup.propTypes = {
   options: PropTypes.arrayOf(
     PropTypes.shape({
       children: PropTypes.node.isRequired,
-      value: PropTypes.string.isRequired,
+      value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
     })
   ).isRequired,
-  value: PropTypes.string,
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 };
 
 export default RadioGroup;

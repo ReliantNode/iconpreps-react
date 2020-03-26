@@ -1,4 +1,4 @@
-import { Link } from '@reach/router';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import RawRankBanner from 'components/RankBanner';
 import { H6, Text } from 'components/Typography';
@@ -176,6 +176,25 @@ export const RelatedProject = styled.div`
   border-top: 1px solid ${palette.gray.border};
   padding-top: 2rem;
   margin-top: 2rem;
+`;
+
+export const RelatedProjectsLinkWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 3rem;
+`;
+
+export const RelatedProjectsLink = styled(Link)`
+  font-weight: 500;
+  color: ${palette.black};
+  border-bottom: 1px solid ${palette.black};
+  text-decoration: none;
+
+  &:hover,
+  &:focus {
+    outline: none;
+    border-color: ${palette.brand.primary};
+  }
 `;
 
 export const ProjectUpdate = styled.div`

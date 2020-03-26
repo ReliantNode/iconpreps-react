@@ -6,7 +6,6 @@ import searchIcon from 'assets/icons/search.svg';
 import CheckboxGroup from 'components/CheckboxGroup';
 import { usePReps } from 'components/PReps';
 import { H3, Text } from 'components/Typography';
-import { FILTER_ACTIONS } from 'utils/filters';
 import { palette } from 'utils/designTokens';
 
 const Container = styled.div`
@@ -52,11 +51,12 @@ const defaultPRepFilters = {
   categories: [],
 };
 
-function PRepSearch({ filters, dispatch }) {
+function PRepSearch({ filters, onChange }) {
   const { getFilters, hasFilters } = usePReps();
   const [pRepFilters, setPRepFilters] = useState(defaultPRepFilters);
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useState(filters.query);
   const [debouncedQuery] = useDebounce(query, 400);
+  const [ignoredFirstQuery, setIgnoredFirstQuery] = useState(false);
 
   useEffect(() => {
     if (hasFilters) {
@@ -65,7 +65,10 @@ function PRepSearch({ filters, dispatch }) {
   }, [hasFilters]); // eslint-disable-line
 
   useEffect(() => {
-    dispatch({ type: FILTER_ACTIONS.SET_QUERY, payload: debouncedQuery });
+    // Ignore the first debounced query change (on component mount), it messes up the query params
+    if (!ignoredFirstQuery) return setIgnoredFirstQuery(true);
+
+    onChange({ query: debouncedQuery, limit: 20 });
   }, [debouncedQuery]); // eslint-disable-line
 
   useEffect(() => {
@@ -80,7 +83,7 @@ function PRepSearch({ filters, dispatch }) {
   }
 
   function handleCategoriesChange(categories) {
-    dispatch({ type: FILTER_ACTIONS.SET_CATEGORIES, payload: categories });
+    onChange({ categories, limit: 20 });
   }
 
   return (
@@ -118,7 +121,7 @@ function PRepSearch({ filters, dispatch }) {
 
 PRepSearch.propTypes = {
   filters: PropTypes.object.isRequired,
-  dispatch: PropTypes.func.isRequired,
+  onChange: PropTypes.func.isRequired,
 };
 
 export default PRepSearch;

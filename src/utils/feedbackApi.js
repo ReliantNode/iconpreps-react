@@ -8,7 +8,7 @@ export async function getAllRatings() {
 export async function getRating(projectId) {
   const response = await fetch(`${ENDPOINT}/ratings/?ids=${projectId}`);
   const [rating] = await response.json();
-  return rating || { rating: 0, rating_count: 0 };
+  return rating || { rating: 0, rating_count: 0, total_ratings: 0 };
 }
 
 export async function getFeedback(projectId) {

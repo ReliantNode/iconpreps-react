@@ -15,7 +15,7 @@ const Text = styled.p`
 const Bar = styled.div`
   width: 12.5rem;
   height: 0.5rem;
-  border-radius: 0.5rem;
+  border-radius: 0.25rem;
   background: ${palette.gray.bar};
   margin-top: 0.5rem;
   overflow: hidden;

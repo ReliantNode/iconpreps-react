@@ -5,7 +5,38 @@
     <link rel="icon" href="%PUBLIC_URL%/favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
     <meta name="theme-color" content="#00b8cc" />
-    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+    <link rel="apple-touch-icon" href="%PUBLIC_URL%/images/logo192.png" />
+    <title>ICON P-Reps</title>
+    <meta
+      name="description"
+      content="Find and interact with projects that ICON P-Reps are working on."
+    />
+
+    <!--
+      Open Graph tags
+      https://ogp.me/
+    -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="ICON P-Reps" />
+    <meta
+      property="og:description"
+      content="Find and interact with projects that ICON P-Reps are working on."
+    />
+    <meta property="og:image" content="%PUBLIC_URL%/images/logo512.png" />
+
+    <!--
+      Twitter cards
+      https://developer.twitter.com/en/docs/tweets/optimize-with-cards/overview/abouts-cards
+    -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="ICON P-Reps" />
+    <meta
+      name="twitter:description"
+      content="Find and interact with projects that ICON P-Reps are working on."
+    />
+    <meta name="twitter:image" content="%PUBLIC_URL%/images/logo512.png" />
+    <meta name="twitter:creator" content="@ReliantNode" />
+
     <!--
       manifest.json provides metadata used when your web app is installed on a
       user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
@@ -27,7 +58,17 @@
       rel="stylesheet"
     />
 
-    <title>ICON P-Reps</title>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-150216100-2"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag('js', new Date());
+
+      gtag('config', 'UA-150216100-2');
+    </script>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>

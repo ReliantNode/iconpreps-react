@@ -1,10 +1,12 @@
-import React, { useEffect, useLayoutEffect, useReducer, useRef, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { take } from 'lodash-es';
+import { useHistory, useLocation } from 'react-router-dom';
 import noLogo from 'assets/no-logo.svg';
 import Badge from 'components/Badge';
 import { Card, CardList } from 'components/Cards';
 import Category from 'components/Category';
 import FiltersHeader from 'components/FiltersHeader';
+import Meta from 'components/Meta';
 import Layout from 'components/Layout';
 import Loading from 'components/Loading';
 import { Logo, LogoWrapper } from 'components/Logo';
@@ -12,16 +14,25 @@ import { usePReps } from 'components/PReps';
 import SearchHeader from 'components/SearchHeader';
 import { H5, H6, Text, UnstyledLink } from 'components/Typography';
 import { sizes } from 'utils/designTokens';
-import { FILTER_ACTIONS, PREP_FILTERS, PREP_ORDERINGS, pRepFilterReducer } from 'utils/filters';
+import {
+  buildPRepFilterQuery,
+  mergePRepFiltersWithQuery,
+  PREP_FILTERS,
+  PREP_ORDERINGS,
+} from 'utils/filters';
 import { getLogoProxy } from 'utils/getLogoProxy';
 import * as S from './PRepList.styles';
 import PRepSearch from 'components/PRepSearch';
 
+const INITIAL_FILTERS = mergePRepFiltersWithQuery(PREP_FILTERS, window.location.search);
+
 function PRepListPage() {
+  const history = useHistory();
+  const location = useLocation();
   const { getPReps, hasPReps, isLoading } = usePReps();
   const [pReps, setPReps] = useState([]);
   const [filteredPReps, setFilteredPReps] = useState([]);
-  const [filters, filtersDispatch] = useReducer(pRepFilterReducer, PREP_FILTERS);
+  const [filters, setFilters] = useState(INITIAL_FILTERS);
   const [tags, setTags] = useState([]);
   const [isShowingFilters, setIsShowingFilters] = useState(false);
   const [hasMorePReps, setHasMorePReps] = useState(false);
@@ -30,6 +41,10 @@ function PRepListPage() {
   useEffect(() => {
     if (hasPReps) setPReps(getPReps());
   }, [hasPReps]); // eslint-disable-line
+
+  useEffect(() => {
+    setFilters(mergePRepFiltersWithQuery(PREP_FILTERS, location.search));
+  }, [location.search]);
 
   useEffect(() => {
     const filtered = pReps.filter(pRep => {
@@ -68,19 +83,19 @@ function PRepListPage() {
     if (filters.query) {
       tags.push({
         label: `Search for: ${filters.query}`,
-        rm: () => filtersDispatch({ type: FILTER_ACTIONS.SET_QUERY, payload: '' }),
+        rm: () => onFiltersChange({ query: '', limit: 20 }),
       });
     }
     if (filters.categories) {
       tags.push(
         ...filters.categories.map(category => ({
           label: category,
-          rm: () => filtersDispatch({ type: FILTER_ACTIONS.REMOVE_CATEGORY, payload: category }),
+          rm: () => handleRemoveCategory(category),
         }))
       );
     }
     setTags(tags);
-  }, [filters]);
+  }, [filters]); // eslint-disable-line
 
   useLayoutEffect(() => {
     if (isShowingFilters) {
@@ -93,17 +108,30 @@ function PRepListPage() {
     document.body.style.overflow = isShowingFilters ? 'hidden' : '';
   }, [isShowingFilters]);
 
+  function onFiltersChange(changedFilters) {
+    const filterQuery = buildPRepFilterQuery({ ...filters, ...changedFilters });
+    if (filterQuery !== location.search) {
+      history.push(location.pathname + (filterQuery ? `?${filterQuery}` : ''));
+    }
+  }
+
   function handleChangeOrdering(orderValue) {
     const order = Object.values(PREP_ORDERINGS).find(({ value }) => value === orderValue);
-    filtersDispatch({ type: FILTER_ACTIONS.SET_ORDER, payload: order });
+    onFiltersChange({ order, limit: 20 });
+  }
+
+  function handleRemoveCategory(category) {
+    onFiltersChange({ categories: filters.categories.filter(c => c !== category), limit: 20 });
   }
 
   function handleLoadMore() {
-    filtersDispatch({ type: FILTER_ACTIONS.SET_LIMIT, payload: 999 });
+    onFiltersChange({ limit: 999 });
   }
 
   return (
     <Layout>
+      <Meta description="Search for ICON P-Reps." />
+
       <S.Container>
         <S.Filters showing={isShowingFilters} ref={filtersEl}>
           <FiltersHeader
@@ -112,7 +140,7 @@ function PRepListPage() {
             onChangeOrdering={handleChangeOrdering}
             onCloseFilters={() => setIsShowingFilters(false)}
           />
-          <PRepSearch filters={filters} dispatch={filtersDispatch} />
+          <PRepSearch filters={filters} onChange={onFiltersChange} />
         </S.Filters>
 
         <S.Listing>

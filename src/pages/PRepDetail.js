@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { useParams } from '@reach/router';
+import { useParams } from 'react-router-dom';
 import noLogo from 'assets/no-logo.svg';
 import githubIcon from 'assets/icons/github.svg';
 import twitterIcon from 'assets/icons/twitter.svg';
@@ -8,6 +8,7 @@ import Badge from 'components/Badge';
 import Layout from 'components/Layout';
 import Loading from 'components/Loading';
 import { Logo, LogoWrapper } from 'components/Logo';
+import Meta from 'components/Meta';
 import { usePReps } from 'components/PReps';
 import ProjectList from 'components/ProjectList';
 import RankBanner from 'components/RankBanner';
@@ -37,6 +38,13 @@ function PRepDetailPage() {
     <Layout>
       {pRep && (
         <>
+          <Meta
+            title={pRep.name}
+            description={`${pRep.name} from ${pRep.city}, ${pRep.country} is working on ICON projects.`}
+            logo={pRep.logo ? getLogoProxy(pRep.logo) : null}
+            twitterUrl={pRep.twitter ? pRep.twitter : null}
+          />
+
           <S.Header>
             <div style={{ display: 'flex' }} className="lg-hide">
               <RankBanner

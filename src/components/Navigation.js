@@ -3,6 +3,7 @@ import '@reach/dialog/styles.css';
 import { Menu, MenuPopover } from '@reach/menu-button';
 import '@reach/menu-button/styles.css';
 import { positionMatchWidth } from '@reach/popover';
+import { useRouteMatch } from 'react-router-dom';
 import { animated, useTransition } from 'react-spring';
 import iconLogo from 'assets/logo-icon-white.svg';
 import closeIcon from 'assets/icons/close.svg';
@@ -15,15 +16,9 @@ import { palette } from 'utils/designTokens';
 import { formatAddress } from 'utils/formatAddress';
 import * as S from './Navigation.styles';
 
-function NavLink(props) {
-  return (
-    <S.Link
-      {...props}
-      getProps={({ isPartiallyCurrent }) => ({
-        'data-active': isPartiallyCurrent,
-      })}
-    />
-  );
+function NavLink({ to, ...props }) {
+  const match = useRouteMatch(to);
+  return <S.Link to={to} data-active={!!match} {...props} />;
 }
 
 function Navigation() {
