@@ -16,7 +16,7 @@ export const PROJECT_ORDERINGS = {
   REVIEWS: {
     value: 'Reviews',
     label: 'Most Reviews',
-    fn: projects => orderBy(projects, ['rating_count', 'total_ratings'], ['desc', 'desc']),
+    fn: projects => orderBy(projects, ['rating_count', 'rating'], ['desc', 'desc']),
   },
   CREATED: {
     value: 'Newest',
