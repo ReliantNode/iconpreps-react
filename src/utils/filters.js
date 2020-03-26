@@ -11,11 +11,11 @@ export const PROJECT_ORDERINGS = {
   RATINGS: {
     value: 'Ratings',
     label: 'Highest Rating',
-    fn: projects => orderBy(projects, ['total_ratings', 'rating_count'], ['desc', 'desc']),
+    fn: projects => orderBy(projects, ['rating', 'total_ratings'], ['desc', 'desc']),
   },
   REVIEWS: {
     value: 'Reviews',
-    label: 'Most reviews',
+    label: 'Most Reviews',
     fn: projects => orderBy(projects, ['rating_count', 'total_ratings'], ['desc', 'desc']),
   },
   CREATED: {
