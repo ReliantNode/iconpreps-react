@@ -118,6 +118,10 @@ const navMenuItems = css`
   &:last-child {
     border: none;
   }
+
+  .username {
+    margin-left: 1rem;
+  }
 `;
 export const NavMenuButton = styled.button`
   ${navMenuItems}
