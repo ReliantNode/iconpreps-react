@@ -48,6 +48,11 @@ function Navigation() {
     showLoginModal();
   }
 
+  function handleLogout() {
+    onClose();
+    logout();
+  }
+
   return (
     <>
       <S.HamburgerContainer>
@@ -85,8 +90,15 @@ function Navigation() {
                     <S.NavMenuButton type="button" onClick={handleShowFAQ}>
                       Help & FAQs
                     </S.NavMenuButton>
-                    <S.NavMenuButton type="button" onClick={handleLogin} branded>
-                      Sign in
+                    <S.NavMenuButton
+                      type="button"
+                      onClick={isAuthenticated ? handleLogout : handleLogin}
+                      branded
+                    >
+                      Sign {isAuthenticated ? 'out' : 'in'}
+                      {isAuthenticated && (
+                        <span className="username">({formatAddress(authUser.username)})</span>
+                      )}
                     </S.NavMenuButton>
                   </S.MenuBody>
                 </AnimatedDialogContent>

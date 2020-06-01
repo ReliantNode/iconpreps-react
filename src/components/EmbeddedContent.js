@@ -23,7 +23,7 @@ const Content = styled.div`
     color: ${palette.black} !important;
   }
 
-  & > * {
+  & > *:first-child {
     margin-top: 0 !important;
   }
 

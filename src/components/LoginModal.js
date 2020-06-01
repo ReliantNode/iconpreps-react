@@ -107,7 +107,7 @@ const IconLogo = styled.img`
 
 function LoginModal({ isOpen, onClose, ...props }) {
   const { login } = useAuth();
-  const [hasExtension, setHasExtension] = useState(false);
+  const [hasIcon, setHasIcon] = useState(false);
   const [hasAccount, setHasAccount] = useState(false);
   const [isChecking, setIsChecking] = useState(true);
   const [isWorking, setIsWorking] = useState(false);
@@ -120,7 +120,7 @@ function LoginModal({ isOpen, onClose, ...props }) {
       const { type, payload } = event.detail;
       switch (type) {
         case 'RESPONSE_HAS_ACCOUNT':
-          setHasExtension(true);
+          setHasIcon(true);
           setHasAccount(payload.hasAccount);
           setIsChecking(false);
           return;
@@ -129,14 +129,15 @@ function LoginModal({ isOpen, onClose, ...props }) {
       }
     }
 
-    setTimeout(() => {
+    // need to delay sending REQUEST_HAS_ACCOUNT?
+    wait(3000).then(() => {
       setTimeout(() => setIsChecking(false), 2000);
       window.dispatchEvent(
         new CustomEvent(ICONEX_RELAY.REQUEST, {
           detail: { type: 'REQUEST_HAS_ACCOUNT' },
         })
       );
-    }, 1000); // need to delay sending REQUEST_HAS_ACCOUNT?
+    });
   }, []); // eslint-disable-line
 
   const AnimatedDialogOverlay = animated(StyledDialogOverlay);
@@ -182,6 +183,8 @@ function LoginModal({ isOpen, onClose, ...props }) {
     async function handleResponseSigning(signature) {
       await login(userAddress, signature);
       onClose();
+
+      await wait(1000);
       setIsWorking(false);
     }
 
@@ -228,7 +231,7 @@ function LoginModal({ isOpen, onClose, ...props }) {
               <LoginButton
                 type="button"
                 onClick={handleLogin}
-                disabled={isWorking || isChecking || !hasExtension || !hasAccount}
+                disabled={isWorking || isChecking || !hasIcon || !hasAccount}
                 working={isWorking}
               >
                 <IconLogo src={iconLogo} alt="ICON logo" spin={isWorking} />
@@ -238,12 +241,12 @@ function LoginModal({ isOpen, onClose, ...props }) {
               <Text
                 small
                 muted
-                error={!isChecking && (!hasExtension || !hasAccount)}
+                error={!isChecking && (!hasIcon || !hasAccount)}
                 style={{ marginTop: '2rem' }}
               >
                 {isChecking ? (
                   <>Checking for ICONex extension...</>
-                ) : !hasExtension ? (
+                ) : !hasIcon ? (
                   <>
                     You need to be using an ICON-supported browser
                     <br />
