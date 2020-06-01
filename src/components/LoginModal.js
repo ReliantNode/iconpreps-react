@@ -183,6 +183,8 @@ function LoginModal({ isOpen, onClose, ...props }) {
     async function handleResponseSigning(signature) {
       await login(userAddress, signature);
       onClose();
+
+      await wait(1000);
       setIsWorking(false);
     }
 
